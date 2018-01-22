@@ -1,6 +1,7 @@
 import commandline.TopTrumpsCLIApplication;
 
 import online.TopTrumpsOnlineApplication;
+import online.dwViews.MenuC;
 
 
 
@@ -13,6 +14,9 @@ public class TopTrumps {
 		System.out.println("---  Top Trumps  ---");
 		System.out.println("--------------------");
 		
+		MenuC menu= new MenuC(); 
+		MenuC.ReadFile();
+
 		// command line switches
 		boolean onlineMode = false;
 		boolean commandLineMode = false;
