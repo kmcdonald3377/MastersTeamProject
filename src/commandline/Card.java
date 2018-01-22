@@ -166,4 +166,7 @@ public class Card {
 
 			return -1;
 	}
+	public String toString() {
+		return  String.format(name + value1 + value2 + value3 + value4 + value5);
+	}
 }
