@@ -1,3 +1,5 @@
+import com.sun.glass.ui.Menu;
+
 import commandline.TopTrumpsCLIApplication;
 
 import online.TopTrumpsOnlineApplication;
@@ -14,8 +16,8 @@ public class TopTrumps {
 		System.out.println("--- Top Trumps   ---");
 		System.out.println("--------------------");
 		
-		MenuC menu= new MenuC(); 
-		MenuC.ReadFile();
+		commandline.MenuC menu= new commandline.MenuC(); 
+		commandline.MenuC.ReadFile();
 
 		// command line switches
 		boolean onlineMode = false;

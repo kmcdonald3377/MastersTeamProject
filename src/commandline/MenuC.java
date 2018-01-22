@@ -29,6 +29,7 @@ public class MenuC {
 				// executed whether or not an exception is raised above
 				System.out.println("The end");
 				// close the input file assuming it was opened successfully
+				//comment
 				if (reader != null) reader.close();
 			}
 		}
