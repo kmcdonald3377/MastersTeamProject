@@ -26,10 +26,12 @@ public class MenuController
 	{
 		return choice;
 	}
+	
 	public String GetName()
 	{
 		return name; 
 	}
+	
 	public void setName()
 	{
 		name = menuV.getInput();
@@ -69,7 +71,8 @@ public class MenuController
 	{
 		if(choice.equalsIgnoreCase("G")) 
 		{
-			System.out.println("play game");
+//			GameView gv = new GameView();
+//			gv.GameView();
 		}
 		else if(choice.equalsIgnoreCase("S")) 
 		{
