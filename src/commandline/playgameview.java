@@ -17,15 +17,16 @@ public void Menuview() {
 		GameView(player); 
 	}
 	else if(choice.equals("S")) {
-		//Call statics view
+		StatsView stats = new StatsView();
+		stats.showStats();
 	}
 	else if (choice.equals("Q")) {
-		//quit game 
+		System.exit(0);
 	}
 }
 
 public void GameView(Card[] player) {
-	System.out.print("Select number of players...");
+	System.out.print("Select number of players between 2 and 5");
 	Scanner players = new Scanner(System.in);
 	while(players.hasNext());
 	String numplayer = players.next();
