@@ -51,4 +51,10 @@ public class PlayerHand
 //		}
 	}
 
+public void splitcards() {
+	Arrays.copyOfRange(hand, 0, hand.length/5);
 }
+}
+
+
+
