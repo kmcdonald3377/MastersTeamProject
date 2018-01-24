@@ -25,7 +25,7 @@ public class PlayerHand
 		hand.remove(card);
 	}
 	public void splitcards() {
-
+		//Move to Game controllor 
 		List<Card> human = hand.subList(0, 7);
 		List<Card> AI1 = hand.subList(8, 15);
 		List<Card> AI2 = hand.subList(16, 23);
