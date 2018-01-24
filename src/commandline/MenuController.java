@@ -58,7 +58,7 @@ public class MenuController
 
 	public void userChoice() 
 	{
-		if(choice.equalsIgnoreCase("Q")) 
+		if(choice.equalsIgnoreCase("G")) 
 		{
 			System.out.println("play game");
 		}
