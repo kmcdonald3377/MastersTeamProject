@@ -10,6 +10,10 @@ public class MenuView
 	{
 		this.menuC = menuC;
 	}
+	public void Name()
+	{
+		System.out.println("Please enter your name");
+	}
 	
 	public void displayMenu() 
 	{

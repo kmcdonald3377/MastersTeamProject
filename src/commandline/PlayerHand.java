@@ -23,5 +23,8 @@ public class PlayerHand
 	{
 		hand.remove(card);
 	}
+	public void splitcards() {
+		
+	}
+	}
 
-}
