@@ -83,7 +83,8 @@ public class DatabaseConnection
 	{
 		String result = "";
 		Statement stmt = null;
-		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics WHERE matchstatistics.winner != 'Human'";
+		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics "
+				+ "WHERE (SELECT player.isai FROM toptrumps.player WHERE isai = true)";
 		
 		try 
 		{
@@ -113,7 +114,8 @@ public class DatabaseConnection
 	public String getHumanWonMatches() 
 	{
 		Statement stmt = null;
-		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics WHERE matchstatistics.winner = 'Human'";
+		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics \"\r\n" + 
+				"				+ \"WHERE (SELECT player.isai FROM toptrumps.player WHERE isai = false)";
 		String result = "";
 		
 		try 
@@ -233,6 +235,37 @@ public class DatabaseConnection
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public String getplayerid() 
+	{
+		String test = "";
+		Statement stmt = null;
+		String query = "SELECT player.playerid FROM toptrumps.player";
+		
+		try 
+		{
+			stmt = connection.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) 
+			{
+				String playerIDs = rs.getString("playerid");
+				test += playerIDs;
+			}
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("error executing query " + query);
+		}
+		
+		return test;
+	}
+	
+	/**
+	 * 
 	 * @param matchID
 	 * @param winnerID
 	 * @param roundsPlayed
@@ -263,35 +296,11 @@ public class DatabaseConnection
 	 * @param matchID
 	 * @param roundsWon
 	 */
-	public void writeToPlayerStatistics(int playerID, int matchID, int roundsWon) 
+	public void writeToPlayerStatistics(int playerID, int matchID, int roundsWon, int roundsDrawn) 
 	{
 		Statement stmt = null;
 		String query = "INSERT INTO toptrumps.playerstatistics "
-				+ "VALUES ('" + playerID + "', '" + matchID + "', '" + roundsWon + "')";
-		
-			try 
-			{
-				stmt = connection.createStatement();
-				
-				stmt.executeUpdate(query); //this will update the database with the added details without returning any values
-				
-			}
-			catch(SQLException e) 
-			{
-				System.out.println("Could not save indiviual player statistics for the match.");
-			}
-	}
-	
-	/**
-	 * creating the player table?
-	 * @param playerID
-	 * @param playerName
-	 */
-	public void writeToPlayer(int playerID, String playerName) 
-	{
-		Statement stmt = null;
-		String query = "INSERT INTO toptrumps.player "
-				+ "VALUES ('" + playerID + "', '" + playerName + "')";
+				+ "VALUES ('" + playerID + "', '" + matchID + "', '" + roundsWon + "', '" + roundsDrawn + "')";
 		
 			try 
 			{
