@@ -10,4 +10,9 @@ public class Player {
 		name = "Player " + playerNum;
 		hand = new PlayerHand();
 	}
+	
+	public AIPlayer()
+	{
+		
+	}
 }

@@ -7,7 +7,7 @@ import java.io.*;
  */
 
 public class TestLog {
-	// instance variables
+	// instance variable
 	private final String fin = ("toptrumps.log");
 	private final File log = new File(fin);
 	private PrintWriter writer;
