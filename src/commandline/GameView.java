@@ -16,8 +16,8 @@ public class GameView
 	public void GameView() 
 	{
 	
-	while((player.length >= 1) && (player.length <= 39))
-	{
+//	while((player.length >= 1) && (player.length <= 39))
+//	{
 //		//Call select category method 
 		
 //		//Call method for selecting current card 
@@ -37,6 +37,6 @@ public class GameView
 //			System.out.print("You've won the game"); 
 //		}
 //
-	}
+//	}
 	}
 }
