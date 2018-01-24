@@ -10,6 +10,7 @@ public class MenuController
 	private String choice;
 	private MenuView menuV;
 	private Scanner scanner;
+	private String name;
 	
 	public MenuController() 
 	{
@@ -24,6 +25,14 @@ public class MenuController
 	public String getChoice() 
 	{
 		return choice;
+	}
+	public String GetName()
+	{
+		return name; 
+	}
+	public void setName()
+	{
+		name = menuV.getInput();
 	}
 	
 	public void setChoiceFromUserInput() 
