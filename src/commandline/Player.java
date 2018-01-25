@@ -2,35 +2,23 @@ package commandline;
 
 import java.sql.*;
 
-public class Player {
-
-private PlayerHand hand;
-private String ID;
- 
-public Player() 
+public class Player 
 {
-	//Creates players hand 
-	hand = new PlayerHand();
-}
-public String PlayerID() {
-	//Returns ID from database 
-	Statement stmt = null;
-	String query = "SELECT ID FROM toptrump.player";
+	private PlayerHand hand;
+	private String playerID;
+
+	public Player() 
+	{
+		hand = new PlayerHand(playerID);
+	}
+
+	public String getPlayerId() 
+	{
+		return playerID;
+	}
 	
-		try 
-		{	
-			//stmt = connection.createStatement();
-			
-			ResultSet rs = stmt.executeQuery(query); 
-		
-			while (rs.next()) {
-				ID = rs.getString("ID");
-		}
-		}
-		catch(SQLException e) 
-		{
-			System.out.println("Could not get player ID");
-		}
-		return ID;
-}
+	public void setPlayerId(String playerID) 
+	{
+		this.playerID = playerID;
+	}
 }
