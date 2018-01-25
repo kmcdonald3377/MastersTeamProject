@@ -5,7 +5,7 @@ import java.sql.*;
 public class Player {
 
 private PlayerHand hand;
-private String ID;
+private String ID, AID1, AID2, AID3, AID4;
  
 public Player() 
 {
@@ -32,5 +32,13 @@ public String PlayerID() {
 			System.out.println("Could not get player ID");
 		}
 		return ID;
+}
+public void AIID()
+{
+	//Sets ID of AI players 
+	AID1 = "AI1";
+	AID2 = "AI2";
+	AID3 = "AI3";
+	AID4 = "AI4"; 
 }
 }
