@@ -168,5 +168,4 @@ public class Round {
 		// player hand is 0
 		return player.getHandLength() == 0;
 	}
-
 }

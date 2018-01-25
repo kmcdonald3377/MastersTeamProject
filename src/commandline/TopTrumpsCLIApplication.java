@@ -18,18 +18,22 @@ public class TopTrumpsCLIApplication {
 		// State
 		boolean userWantsToQuit = false; // flag to check whether the user wants to quit the application
 		
+		MenuController menuC = new MenuController();
+		GameController gameC = new GameController();
+		
 		// Loop until the user wants to exit the game
-		while (!userWantsToQuit) {
-
-			// ----------------------------------------------------
-			// Add your game logic here based on the requirements
-			// ----------------------------------------------------
+		while (!userWantsToQuit) 
+		{
+			menuC.setName();
+			menuC.displayMenuV();
+			menuC.setChoiceFromUserInput();
+			menuC.userChoice();
 			
-			userWantsToQuit=true; // use this when the user wants to exit the game
-			
+			if(menuC.getChoice().equalsIgnoreCase("Q")) 
+			{
+				userWantsToQuit=true; // use this when the user wants to exit the game
+			}
 		}
-
-
 	}
 
 }
