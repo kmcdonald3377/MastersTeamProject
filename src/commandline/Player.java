@@ -1,53 +1,36 @@
 package commandline;
 
+import java.sql.*;
+
 public class Player {
 
 private PlayerHand hand;
-
-private String AID1;
-private String AID2;
-private String AID3;
-private String AID4;
-private String PlayerID;
-private PlayerHand AI1hand;
-private PlayerHand AI2hand;
-private PlayerHand AI3hand;
-private PlayerHand AI4hand;
-private String playername;
+private String ID;
  
-public Player(String Playername) 
+public Player() 
 {
-	//Creates human player ID
-	PlayerID = "Player" + playername;
 	//Creates players hand 
 	hand = new PlayerHand();
 }
-public void AIPlayer()
-{
-	//Creates first AI ID
-	AID1 = "AI1"; 
-	//first AI hand
-	AI1hand = new PlayerHand();
-}
-public void AIPlayer2() 
-{
-	//Creates second AI ID
-	AID2 = "AI2";
-	//Second AI hand 
-	AI2hand = new PlayerHand();
-}
-public void AIPlayer3()
-{ 
-	//Creates third AI ID
-	AID3 = "AI3";
-	//Third AI hand 
-	AI3hand = new PlayerHand(); 
-}
-public void AIPlayer4() 
-{
-	//Creates fourth AI ID
-	AID4 = "AI4";
-	//Fourth AI hand 
-	AI4hand = new PlayerHand(); 
+public String PlayerID() {
+	//Returns ID from database 
+	Statement stmt = null;
+	String query = "SELECT ID FROM toptrump.player";
+	
+		try 
+		{	
+			//stmt = connection.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(query); 
+		
+			while (rs.next()) {
+				ID = rs.getString("ID");
+		}
+		}
+		catch(SQLException e) 
+		{
+			System.out.println("Could not get player ID");
+		}
+		return ID;
 }
 }
