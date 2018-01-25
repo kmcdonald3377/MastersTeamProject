@@ -1,6 +1,7 @@
 //package commandline;
 //
 //import java.sql.*;
+//import java.util.ArrayList;
 //
 //public class DatabaseConnection 
 //{
@@ -237,9 +238,9 @@
 //	 * 
 //	 * @return
 //	 */
-//	public String getplayerid() 
+//	public ArrayList getPlayerId() 
 //	{
-//		String test = "";
+//		ArrayList<String> test = new ArrayList();
 //		Statement stmt = null;
 //		String query = "SELECT player.playerid FROM toptrumps.player";
 //		
@@ -252,7 +253,7 @@
 //			while (rs.next()) 
 //			{
 //				String playerIDs = rs.getString("playerid");
-//				test += playerIDs;
+//				test.add(playerIDs);
 //			}
 //		}
 //		catch(SQLException e) 

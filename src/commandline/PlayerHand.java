@@ -6,12 +6,13 @@ import java.util.Comparator;
 
 public class PlayerHand 
 {
-	private final int MAXIMUM_HAND_SIZE = 40;
+	private final String PLAYER_ID;
 	private ArrayList<Card> hand;
 	
-	public PlayerHand() 
+	public PlayerHand(String playerId) 
 	{
 		hand = new ArrayList();
+		PLAYER_ID = playerId;
 	}
 	
 	public void addToHand(Card card) 
@@ -23,8 +24,15 @@ public class PlayerHand
 	{
 		hand.remove(card);
 	}
-	public void splitcards() {
-		
+	
+	public String getPlayerID() 
+	{
+		return PLAYER_ID;
 	}
+	
+	public int getNumberOfCards() 
+	{
+		return hand.size();
 	}
+}
 
