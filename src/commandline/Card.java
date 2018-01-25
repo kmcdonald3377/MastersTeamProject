@@ -48,31 +48,31 @@ public class Card {
 	}
 
 	// get attribute name 1
-	private String getAttribute1() {
+	public String getAttribute1() {
 
 		return attribute1;
 	}
 
 	// get attribute name 2
-	private String getAttribute2() {
+	public String getAttribute2() {
 
 		return attribute2;
 	}
 
 	// get attribute name 3
-	private String getAttribute3() {
+	public String getAttribute3() {
 
 		return attribute3;
 	}
 
 	// get attribute name 4
-	private String getAttribute4() {
+	public String getAttribute4() {
 
 		return attribute4;
 	}
 
 	// get attribute name 5
-	private String getAttribute5() {
+	public String getAttribute5() {
 
 		return attribute5;
 	}
@@ -114,27 +114,27 @@ public class Card {
 	}
 
 	// get the int values of each attribute
-	private int getValue1() {
+	public int getValue1() {
 
 		return value1;
 	}
 
-	private int getValue2() {
+	public int getValue2() {
 
 		return value2;
 	}
 
-	private int getValue3() {
+	public int getValue3() {
 
 		return value3;
 	}
 
-	private int getValue4() {
+	public int getValue4() {
 
 		return value4;
 	}
 
-	private int getValue5() {
+	public int getValue5() {
 
 		return value5;
 	}
