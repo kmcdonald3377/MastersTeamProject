@@ -15,16 +15,18 @@ public class GameView
 	
 	public void gameIntroduction() 
 	{
-		System.out.println("Star Citizen Deck has been shuffled and hands have been delt.\n"
-				+ "You have 8 cards.");
+		System.out.println("Star Citizen Deck has been shuffled and hands have been delt.\n");
 	}
 	
-	public void showCard() 
+	public void showCard(String name, int size, int speed, int range, int firepower, int cargo) 
 	{
-		System.out.println("Here is the details of your first card:\n");
+
+		System.out.println("You have 8 cards.");
+		System.out.println("Here is the details of your first card:");
 		System.out.println("---------------");
-		System.out.println("Description of card:\nSize:\nSpeed:\nRange:\nFirepower:\nCargo:");
-		System.out.println("---------------\n");
+		System.out.println("Description of card: " + name + "\nSize: " + size + "\nSpeed: " + speed + 
+				"\nRange: " + range + "\nFirepower: " + firepower + "\nCargo: " + cargo);
+		System.out.println("---------------");
 	}
 	
 	public void aiSelectCategory(String player, String category) 
@@ -33,7 +35,7 @@ public class GameView
 		System.out.println("Please hit enter when you are ready to reveal cards for all players.");
 	}
 	
-	public void selectCategory() 
+	public void userSelectCategory() 
 	{
 		System.out.println("It is your choice to select the category."
 				+ "\nPlease type the name of the category you wish to compare.");

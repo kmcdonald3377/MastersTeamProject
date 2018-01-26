@@ -34,5 +34,10 @@ public class PlayerHand
 	{
 		return hand.size();
 	}
+	
+	public Card getCurrentCard() 
+	{
+		return hand.get(0);
+	}
 }
 
