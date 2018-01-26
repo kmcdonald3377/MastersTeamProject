@@ -36,12 +36,12 @@ public class TestLog {
 	{
 		sb = new StringBuilder();
 		
-		initDeck = new ArrayList();
-		shuffledDeck = new ArrayList();
-		communalPile = new ArrayList();
-		cardsIP = new ArrayList();
-		humanHand = new ArrayList();
-		AIHand = new ArrayList();
+		initDeck = new ArrayList<Card>();
+		shuffledDeck = new ArrayList<Card>();
+		communalPile = new ArrayList<Card>();
+		cardsIP = new ArrayList<Card>();
+		humanHand = new ArrayList<Card>();
+		AIHand = new ArrayList<Card>();
 		
 		_winner = new Player();
 		
