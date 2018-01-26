@@ -45,7 +45,7 @@ public class Round {
 		String attributeNames = String.format("%15s %15s %15s %15s %15s", attribute1, attribute2, attribute3,
 				attribute4, attribute5);
 
-		System.out.println(attribute1, attribute2, attribute3, attribute4, attribute5);
+		System.out.println(attributeNames);
 
 	}
 
