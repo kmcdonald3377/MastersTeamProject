@@ -1,4 +1,3 @@
-// Robbie
 package commandline;
 import java.io.*;
 import java.util.ArrayList;
@@ -13,47 +12,44 @@ public class TestLog {
 	// instance variables
 	private final String fin = ("toptrumps.log");
 			
-	private StringBuilder sb;
+	private final StringBuilder sb = new StringBuilder();
 	
 	private ArrayList<Card> initDeck;
 	private ArrayList<Card> shuffledDeck;
 	private ArrayList<Card> currentDeck;
-	private ArrayList<Card> communalPile; // need class ?
+	private Card [] comPile;
 	private ArrayList<Card> cardsIP;
 	private ArrayList<Card> humanHand;
 	private ArrayList<Card> AIHand;
 	
 	private Player _winner;
-	
-	private boolean isDraw;
-	
+
 	private String lineBreak;
+	private String _playerID;
 	
 	private int roundCount;
 	private int playerID;
+	private final int MAX_SIZE = 41;
 
 	public TestLog ()
 	{
-		sb = new StringBuilder();
-		
 		initDeck = new ArrayList<Card>();
 		shuffledDeck = new ArrayList<Card>();
-		communalPile = new ArrayList<Card>();
+		comPile = new Card[MAX_SIZE];
 		cardsIP = new ArrayList<Card>();
 		humanHand = new ArrayList<Card>();
 		AIHand = new ArrayList<Card>();
 		
 		_winner = new Player();
 		
-		isDraw = false;
-		
 		lineBreak = "------------------------------------------------------------------------";
+		_playerID = "";
 		
 		roundCount = 0;
 		playerID = 0;
 	}
 	
-	// receive original deck as loaded from file
+	// write original deck as loaded from file
 	public void writeInitDeck (ArrayList<Card> deck) {
 		sb.append("Displaying original deck as loaded from StarCitizenDeck.txt: \r\n");
 		initDeck = deck;
@@ -67,12 +63,24 @@ public class TestLog {
 		sb.append(lineBreak + "\r\n");
 	}
 	
-	// receive shuffled deck
+	// write shuffled deck
 	public void writeShuffledDeck (ArrayList<Card> deck)	{
 		sb.append("Displaying deck after shuffle: \r\n");
 		shuffledDeck = deck;
 		
 		for(Card c : shuffledDeck)
+		{
+			sb.append(c);
+			sb.append(" ");
+		}
+		sb.append(lineBreak + "\r\n");
+	}
+	
+	// write communal pile
+	public void writeCommunalPile (Card [] card)	{
+		sb.append("Cards in the Communal Pile: \r\n");
+		comPile = card;
+		for (Card c: comPile)
 		{
 			sb.append(c);
 			sb.append(" ");
@@ -124,18 +132,20 @@ public class TestLog {
 			
 	}
 	
-	// write cards in play
-	public void writeCardsIP ()	{
-		
+	// write first card in play
+	public void writeCardsIP (String playerID, ArrayList<Card> hand)	{
+		_playerID = playerID;
+		cardsIP = hand;
+		sb.append(_playerID + "'s card in play: " + hand.get(0));
+		sb.append(lineBreak + "\r\n");
 	}
-
+	
 	
 	// write number of rounds played
-	public void writeRounds (int rCount)	{
-		roundCount = rCount;
-		// test 
-		System.out.println("\r\n Number of rounds: " + roundCount);
+	public void writeRounds (int totalRounds)	{
+		roundCount = totalRounds;
 		sb.append("\r\n Number of rounds: " + roundCount);
+		sb.append(lineBreak + "\r\n");
 	}
 	
 	// writes if there is a winner of game 
@@ -146,16 +156,15 @@ public class TestLog {
 	}
 	
 	// writes if there is a draw in game 
-	public void writeDraw (boolean draw)	{
-		isDraw = draw;
-			sb.append("\r\nGame ends in a draw, nobody wins!  ");
+	public void writeDraw ()	{
+			sb.append("\r\nGame ends in a draw.  ");
 			sb.append("\r\nGAME OVER");
 	}
 
 	// write game log to file
 	public void writeFile () {
 		try {
-			File log = new File(fin)
+			File log = new File(fin);
 			PrintWriter writer = new PrintWriter(log);
 			writer.append(sb);
 			writer.close();
