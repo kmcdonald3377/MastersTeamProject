@@ -5,21 +5,16 @@ import java.util.ArrayList;
 public class GameController 
 {
 	private GameView gameV;
-	private DatabaseConnection database;
-	private ArrayList <PlayerHand> playerList;
 	private CommunalPile cp;
+	private Game currentGame;
+	private ArrayList <PlayerHand> playerList;
 	
 	public GameController() 
 	{
 		gameV = new GameView(this);
-		database = new DatabaseConnection();
-		ArrayList <String> playerIDs = database.getPlayerId();
 		cp = new CommunalPile();
-		
-		for(int i = 0; i < playerIDs.size(); i++) 
-		{
-			playerList.add(new PlayerHand(playerIDs.get(i))); //should create an array list of playerhands with each unique player id
-		}
+		currentGame = new Game();
+		playerList = currentGame.getPlayerList();
 	}
 	
 	public void startGame() 

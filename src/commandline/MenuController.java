@@ -34,6 +34,7 @@ public class MenuController
 	
 	public void setName()
 	{
+		menuV.setHumanName();
 		name = menuV.getInput();
 	}
 	

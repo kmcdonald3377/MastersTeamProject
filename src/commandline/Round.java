@@ -1,21 +1,11 @@
-<<<<<<< HEAD
-// Robbie
-package commandline;
-
-public class Round {
-	
-	// Play a round, need to determine if human/computer wins and return something to indicate
-	// also need to indicate if draw
-	public int playRound()
-	{
-		
-=======
 //Nadya
 package commandline;
 
+import java.util.ArrayList;
+
 public class Round {
 
-	private Player[] players;
+	private ArrayList<PlayerHand> players;
 	private PlayerHand[] playerHand;
 	private Card[] playableCards;
 	private CommunalPile cPile;
@@ -30,7 +20,7 @@ public class Round {
 	private final int ATTRIBUTES = 5;
 	private boolean draw;
 
-	public void round(Player[] players, Player currentPlayer, CommunalPile cp, Deck deck, Player winner, int numCards) {
+	public Round(ArrayList<PlayerHand> players, Player currentPlayer, CommunalPile cp, Deck deck, Player winner, int numCards) {
 
 		this.players = players;
 		numPlayers = this.players.length;
@@ -42,7 +32,8 @@ public class Round {
 		this.winner = null;
 	}
 
-	public void start() {
+	public void start() 
+	{
 
 	}
 
@@ -179,6 +170,5 @@ public class Round {
 
 		// player hand is 0
 		return player.getHandLength() == 0;
->>>>>>> 4ac79fc2c2129a0d05b597088e3b75173020f6e2
 	}
 }
