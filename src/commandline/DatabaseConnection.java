@@ -240,7 +240,7 @@ public class DatabaseConnection
 	 */
 	public ArrayList getPlayerId() 
 	{
-		ArrayList<String> test = new ArrayList();
+		ArrayList<Integer> test = new ArrayList();
 		Statement stmt = null;
 		String query = "SELECT player.playerid FROM toptrumps.player";
 		
@@ -252,7 +252,7 @@ public class DatabaseConnection
 			
 			while (rs.next()) 
 			{
-				String playerIDs = rs.getString("playerid");
+				int playerIDs = rs.getInt("playerid");
 				test.add(playerIDs);
 			}
 		}

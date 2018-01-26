@@ -6,10 +6,10 @@ import java.util.Comparator;
 
 public class PlayerHand 
 {
-	private final String PLAYER_ID;
+	private final int PLAYER_ID;
 	private ArrayList<Card> hand;
 	
-	public PlayerHand(String playerId) 
+	public PlayerHand(int playerId) 
 	{
 		hand = new ArrayList();
 		PLAYER_ID = playerId;
@@ -25,7 +25,7 @@ public class PlayerHand
 		hand.remove(card);
 	}
 	
-	public String getPlayerID() 
+	public int getPlayerID() 
 	{
 		return PLAYER_ID;
 	}

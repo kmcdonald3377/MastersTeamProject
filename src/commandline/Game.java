@@ -12,11 +12,13 @@ public class Game
 	public Game() 
 	{
 		database = new DatabaseConnection();
-		ArrayList <String> playerIDs = database.getPlayerId();
+		ArrayList <Integer> playerIDs = database.getPlayerId();
+		
 		for(int i = 0; i < playerIDs.size(); i++) 
 		{
 			playerList.add(new PlayerHand(playerIDs.get(i))); //should create an array list of playerhands with each unique player id
 		}
+		
 		numberOfPlayers = playerList.size();
 		communal = new CommunalPile();
 		

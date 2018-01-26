@@ -2,6 +2,7 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Round {
 
@@ -170,5 +171,73 @@ public class Round {
 
 		// player hand is 0
 		return player.getHandLength() == 0;
+	}
+	
+
+	private void aiCategorySelection(PlayerHand player) 
+	{
+		Random randomNumber = new Random();
+		int myNumber = randomNumber.nextInt();
+		
+	}
+	
+	public void humanCategorySelection(int number) 
+	{
+		Card test = getCard();
+		Card ai1 = players.get(1).getCurrentCard();
+		Card ai2 = players.get(2).getCurrentCard();
+		Card ai3 = players.get(3).getCurrentCard();
+		Card ai4 = players.get(4).getCurrentCard();
+		
+		if(number == 1) 
+		{
+			test.getValue1();
+			ai1.getValue1();
+			ai2.getValue1();
+			ai3.getValue1();
+			ai4.getValue1();
+			
+		}
+		else if(number == 2) 
+		{
+			test.getValue2();
+			ai1.getValue2();
+			ai2.getValue2();
+			ai3.getValue2();
+			ai4.getValue2();
+			
+		}
+		else if(number == 3) 
+		{
+			test.getValue3();
+			ai1.getValue3();
+			ai2.getValue3();
+			ai3.getValue3();
+			ai4.getValue3();
+			
+		}
+		else if(number == 4) 
+		{
+			test.getValue4();
+			ai1.getValue4();
+			ai2.getValue4();
+			ai3.getValue4();
+			ai4.getValue4();
+		}
+		else if(number == 5) 
+		{
+			test.getValue5();
+			ai1.getValue5();
+			ai2.getValue5();
+			ai3.getValue5();
+			ai4.getValue5();
+			
+		}
+	}
+	
+	public Card getCard() 
+	{
+		Card currentCard = players.get(0).getCurrentCard();
+		return currentCard;
 	}
 }

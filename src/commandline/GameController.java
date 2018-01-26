@@ -1,6 +1,7 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController 
 {
@@ -26,18 +27,19 @@ public class GameController
 	{
 		while(isValid()) //will make loop for as long as player has cards or the other ai does
 		{
-			getCard();
-			//will need to have a method reference here which is responsible for randomly selecting a player in order to let
-			//them select the category they wish to use. Will need to save the player to pick and the category they pick
-			//if is human will need to allow them to select their own category and will need to make another method for this
-			if() 
+			displayCard();
+			
+			PlayerHand firstChoice = assignFirstPlayer();
+			
+			if(firstChoice.getPlayerID() != 0) 
 			{
 				gameV.aiSelectCategory(null, null);
 				gameV.userInput(); //for enter command to try break up flow to console
 			}
 			else 
 			{
-				
+				gameV.userSelectCategory();
+				round.humanCategorySelection(humanChoice(gameV.userInput()));
 			}
 			
 			
@@ -57,9 +59,9 @@ public class GameController
 		}
 	}
 	
-	private void getCard() 
+	private void displayCard() 
 	{
-		Card currentCard = playerList.get(0).getCurrentCard();
+		Card currentCard = new Round().getCard();
 		gameV.showCard(currentCard.getName(), currentCard.getValue1(), currentCard.getValue2(), currentCard.getValue3(), 
 				currentCard.getValue4(), currentCard.getValue5());
 	}
@@ -90,5 +92,40 @@ public class GameController
 	private void computeWin() 
 	{
 		gameV.showWinner(null, null, null);
+	}
+	
+	private PlayerHand assignFirstPlayer() 
+	{
+		Random randomNumber = new Random();
+		int myNumber = randomNumber.nextInt(4) + 1;
+		PlayerHand firstChoice = playerList.get(myNumber);
+		return firstChoice;
+	}
+	
+	private int humanChoice(String userInput) 
+	{
+		int category = 0;
+		if (userInput.equalsIgnoreCase("Size")) 
+		{
+			category = 1;
+		}
+		else if(userInput.equalsIgnoreCase("Speed")) 
+		{
+			category = 2;
+		}
+		else if(userInput.equalsIgnoreCase("Range")) 
+		{
+			category = 3;
+		}
+		else if(userInput.equalsIgnoreCase("Firepower")) 
+		{
+			category = 4;
+		}
+		else if(userInput.equalsIgnoreCase("Cargo")) 
+		{
+			category = 5;
+		}
+		
+		return category;
 	}
 }
