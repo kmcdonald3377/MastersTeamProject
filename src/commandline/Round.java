@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+// Robbie
+package commandline;
+
+public class Round {
+	
+	// Play a round, need to determine if human/computer wins and return something to indicate
+	// also need to indicate if draw
+	public int playRound()
+	{
+		
+=======
 //Nadya
 package commandline;
 
@@ -167,5 +179,6 @@ public class Round {
 
 		// player hand is 0
 		return player.getHandLength() == 0;
+>>>>>>> 4ac79fc2c2129a0d05b597088e3b75173020f6e2
 	}
 }
