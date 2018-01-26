@@ -47,21 +47,22 @@ package commandline;
 
 import java.sql.*;
 
-public class Player {
-
-private PlayerHand hand;
-private String ID;
- 
-public Player() 
+public class Player 
 {
-	//Creates players hand 
-	hand = new PlayerHand();
-}
-public String PlayerID() {
-	//Returns ID from database 
-	Statement stmt = null;
-	String query = "SELECT ID FROM toptrump.player";
+	private PlayerHand hand;
+	private String playerID;
+
+	public Player() 
+	{
+		hand = new PlayerHand(playerID);
+	}
+
+	public String getPlayerId() 
+	{
+		return playerID;
+	}
 	
+<<<<<<< HEAD
 >>>>>>> eab7ee4f2b12554a5f19e9a08d30643038d49b1f
 		try 
 		{	
@@ -79,4 +80,10 @@ public String PlayerID() {
 		}
 		return ID;
 }
+=======
+	public void setPlayerId(String playerID) 
+	{
+		this.playerID = playerID;
+	}
+>>>>>>> 4ac79fc2c2129a0d05b597088e3b75173020f6e2
 }
