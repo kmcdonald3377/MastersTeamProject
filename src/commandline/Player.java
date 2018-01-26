@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Robbie
 package commandline;
 public class Player {
@@ -41,6 +42,27 @@ public String PlayerID() {
 	String query = "SELECT ID FROM toptrump.player";
 >>>>>>> eab7ee4f2b12554a5f19e9a08d30643038d49b1f
 	
+=======
+package commandline;
+
+import java.sql.*;
+
+public class Player {
+
+private PlayerHand hand;
+private String ID;
+ 
+public Player() 
+{
+	//Creates players hand 
+	hand = new PlayerHand();
+}
+public String PlayerID() {
+	//Returns ID from database 
+	Statement stmt = null;
+	String query = "SELECT ID FROM toptrump.player";
+	
+>>>>>>> eab7ee4f2b12554a5f19e9a08d30643038d49b1f
 		try 
 		{	
 			//stmt = connection.createStatement();
