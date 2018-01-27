@@ -21,4 +21,9 @@ public class Deck
 	{
 		Collections.shuffle(deck);
 	}
+	
+	public ArrayList getDeck() 
+	{
+		return deck;
+	}
 }

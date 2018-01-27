@@ -24,7 +24,7 @@ public class Round {
 	public Round(ArrayList<PlayerHand> players, Player currentPlayer, CommunalPile cp, Deck deck, Player winner, int numCards) {
 
 		this.players = players;
-		numPlayers = this.players.length;
+		numPlayers = this.players.size();
 		activePlayers = new int[numPlayers];
 		currentPlayers = new int[numPlayers];
 		this.deck = deck;

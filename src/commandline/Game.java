@@ -8,6 +8,7 @@ public class Game
 	private DatabaseConnection database;
 	private ArrayList <PlayerHand> playerList;
 	private CommunalPile communal;
+	private Deck deck;
 	
 	public Game() 
 	{
@@ -21,6 +22,8 @@ public class Game
 		
 		numberOfPlayers = playerList.size();
 		communal = new CommunalPile();
+		deck = new Deck();
+		deck.shuffleDeck();
 		
 	}
 	
@@ -52,5 +55,23 @@ public class Game
 	public ArrayList getPlayerList() 
 	{
 		return playerList;
+	}
+	
+	public void distributeDeck() 
+	{
+		ArrayList <Card> newDeck = deck.getDeck();
+		int blah = newDeck.size();
+		blah = blah/numberOfPlayers; //want blah number of cards in each deck
+		int j = 0;
+		for (int i = 0; i < blah; i ++)
+		{
+			if(j == 4) 
+			{
+				j = 0;
+			}
+			playerList.get(j).addToHand(newDeck.get(i));
+			j++;
+		}
+		
 	}
 }

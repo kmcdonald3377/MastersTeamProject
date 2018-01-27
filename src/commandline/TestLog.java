@@ -155,7 +155,7 @@ public class TestLog {
 	// write game log to file
 	public void writeFile () {
 		try {
-			File log = new File(fin)
+			File log = new File(fin);
 			PrintWriter writer = new PrintWriter(log);
 			writer.append(sb);
 			writer.close();

@@ -2,7 +2,11 @@
 // this class represents cards to get the five attribute names and values 
 package commandline;
 
-public class Card {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Card 
+{
 
 	// instance variables for the five card attribute names
 	private final String attribute1;
@@ -20,7 +24,12 @@ public class Card {
 	private final int value5;
 
 	// card values array
+	private ArrayList<Integer> cardValues; //added these two in so that can find correct index for the value to compare against
+	private ArrayList<String> cardAttributes; //other cards to decide winner/if draw
 	private Card[] card;
+	
+	//second option
+//	private HashMap<String, Integer> attributes;
 
 	// constructor
 	public Card(String att1, String att2, String att3, String att4, String att5, String desc, int val1, int val2,
@@ -37,9 +46,24 @@ public class Card {
 		this.value3 = val3;
 		this.value4 = val4;
 		this.value5 = val5;
-	}
+		cardValues.add(val1);
+		cardValues.add(val2);
+		cardValues.add(val3);
+		cardValues.add(val4);
+		cardValues.add(val5);
+		cardAttributes.add(att1);
+		cardAttributes.add(att2);
+		cardAttributes.add(att3);
+		cardAttributes.add(att4);
+		cardAttributes.add(att5);
 
-	// get attribute names of each card
+//		Second option rather than two array lists/arrays		
+//		attributes.put(att1, val1);
+//		attributes.put(att2, val2);
+//		attributes.put(att3, val3);
+//		attributes.put(att4, val4);
+//		attributes.put(att5, val5);
+	}
 
 	// get the name of the card
 	public String getName() {
@@ -88,29 +112,7 @@ public class Card {
 		// index at 0 is description/name - i don't think this is required, as it will
 		// never be compared against any other card
 
-		if (index == 1) {
-
-			return getAttribute1();
-
-		} else if (index == 2) {
-
-			return getAttribute2();
-
-		} else if (index == 3) {
-
-			return getAttribute3();
-
-		} else if (index == 4) {
-
-			return getAttribute4();
-
-		} else if (index == 5) {
-
-			return getAttribute5();
-
-		} else
-
-			return null;
+		return cardAttributes.get(index);
 	}
 
 	// get the int values of each attribute
@@ -142,29 +144,7 @@ public class Card {
 	// a method to return the values of each attribute at a given index
 	public int getValueAtIndex(int index) {
 
-		if (index == 1) {
-
-			return getValue1();
-
-		} else if (index == 2) {
-
-			return getValue2();
-
-		} else if (index == 3) {
-
-			return getValue3();
-
-		} else if (index == 4) {
-
-			return getValue4();
-
-		} else if (index == 5) {
-
-			return getValue5();
-
-		} else
-
-			return -1;
+		return cardValues.get(index);
 	}
 	
 	public String toString() {
