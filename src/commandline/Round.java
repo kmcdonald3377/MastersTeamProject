@@ -174,14 +174,27 @@ public class Round {
 	}
 	
 
-	private void aiCategorySelection(PlayerHand player) 
+	private ArrayList aiCategorySelection(PlayerHand player) 
 	{
 		Random randomNumber = new Random();
 		int myNumber = randomNumber.nextInt();
+		Card test = getCard();
+		Card ai1 = players.get(1).getCurrentCard();
+		Card ai2 = players.get(2).getCurrentCard();
+		Card ai3 = players.get(3).getCurrentCard();
+		Card ai4 = players.get(4).getCurrentCard();
 		
+		ArrayList<Integer> valueComparison = new ArrayList();
+		valueComparison.add(test.getValueAtIndex(myNumber));
+		valueComparison.add(ai1.getValueAtIndex(myNumber));
+		valueComparison.add(ai2.getValueAtIndex(myNumber));
+		valueComparison.add(ai3.getValueAtIndex(myNumber));
+		valueComparison.add(ai4.getValueAtIndex(myNumber));
+		
+		return valueComparison;
 	}
 	
-	public void humanCategorySelection(int number) 
+	public ArrayList humanCategorySelection(int number) 
 	{
 		Card test = getCard();
 		Card ai1 = players.get(1).getCurrentCard();
@@ -189,53 +202,53 @@ public class Round {
 		Card ai3 = players.get(3).getCurrentCard();
 		Card ai4 = players.get(4).getCurrentCard();
 		
-		if(number == 1) 
-		{
-			test.getValue1();
-			ai1.getValue1();
-			ai2.getValue1();
-			ai3.getValue1();
-			ai4.getValue1();
-			
-		}
-		else if(number == 2) 
-		{
-			test.getValue2();
-			ai1.getValue2();
-			ai2.getValue2();
-			ai3.getValue2();
-			ai4.getValue2();
-			
-		}
-		else if(number == 3) 
-		{
-			test.getValue3();
-			ai1.getValue3();
-			ai2.getValue3();
-			ai3.getValue3();
-			ai4.getValue3();
-			
-		}
-		else if(number == 4) 
-		{
-			test.getValue4();
-			ai1.getValue4();
-			ai2.getValue4();
-			ai3.getValue4();
-			ai4.getValue4();
-		}
-		else if(number == 5) 
-		{
-			test.getValue5();
-			ai1.getValue5();
-			ai2.getValue5();
-			ai3.getValue5();
-			ai4.getValue5();
-			
-		}
+		ArrayList<Integer> valueComparison = new ArrayList();
+		valueComparison.add(test.getValueAtIndex(number));
+		valueComparison.add(ai1.getValueAtIndex(number));
+		valueComparison.add(ai2.getValueAtIndex(number));
+		valueComparison.add(ai3.getValueAtIndex(number));
+		valueComparison.add(ai4.getValueAtIndex(number));
+		
+		return valueComparison;
+		
 	}
 	
-	public Card getCard() 
+	public int findWinner(ArrayList test) 
+	{
+		ArrayList<Integer> myNumbers = test;
+		int max = 0;
+		for(int i = 0; i < myNumbers.size(); i++) 
+		{
+			if(myNumbers.get(i) > max) 
+			{
+				max = myNumbers.get(i);
+			}
+		}
+		return max;
+	}
+	
+	public boolean isWinner(ArrayList test) 
+	{
+		ArrayList<Integer> myNumbers = test;
+		int max = findWinner(myNumbers);
+		int count = 0;
+		for(int i = 0; i < test.size(); i++) 
+		{
+			if(max == myNumbers.get(i)) 
+			{
+				count++;
+			}
+		}
+		
+		if(count > 1) 
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public Card getCard() //could have int parameter to feed in which will get the card depending upon the id of the players playing
 	{
 		Card currentCard = players.get(0).getCurrentCard();
 		return currentCard;

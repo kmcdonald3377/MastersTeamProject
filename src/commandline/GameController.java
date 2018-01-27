@@ -39,7 +39,7 @@ public class GameController
 			else 
 			{
 				gameV.userSelectCategory();
-				round.humanCategorySelection(humanChoice(gameV.userInput()));
+				//round.humanCategorySelection(humanChoice(gameV.userInput()));
 			}
 			
 			
@@ -55,7 +55,8 @@ public class GameController
 			else //else if it is a draw then show draw message
 			{
 				computeDraw();
-			}	
+			}
+			currentGame.increaseRounds();
 		}
 	}
 	
@@ -104,28 +105,8 @@ public class GameController
 	
 	private int humanChoice(String userInput) 
 	{
-		int category = 0;
-		if (userInput.equalsIgnoreCase("Size")) 
-		{
-			category = 1;
-		}
-		else if(userInput.equalsIgnoreCase("Speed")) 
-		{
-			category = 2;
-		}
-		else if(userInput.equalsIgnoreCase("Range")) 
-		{
-			category = 3;
-		}
-		else if(userInput.equalsIgnoreCase("Firepower")) 
-		{
-			category = 4;
-		}
-		else if(userInput.equalsIgnoreCase("Cargo")) 
-		{
-			category = 5;
-		}
 		
-		return category;
+		
+		return 1;
 	}
 }
