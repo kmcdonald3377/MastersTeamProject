@@ -5,24 +5,27 @@ import java.util.Random;
 
 public class GameController 
 {
+	private final String username;
 	private GameView gameV;
 	private PileOfCards communalPile;
 	private Player firstChoice;
 	private Game currentGame;
 	private ArrayList <Player> playerList;
 	
-	public GameController(PileOfCards starCitizenDeck) 
+	public GameController(PileOfCards starCitizenDeck, String username) 
 	{
 		gameV = new GameView(this);
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		currentGame = new Game(starCitizenDeck);
 		playerList = currentGame.getPlayerList();
+		this.username = username;
 	}
 	
 	public void startGame() 
 	{
 		gameV.gameIntroduction();
 		setFirstChoice();
+		runGame();
 	}
 	
 	public void runGame() 
@@ -30,35 +33,47 @@ public class GameController
 		while(isValid()) //will make loop for as long as player has cards or 
 		{
 			Round2 currentRound = new Round2(playerList);
-			displayCard(currentRound); //displays card to user
+			displayCard(currentRound); //displays current card to user
 			
 			
 			
-//			ArrayList<Integer> categoryComparison;
+			ArrayList<Integer> categoryComparison = new ArrayList<Integer>();
 						
 			
 			if(firstChoice.getPlayerId() != 0) 
 			{
 				
-//				categoryComparison = currentRound.aiCategorySelection();
-				gameV.aiSelectCategory(""+firstChoice.getPlayerId(), null);
+				categoryComparison = currentRound.categoryValues(currentRound.categorySelection());
+				
+				if(firstChoice.getPlayerId() == 1) 
+				{
+					gameV.aiSelectCategory("AI Player 1", currentRound.categorySelection());
+				}
+				else if(firstChoice.getPlayerId() == 2) 
+				{
+					gameV.aiSelectCategory("AI Player 2", currentRound.categorySelection());
+				}
+				else if(firstChoice.getPlayerId() == 3) 
+				{
+					gameV.aiSelectCategory("AI Player 3", currentRound.categorySelection());
+				}
+				else if(firstChoice.getPlayerId() == 4) 
+				{
+					gameV.aiSelectCategory("AI Player 4", currentRound.categorySelection());
+				}
+				
 				gameV.userInput(); //for enter command to try break up flow to console
 			}
-			else 
+			else if(firstChoice.getPlayerId() == 0)
 			{
 				gameV.userSelectCategory();
 				String category = gameV.userInput();
-//				categoryComparison = currentRound.humanCategorySelection(category);
+				categoryComparison = currentRound.categoryValues(category);
 			}
 			
-			
-			
-//			
-//			
-//			
-//			gameV.showStats("Test", categoryComparison.get(0), categoryComparison.get(1), 
-//					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
-//
+			gameV.showStats(username, categoryComparison.get(0), categoryComparison.get(1), 
+					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
+
 //			int winningScore = currentRound.findWinner(categoryComparison);
 //			int winner;
 //			
@@ -152,7 +167,7 @@ public class GameController
 	private void setFirstChoice() 
 	{
 		Random randomNumber = new Random();
-		int myNumber = randomNumber.nextInt(4);
+		int myNumber = randomNumber.nextInt(5);
 		
 		firstChoice = playerList.get(myNumber);
 	}

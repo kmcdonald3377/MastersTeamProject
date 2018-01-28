@@ -78,7 +78,7 @@ public class Game
 		int j = 0;
 		for (int i = 0; i < size; i ++)
 		{
-			if(j == 4) 
+			if(j == 5) 
 			{
 				j = 0;
 			}

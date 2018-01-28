@@ -45,12 +45,26 @@ public class Card
 		this.value3 = val3;
 		this.value4 = val4;
 		this.value5 = val5;
+		cardAttributes = new ArrayList<String>();
+		cardAttributes.add(attribute1);
+		cardAttributes.add(attribute2);
+		cardAttributes.add(attribute3);
+		cardAttributes.add(attribute4);
+		cardAttributes.add(attribute5);
 		
-//		attributes.put(att1, val1);
-//		attributes.put(att2, val2);
-//		attributes.put(att3, val3);
-//		attributes.put(att4, val4);
-//		attributes.put(att5, val5);
+		cardValues = new ArrayList<Integer>();
+		cardValues.add(value1);
+		cardValues.add(value2);
+		cardValues.add(value3);
+		cardValues.add(value4);
+		cardValues.add(value5);
+		
+		attributes = new HashMap<String, Integer>();
+		attributes.put(att1, val1);
+		attributes.put(att2, val2);
+		attributes.put(att3, val3);
+		attributes.put(att4, val4);
+		attributes.put(att5, val5);
 	}
 	
 	public HashMap<String, Integer> getAttributes()
