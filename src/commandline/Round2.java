@@ -1,13 +1,17 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 public class Round2 
 {
-	private ArrayList<PileOfCards> playerList;
+	private ArrayList<Player> playerList;
+	private ArrayList<Integer> valueComparison;
 	
-	public Round2(ArrayList playerList) 
+	public Round2(ArrayList<Player> playerList) 
 	{
 		this.playerList = playerList;
 	}
@@ -15,37 +19,76 @@ public class Round2
 	public ArrayList aiCategorySelection() 
 	{
 		Random randomNumber = new Random();
-		int category = randomNumber.nextInt();
-		Card humanPlayer= getCard(0);
-		Card ai1 = getCard(1);
-		Card ai2 = getCard(2);
-		Card ai3 = getCard(3);
-		Card ai4 = getCard(4);
+		int category = randomNumber.nextInt(5);
 		
-		ArrayList<Integer> valueComparison = new ArrayList();
-		valueComparison.add(humanPlayer.getValueAtIndex(category));
-		valueComparison.add(ai1.getValueAtIndex(category));
-		valueComparison.add(ai2.getValueAtIndex(category));
-		valueComparison.add(ai3.getValueAtIndex(category));
-		valueComparison.add(ai4.getValueAtIndex(category));
+		Card humanPlayerCard = getCard(0);
+		Card ai1Card = getCard(1);
+		Card ai2Card = getCard(2);
+		Card ai3Card = getCard(3);
+		Card ai4Card = getCard(4);
+		
+		valueComparison = new ArrayList();
+		valueComparison.add(humanPlayerCard.getValueAtIndex(category));
+		valueComparison.add(ai1Card.getValueAtIndex(category));
+		valueComparison.add(ai2Card.getValueAtIndex(category));
+		valueComparison.add(ai3Card.getValueAtIndex(category));
+		valueComparison.add(ai4Card.getValueAtIndex(category));
 		
 		return valueComparison;
 	}
 	
+	
+	private Integer chooseValue(int randomNumber, Card card, int cardIndex) {
+				
+		int index = 0;
+		Integer valueToReturn = null; 
+		Iterator  iterator = card.getAttributes().entrySet().iterator();
+		
+		while(iterator.hasNext()) {
+			
+			if(index == cardIndex) {
+				Map.Entry mapEntry = (Map.Entry) iterator.next();
+				
+				valueToReturn = (Integer) mapEntry.getValue();
+				break;
+			}			
+		}
+		
+		return valueToReturn;
+		
+	}
+	
+	
 	public ArrayList humanCategorySelection(int category) 
 	{
-		Card humanPlayer = getCard(0);
-		Card ai1 = getCard(1);
-		Card ai2 = getCard(2);
-		Card ai3 = getCard(3);
-		Card ai4 = getCard(4);
+		Card humanPlayerCard = getCard(0);
+		HashMap<String, Integer> humanAttributes = humanPlayerCard.getAttributes();
+		humanAttributes.get(category);
 		
-		ArrayList<Integer> valueComparison = new ArrayList();
-		valueComparison.add(humanPlayer.getValueAtIndex(category));
-		valueComparison.add(ai1.getValueAtIndex(category));
-		valueComparison.add(ai2.getValueAtIndex(category));
-		valueComparison.add(ai3.getValueAtIndex(category));
-		valueComparison.add(ai4.getValueAtIndex(category));
+		Card ai1Card = getCard(1);
+		HashMap<String, Integer> ai1Attributes = ai1Card.getAttributes();
+		ai1Attributes.get(category);
+		
+		Card ai2Card = getCard(2);
+		HashMap<String, Integer> ai2Attributes = ai1Card.getAttributes();
+		ai2Attributes.get(category);
+		
+		Card ai3Card = getCard(3);
+		HashMap<String, Integer> ai3Attributes = ai1Card.getAttributes();
+		ai3Attributes.get(category);
+		
+		Card ai4Card = getCard(4);
+		HashMap<String, Integer> ai4Attributes = ai1Card.getAttributes();
+		ai4Attributes.get(category);
+		
+		
+		
+		valueComparison = new ArrayList();
+		valueComparison.add();
+		valueComparison.add();
+		valueComparison.add();
+		valueComparison.add();
+		valueComparison.add();
 		
 		return valueComparison;
 		
@@ -86,9 +129,10 @@ public class Round2
 		return true;
 	}
 	
-	public Card getCard(int playerID)
+	public Card getCard(int playerID) //change playerid to position in arraylist
 	{
-		Card currentCard = playerList.get(playerID).getCurrentCard();
+		Player player = playerList.get(playerID);
+		Card currentCard = player.getPlayerHand().getCurrentCard();
 		return currentCard;
 	}
 }

@@ -6,14 +6,15 @@ import java.util.Random;
 public class GameController 
 {
 	private GameView gameV;
-	private PileOfCards communalPile, firstChoice;
+	private PileOfCards communalPile;
+	private Player firstChoice;
 	private Game currentGame;
-	private ArrayList <PileOfCards> playerList;
+	private ArrayList <Player> playerList;
 	
 	public GameController(PileOfCards starCitizenDeck) 
 	{
 		gameV = new GameView(this);
-		communalPile = new PileOfCards(0); //0 passed in as no player with an id of 0
+		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		currentGame = new Game(starCitizenDeck);
 		playerList = currentGame.getPlayerList();
 	}
@@ -21,34 +22,44 @@ public class GameController
 	public void startGame() 
 	{
 		gameV.gameIntroduction();
-		firstChoice = assignFirstPlayer();
+		setFirstChoice();
 	}
 	
 	public void runGame() 
 	{
 		while(isValid()) //will make loop for as long as player has cards or 
 		{
-			Round2 current = new Round2(playerList);
-			displayCard(current); //displays card to user
-			ArrayList<Integer> categoryComparison;
+			Round2 currentRound = new Round2(playerList);
+			displayCard(currentRound); //displays card to user
 			
-			if(firstChoice.getPlayerID() != 0) 
+			
+			
+			ArrayList<Integer> categoryComparison;
+						
+			
+			if(firstChoice.getPlayerId() != 0) 
 			{
-				gameV.aiSelectCategory(""+firstChoice.getPlayerID(), null);
-				categoryComparison = current.aiCategorySelection();
+				
+				categoryComparison = currentRound.aiCategorySelection();
+				gameV.aiSelectCategory(""+firstChoice.getPlayerId(), null);
 				gameV.userInput(); //for enter command to try break up flow to console
 			}
 			else 
 			{
 				gameV.userSelectCategory();
-				int category = Integer.parseInt(gameV.userInput());
-				categoryComparison = current.humanCategorySelection(category);
+				String category = gameV.userInput();
+				categoryComparison = currentRound.humanCategorySelection(category);
 			}
+			
+			
+			
+			
+			
 			
 			gameV.showStats("Test", categoryComparison.get(0), categoryComparison.get(1), 
 					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
 
-			int winningScore = current.findWinner(categoryComparison);
+			int winningScore = currentRound.findWinner(categoryComparison);
 			int winner;
 			
 			for(int i = 0; i < playerList.size(); i++) 
@@ -56,7 +67,7 @@ public class GameController
 				//need to be able to get the player/pile of cards which has the winner score - may be one or multiple for draw
 			}
 				
-			if(current.isWinner(categoryComparison)) //if there is an outright winner
+			if(currentRound.isWinner(categoryComparison)) //if there is an outright winner
 			{
 				computeWin();
 				//increase round won for winner
@@ -84,8 +95,8 @@ public class GameController
 	private void displayCard(Round2 current) 
 	{
 		Card currentCard = current.getCard(0); //0 as only currently showing the human players card
-		gameV.showCard(currentCard.getName(), currentCard.getValue1(), currentCard.getValue2(), currentCard.getValue3(), 
-				currentCard.getValue4(), currentCard.getValue5());
+		
+		gameV.showCard(currentCard);
 	}
 	
 	private boolean isValid() 
@@ -138,12 +149,12 @@ public class GameController
 		gameV.showWinner("" + playerList.get(winner).getPlayerID());
 	}
 	
-	private PileOfCards assignFirstPlayer() 
+	private void setFirstChoice() 
 	{
 		Random randomNumber = new Random();
-		int myNumber = randomNumber.nextInt(4) + 1;
+		int myNumber = randomNumber.nextInt(playerList.size()-1);
+		
 		firstChoice = playerList.get(myNumber);
-		return firstChoice;
 	}
 	
 }

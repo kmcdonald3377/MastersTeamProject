@@ -15,6 +15,11 @@ public class Player
 		roundsWon = 0;
 		roundsDrawn = 0;
 	}
+	
+	public PileOfCards getPlayerHand() 
+	{
+		return playerHand;
+	}
 
 	public int getPlayerId() 
 	{

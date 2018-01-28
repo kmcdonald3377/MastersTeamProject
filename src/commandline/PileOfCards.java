@@ -5,10 +5,10 @@ import java.util.Collections;
 
 public class PileOfCards 
 {
-	private final int PLAYER_ID;
+	private final Integer PLAYER_ID;
 	ArrayList<Card> deck = new ArrayList();
 	
-	public PileOfCards(int playerId) 
+	public PileOfCards(Integer playerId) 
 	{
 		PLAYER_ID = playerId;
 	}
@@ -28,12 +28,12 @@ public class PileOfCards
 		Collections.shuffle(deck);
 	}
 	
-	public ArrayList getDeck() 
+	public ArrayList<Card> getDeck() 
 	{
 		return deck;
 	}
 	
-	public int getPlayerID() 
+	public Integer getPlayerID() 
 	{
 		return PLAYER_ID;
 	}
