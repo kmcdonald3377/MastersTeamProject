@@ -28,7 +28,7 @@ public class Card
 	private ArrayList<String> cardAttributes; //other cards to decide winner/if draw
 	
 	//second option
-	private HashMap<Integer, Integer> attributes;
+	private HashMap<String, Integer> attributes;
 
 	// constructor
 	public Card(String att1, String att2, String att3, String att4, String att5, String desc, int val1, int val2,
@@ -46,14 +46,14 @@ public class Card
 		this.value4 = val4;
 		this.value5 = val5;
 		
-		attributes.put(1, val1);
-		attributes.put(2, val2);
-		attributes.put(3, val3);
-		attributes.put(4, val4);
-		attributes.put(5, val5);
+//		attributes.put(att1, val1);
+//		attributes.put(att2, val2);
+//		attributes.put(att3, val3);
+//		attributes.put(att4, val4);
+//		attributes.put(att5, val5);
 	}
 	
-	public HashMap<Integer, Integer> getAttributes()
+	public HashMap<String, Integer> getAttributes()
 	{
 		return attributes;
 	}
@@ -95,10 +95,10 @@ public class Card
 	}
 
 	// get the card at the given index
-	public Card getCardAtIndex(int index) {
-
-		return this.card[index];
-	}
+//	public Card getCardAtIndex(int index) {
+//
+//		return this.card[index];
+//	}
 
 	public String getAttributeAtIndex(int index) {
 

@@ -46,11 +46,18 @@ public class MenuController
 
 	public void readFile()
 	{
+		FileReader reader = null;
 		try
 		{
-			FileReader reader = new FileReader("StarCitizenDeck.txt");
+			reader = new FileReader("StarCitizenDeck.txt");
+		}
+		catch(Exception e) 
+		{
+
+		}
 
 			scanner = new Scanner(reader);
+			
 			ArrayList<String> input = new ArrayList();
 
 			while(scanner.hasNextLine()) 
@@ -60,22 +67,19 @@ public class MenuController
 			}
 
 			String[] description = input.get(0).split(" +");
+			
+			starCitizenDeck = new PileOfCards(null);
 
 
 			for(int i = 1; i < input.size(); i++) 
 			{
 				String[] values = input.get(i).split(" +");
 
-				starCitizenDeck = new PileOfCards(0);
 				starCitizenDeck.addCard(new Card(description[1], description[2], description[3], description[4], description[5], 
 						values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), 
 						Integer.parseInt(values[4]), Integer.parseInt(values[5])));
 			}
-		}
-		catch(Exception e) 
-		{
-
-		}
+		
 	}
 
 	public void choiceSelection() 
@@ -84,6 +88,7 @@ public class MenuController
 		{
 			GameController gameC = new GameController(starCitizenDeck);
 			gameC.startGame();
+			gameC.runGame();
 		}
 		else if(choice.equalsIgnoreCase("S")) 
 		{

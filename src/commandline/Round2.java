@@ -35,60 +35,38 @@ public class Round2
 		valueComparison.add(ai4Card.getValueAtIndex(category));
 		
 		return valueComparison;
-	}
+	}	
 	
-	
-	private Integer chooseValue(int randomNumber, Card card, int cardIndex) {
-				
-		int index = 0;
-		Integer valueToReturn = null; 
-		Iterator  iterator = card.getAttributes().entrySet().iterator();
-		
-		while(iterator.hasNext()) {
-			
-			if(index == cardIndex) {
-				Map.Entry mapEntry = (Map.Entry) iterator.next();
-				
-				valueToReturn = (Integer) mapEntry.getValue();
-				break;
-			}			
-		}
-		
-		return valueToReturn;
-		
-	}
-	
-	
-	public ArrayList humanCategorySelection(int category) 
+	public ArrayList humanCategorySelection(String category) 
 	{
 		Card humanPlayerCard = getCard(0);
-		HashMap<String, Integer> humanAttributes = humanPlayerCard.getAttributes();
-		humanAttributes.get(category);
-		
-		Card ai1Card = getCard(1);
-		HashMap<String, Integer> ai1Attributes = ai1Card.getAttributes();
-		ai1Attributes.get(category);
-		
-		Card ai2Card = getCard(2);
-		HashMap<String, Integer> ai2Attributes = ai1Card.getAttributes();
-		ai2Attributes.get(category);
-		
-		Card ai3Card = getCard(3);
-		HashMap<String, Integer> ai3Attributes = ai1Card.getAttributes();
-		ai3Attributes.get(category);
-		
-		Card ai4Card = getCard(4);
-		HashMap<String, Integer> ai4Attributes = ai1Card.getAttributes();
-		ai4Attributes.get(category);
-		
-		
-		
-		valueComparison = new ArrayList();
-		valueComparison.add();
-		valueComparison.add();
-		valueComparison.add();
-		valueComparison.add();
-		valueComparison.add();
+//		HashMap<String, Integer> humanAttributes = humanPlayerCard.getAttributes();
+//		humanAttributes.get(category);
+//		
+//		Card ai1Card = getCard(1);
+//		HashMap<String, Integer> ai1Attributes = ai1Card.getAttributes();
+//		ai1Attributes.get(category);
+//		
+//		Card ai2Card = getCard(2);
+//		HashMap<String, Integer> ai2Attributes = ai1Card.getAttributes();
+//		ai2Attributes.get(category);
+//		
+//		Card ai3Card = getCard(3);
+//		HashMap<String, Integer> ai3Attributes = ai1Card.getAttributes();
+//		ai3Attributes.get(category);
+//		
+//		Card ai4Card = getCard(4);
+//		HashMap<String, Integer> ai4Attributes = ai1Card.getAttributes();
+//		ai4Attributes.get(category);
+//		
+//		
+//		
+//		valueComparison = new ArrayList();
+//		valueComparison.add();
+//		valueComparison.add();
+//		valueComparison.add();
+//		valueComparison.add();
+//		valueComparison.add();
 		
 		return valueComparison;
 		

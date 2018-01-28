@@ -7,13 +7,13 @@ import java.util.Random;
 public class Round 
 {
 
-	private ArrayList<PlayerHand> players;
-	private PlayerHand[] playerHand;
+	private ArrayList<PileOfCards> players;
+	private PileOfCards[] playerHand;
 	private Card[] playableCards;
-	private CommunalPile cPile;
+	private PileOfCards cPile;
 	private PileOfCards deck;
 	private Player currentPlayer; // index of player whose turn it is to play
-	private PlayerHand winner;
+	private PileOfCards winner;
 
 	private int numPlayers;
 	private int[] currentPlayers; // indexes of players who are currently in the round
@@ -22,7 +22,7 @@ public class Round
 	private final int ATTRIBUTES = 5;
 	private boolean draw;
 
-	public Round(ArrayList<PlayerHand> players, Player currentPlayer, CommunalPile cp, PileOfCards deck, Player winner, int numCards) 
+	public Round(ArrayList<PileOfCards> players, Player currentPlayer, PileOfCards cp, PileOfCards deck, Player winner, int numCards) 
 	{
 
 		this.players = players;
@@ -94,23 +94,23 @@ public class Round
 				Card cd = playableCards[i];
 
 				if (cd != null) {
-					winner.addToHand(cd); // add this card to the players hand
+					winner.addCard(cd); // add this card to the players hand
 				}
 			}
 		}
 
 		// give cards in communal pile to winner
-		for (int i = 0; i < cPile.getPileLength(); i++) {
+		while (cPile.getNumberOfCards() != 0) {
 
-			Card cd = cPile.getCardAtIndex(i);
+			Card cd = cPile.getCurrentCard();
 
 			if (cd != null) {
-				winner.addToHand(cd); // add this card to the players hand
+				winner.addCard(cd); // add this card to the players hand
 			}
 		}
 
 		// communal pile is now empty, create new communal pile
-		cPile = new CommunalPile();
+		cPile = new PileOfCards(null);
 	}
 
 	// a method to calculate the winning card
@@ -119,10 +119,10 @@ public class Round
 		final int ACTIVECARD = 1; // current card can only ever be one
 		int score;
 
-		for (int i = 0; i < this.players.length; i++) {
+		for (int i = 0; i < this.players.size(); i++) {
 
 			// if the players hand size or the number of cards in play are greater than 0
-			if ((playerHand[i].getHandLength() || ACTIVECARD) > 0) { // getHandLength in PlayerHand class
+			if ((playerHand[i].getHandLength() || ACTIVECARD) > 0) { // getHandLength in PlayerHand class //playerHand.getNumberOfCards?
 
 				try {
 
@@ -152,7 +152,7 @@ public class Round
 		return this.draw;
 	}
 
-	public Player getWinner() {
+	public PileOfCards getWinner() {
 
 		return winner;
 	}
@@ -160,23 +160,23 @@ public class Round
 	public boolean humanWinner() {
 
 		int index = 0;
-		Player player = this.players[index];
+		Player player = this.players.get(index);
 
 		// when the human players hand size equals the number of cards in the deck
-		return player.getHandLength() == 40; // Player class
+		return player.getPlayerHand().getNumberOfCards() == 40; // Player class
 	}
 
 	public boolean AIWinner() {
 
 		int index = 0;
-		Player player = this.players[index];
+		Player player = this.players.get(index);
 
 		// player hand is 0
-		return player.getHandLength() == 0;
+		return player.getPlayerHand().getNumberOfCards() == 0;
 	}
 	
 
-	private ArrayList aiCategorySelection(PlayerHand player) 
+	private ArrayList aiCategorySelection(PileOfCards player) 
 	{
 		Random randomNumber = new Random();
 		int myNumber = randomNumber.nextInt();
