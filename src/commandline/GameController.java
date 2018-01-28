@@ -6,63 +6,84 @@ import java.util.Random;
 public class GameController 
 {
 	private GameView gameV;
-	private CommunalPile cp;
+	private PileOfCards communalPile, firstChoice;
 	private Game currentGame;
-	private ArrayList <PlayerHand> playerList;
+	private ArrayList <PileOfCards> playerList;
 	
-	public GameController() 
+	public GameController(PileOfCards starCitizenDeck) 
 	{
 		gameV = new GameView(this);
-		cp = new CommunalPile();
-		currentGame = new Game();
+		communalPile = new PileOfCards(0); //0 passed in as no player with an id of 0
+		currentGame = new Game(starCitizenDeck);
 		playerList = currentGame.getPlayerList();
 	}
 	
 	public void startGame() 
 	{
 		gameV.gameIntroduction();
+		firstChoice = assignFirstPlayer();
 	}
 	
 	public void runGame() 
 	{
-		while(isValid()) //will make loop for as long as player has cards or the other ai does
+		while(isValid()) //will make loop for as long as player has cards or 
 		{
-			displayCard();
-			
-			PlayerHand firstChoice = assignFirstPlayer();
+			Round2 current = new Round2(playerList);
+			displayCard(current); //displays card to user
+			ArrayList<Integer> categoryComparison;
 			
 			if(firstChoice.getPlayerID() != 0) 
 			{
-				gameV.aiSelectCategory(null, null);
+				gameV.aiSelectCategory(""+firstChoice.getPlayerID(), null);
+				categoryComparison = current.aiCategorySelection();
 				gameV.userInput(); //for enter command to try break up flow to console
 			}
 			else 
 			{
 				gameV.userSelectCategory();
-				//round.humanCategorySelection(humanChoice(gameV.userInput()));
+				int category = Integer.parseInt(gameV.userInput());
+				categoryComparison = current.humanCategorySelection(category);
 			}
 			
+			gameV.showStats("Test", categoryComparison.get(0), categoryComparison.get(1), 
+					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
+
+			int winningScore = current.findWinner(categoryComparison);
+			int winner;
 			
-			//will need to get the stats of every players current card for the category selected
-			gameV.showStats(null, i, i, i, i, i);
-			//will need to add in a compare method here to allow for comparison of the different stats for the players
-			
-			
-			if() //if there is an outright winner
+			for(int i = 0; i < playerList.size(); i++) 
+			{
+				//need to be able to get the player/pile of cards which has the winner score - may be one or multiple for draw
+			}
+				
+			if(current.isWinner(categoryComparison)) //if there is an outright winner
 			{
 				computeWin();
+				//increase round won for winner
 			}
 			else //else if it is a draw then show draw message
 			{
 				computeDraw();
+				currentGame.increaseDraws();
+				//increase rounds drawn for the players who drew
 			}
 			currentGame.increaseRounds();
+			int id = firstChoice.getPlayerID();
+			if(id == 5) 
+			{
+				id = 1;
+			}
+			else 
+			{
+				id++;
+			}
+			firstChoice = playerList.get(id);
 		}
 	}
 	
-	private void displayCard() 
+	private void displayCard(Round2 current) 
 	{
-		Card currentCard = new Round().getCard();
+		Card currentCard = current.getCard(0); //0 as only currently showing the human players card
 		gameV.showCard(currentCard.getName(), currentCard.getValue1(), currentCard.getValue2(), currentCard.getValue3(), 
 				currentCard.getValue4(), currentCard.getValue5());
 	}
@@ -84,29 +105,45 @@ public class GameController
 		for(int i = 0; i < playerList.size(); i++) 
 		{
 			Card currentCard = playerList.get(i).getCurrentCard(); //identifies current card
-			cp.addCard(currentCard); //adds current card to communal pile
-			playerList.get(i).removeFromHand(currentCard); //removes current card from each players hand
+			communalPile.addCard(currentCard); //adds current card to communal pile
+			playerList.get(i).removeCard(currentCard); //removes current card from each players hand
 		}
 		gameV.showDraw(null, null); //need to feed in the two players who drew
 	}
 	
-	private void computeWin() 
+	private void computeWin(int winner) 
 	{
-		gameV.showWinner(null, null, null);
+		playerList.get(winner).addCard(playerList.get(winner).getCurrentCard());
+		playerList.get(winner).removeCard(playerList.get(winner).getCurrentCard()); //this will move the current card to the back of the deck
+		
+		for(int i = 0; i < playerList.size(); i++) 
+		{
+			if(i == winner) 
+			{
+				
+			}
+			else 
+			{
+				playerList.get(winner).addCard(playerList.get(i).getCurrentCard()); //will add card to winners hand
+				playerList.get(i).removeCard(playerList.get(i).getCurrentCard()); //will remove card from losers hand
+			}
+		}
+		
+		while(communalPile.getNumberOfCards() > 0) 
+		{
+			playerList.get(winner).addCard(communalPile.getCurrentCard());
+			communalPile.removeCard(communalPile.getCurrentCard());
+		}
+				
+		gameV.showWinner("" + playerList.get(winner).getPlayerID());
 	}
 	
-	private PlayerHand assignFirstPlayer() 
+	private PileOfCards assignFirstPlayer() 
 	{
 		Random randomNumber = new Random();
 		int myNumber = randomNumber.nextInt(4) + 1;
-		PlayerHand firstChoice = playerList.get(myNumber);
+		firstChoice = playerList.get(myNumber);
 		return firstChoice;
 	}
 	
-	private int humanChoice(String userInput) 
-	{
-		
-		
-		return 1;
-	}
 }

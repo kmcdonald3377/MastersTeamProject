@@ -4,13 +4,14 @@ package commandline;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Round {
+public class Round 
+{
 
 	private ArrayList<PlayerHand> players;
 	private PlayerHand[] playerHand;
 	private Card[] playableCards;
 	private CommunalPile cPile;
-	private Deck deck;
+	private PileOfCards deck;
 	private Player currentPlayer; // index of player whose turn it is to play
 	private PlayerHand winner;
 
@@ -21,7 +22,8 @@ public class Round {
 	private final int ATTRIBUTES = 5;
 	private boolean draw;
 
-	public Round(ArrayList<PlayerHand> players, Player currentPlayer, CommunalPile cp, Deck deck, Player winner, int numCards) {
+	public Round(ArrayList<PlayerHand> players, Player currentPlayer, CommunalPile cp, PileOfCards deck, Player winner, int numCards) 
+	{
 
 		this.players = players;
 		numPlayers = this.players.size();

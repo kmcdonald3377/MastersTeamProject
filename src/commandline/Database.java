@@ -3,7 +3,7 @@ package commandline;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseConnection 
+public class Database 
 {
 
 	private Connection connection =null;
@@ -11,7 +11,7 @@ public class DatabaseConnection
 	/**
 	 * Constructor
 	 */
-	public DatabaseConnection() 
+	public Database() 
 	{
 		
 	}

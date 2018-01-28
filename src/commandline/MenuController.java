@@ -11,6 +11,7 @@ public class MenuController
 	private MenuView menuV;
 	private Scanner scanner;
 	private String name;
+	private PileOfCards starCitizenDeck;
 	
 	public MenuController() 
 	{
@@ -61,8 +62,8 @@ public class MenuController
 		{
 			String[] values = input.get(i).split(" +");
 			
-			Deck starCitizen = new Deck();
-			starCitizen.addCard(new Card(description[1], description[2], description[3], description[4], description[5], 
+			starCitizenDeck = new PileOfCards(0);
+			starCitizenDeck.addCard(new Card(description[1], description[2], description[3], description[4], description[5], 
 					values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), 
 					Integer.parseInt(values[4]), Integer.parseInt(values[5])));
 		}
@@ -72,8 +73,9 @@ public class MenuController
 	{
 		if(choice.equalsIgnoreCase("G")) 
 		{
-//			GameView gv = new GameView();
-//			gv.GameView();
+			Game newGame = new Game(starCitizenDeck);
+			GameController gameC = new GameController(starCitizenDeck);
+			
 		}
 		else if(choice.equalsIgnoreCase("S")) 
 		{

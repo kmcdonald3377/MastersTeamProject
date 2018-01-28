@@ -5,25 +5,27 @@ import java.util.ArrayList;
 public class Game 
 {
 	private int totalRounds, totalDraws, numberOfPlayers;
-	private DatabaseConnection database;
-	private ArrayList <PlayerHand> playerList;
-	private CommunalPile communal;
-	private Deck deck;
+	private Database database;
+	private ArrayList <PileOfCards> playerList;
+	private PileOfCards communalPile;
+	private PileOfCards deck;
 	
-	public Game() 
+	public Game(PileOfCards deck) 
 	{
-		database = new DatabaseConnection();
+		database = new Database();
+		communalPile = new PileOfCards(0);
+		this.deck = deck;
 		ArrayList <Integer> playerIDs = database.getPlayerId();
 		
+		deck.shuffle();
 		for(int i = 0; i < playerIDs.size(); i++) 
 		{
-			playerList.add(new PlayerHand(playerIDs.get(i))); //should create an array list of playerhands with each unique player id
+			playerList.add(new PileOfCards(playerIDs.get(i))); //should create an array list of playerhands with each unique player id
 		}
+		distributeDeck();
 		
 		numberOfPlayers = playerList.size();
-		communal = new CommunalPile();
-		deck = new Deck();
-		deck.shuffleDeck();
+		
 		
 	}
 	
@@ -69,9 +71,8 @@ public class Game
 			{
 				j = 0;
 			}
-			playerList.get(j).addToHand(newDeck.get(i));
+			playerList.get(j).addCard(newDeck.get(i));
 			j++;
 		}
-		
 	}
 }

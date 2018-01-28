@@ -56,10 +56,10 @@ public class GameView
 				+ "\nAI Player 4 has: " + ai4Value);
 	}
 	
-	public void showWinner(String player, String username, String cardName) 
+	public void showWinner(String player) 
 	{
 		System.out.println(player + " wins!");
-		System.out.println(username + " card " + cardName + " has been surrendered to " + player);
+		System.out.println("All cards has been surrendered to " + player);
 	}
 	
 	public void showDraw(String player, String player2) 
