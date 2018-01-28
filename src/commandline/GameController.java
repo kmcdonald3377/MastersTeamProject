@@ -1,72 +1,107 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController 
 {
 	private GameView gameV;
-	private CommunalPile cp;
+	private PileOfCards communalPile;
+	private Player firstChoice;
 	private Game currentGame;
-	private ArrayList <PlayerHand> playerList;
+	private ArrayList <Player> playerList;
 	
-	public GameController() 
+	public GameController(PileOfCards starCitizenDeck) 
 	{
 		gameV = new GameView(this);
-		cp = new CommunalPile();
-		currentGame = new Game();
+		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
+		currentGame = new Game(starCitizenDeck);
 		playerList = currentGame.getPlayerList();
 	}
 	
 	public void startGame() 
 	{
 		gameV.gameIntroduction();
+		setFirstChoice();
 	}
 	
 	public void runGame() 
-	{
-		while(isValid()) //will make loop for as long as player has cards or the other ai does
+	{		
+		while(isValid()) //will make loop for as long as player has cards or 
 		{
-			getCard();
-			//will need to have a method reference here which is responsible for randomly selecting a player in order to let
-			//them select the category they wish to use. Will need to save the player to pick and the category they pick
-			//if is human will need to allow them to select their own category and will need to make another method for this
-			if() 
+			Round2 currentRound = new Round2(playerList);
+			displayCard(currentRound); //displays card to user
+			
+			
+			
+//			ArrayList<Integer> categoryComparison;
+						
+			
+			if(firstChoice.getPlayerId() != 0) 
 			{
-				gameV.aiSelectCategory(null, null);
+				
+//				categoryComparison = currentRound.aiCategorySelection();
+				gameV.aiSelectCategory(""+firstChoice.getPlayerId(), null);
 				gameV.userInput(); //for enter command to try break up flow to console
 			}
 			else 
 			{
-				
+				gameV.userSelectCategory();
+				String category = gameV.userInput();
+//				categoryComparison = currentRound.humanCategorySelection(category);
 			}
 			
 			
-			//will need to get the stats of every players current card for the category selected
-			gameV.showStats(null, i, i, i, i, i);
-			//will need to add in a compare method here to allow for comparison of the different stats for the players
 			
-			
-			if() //if there is an outright winner
-			{
-				computeWin();
-			}
-			else //else if it is a draw then show draw message
-			{
-				computeDraw();
-			}	
+//			
+//			
+//			
+//			gameV.showStats("Test", categoryComparison.get(0), categoryComparison.get(1), 
+//					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
+//
+//			int winningScore = currentRound.findWinner(categoryComparison);
+//			int winner;
+//			
+//			for(int i = 0; i < playerList.size(); i++) 
+//			{
+//				//need to be able to get the player/pile of cards which has the winner score - may be one or multiple for draw
+//			}
+//				
+//			if(currentRound.isWinner(categoryComparison)) //if there is an outright winner
+//			{
+//				//computeWin();
+//				//increase round won for winner
+//			}
+//			else //else if it is a draw then show draw message
+//			{
+//				computeDraw();
+//				currentGame.increaseDraws();
+//				//increase rounds drawn for the players who drew
+//			}
+//			currentGame.increaseRounds();
+//			int id = firstChoice.getPlayerId();
+//			if(id == 5) 
+//			{
+//				id = 1;
+//			}
+//			else 
+//			{
+//				id++;
+//			}
+//			firstChoice = playerList.get(id);
 		}
 	}
 	
-	private void getCard() 
+	private void displayCard(Round2 current) 
 	{
-		Card currentCard = playerList.get(0).getCurrentCard();
-		gameV.showCard(currentCard.getName(), currentCard.getValue1(), currentCard.getValue2(), currentCard.getValue3(), 
-				currentCard.getValue4(), currentCard.getValue5());
+		Card currentCard = current.getCard(0); //0 as only currently showing the human players card
+		
+		gameV.showCard(currentCard);
 	}
 	
 	private boolean isValid() 
 	{
-		if(playerList.get(0).getNumberOfCards() == 0 || playerList.get(0).getNumberOfCards() == 40) 
+		if(playerList.get(0).getPlayerHand().getNumberOfCards() == 0 || playerList.get(0).getPlayerHand().getNumberOfCards() == 40) 
 		{
 			return false;
 		}
@@ -80,15 +115,46 @@ public class GameController
 	{
 		for(int i = 0; i < playerList.size(); i++) 
 		{
-			Card currentCard = playerList.get(i).getCurrentCard(); //identifies current card
-			cp.addCard(currentCard); //adds current card to communal pile
-			playerList.get(i).removeFromHand(currentCard); //removes current card from each players hand
+			Card currentCard = playerList.get(i).getPlayerHand().getCurrentCard(); //identifies current card
+			communalPile.addCard(currentCard); //adds current card to communal pile
+			playerList.get(i).getPlayerHand().removeCard(currentCard); //removes current card from each players hand
 		}
 		gameV.showDraw(null, null); //need to feed in the two players who drew
 	}
 	
-	private void computeWin() 
+	private void computeWin(int winner) 
 	{
-		gameV.showWinner(null, null, null);
+		playerList.get(winner).getPlayerHand().addCard(playerList.get(winner).getPlayerHand().getCurrentCard());
+		playerList.get(winner).getPlayerHand().removeCard(playerList.get(winner).getPlayerHand().getCurrentCard()); //this will move the current card to the back of the deck
+		
+		for(int i = 0; i < playerList.size(); i++) 
+		{
+			if(i == winner) 
+			{
+				
+			}
+			else 
+			{
+				playerList.get(winner).getPlayerHand().addCard(playerList.get(i).getPlayerHand().getCurrentCard()); //will add card to winners hand
+				playerList.get(i).getPlayerHand().removeCard(playerList.get(i).getPlayerHand().getCurrentCard()); //will remove card from losers hand
+			}
+		}
+		
+		while(communalPile.getNumberOfCards() > 0) 
+		{
+			playerList.get(winner).getPlayerHand().addCard(communalPile.getCurrentCard());
+			communalPile.removeCard(communalPile.getCurrentCard());
+		}
+				
+		gameV.showWinner("" + playerList.get(winner).getPlayerId());
 	}
+	
+	private void setFirstChoice() 
+	{
+		Random randomNumber = new Random();
+		int myNumber = randomNumber.nextInt(4);
+		
+		firstChoice = playerList.get(myNumber);
+	}
+	
 }

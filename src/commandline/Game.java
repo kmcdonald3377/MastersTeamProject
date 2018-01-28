@@ -5,20 +5,32 @@ import java.util.ArrayList;
 public class Game 
 {
 	private int totalRounds, totalDraws, numberOfPlayers;
-	private DatabaseConnection database;
-	private ArrayList <PlayerHand> playerList;
-	private CommunalPile communal;
+//	private Database database;
+	private ArrayList <Player> playerList;
+	private PileOfCards communalPile;
+	private PileOfCards deck;
 	
-	public Game() 
+	public Game(PileOfCards deck) 
 	{
-		database = new DatabaseConnection();
-		ArrayList <String> playerIDs = database.getPlayerId();
-		for(int i = 0; i < playerIDs.size(); i++) 
+		//database = new Database();
+		communalPile = new PileOfCards(null);
+		this.deck = deck;
+		//ArrayList <Integer> playerIDs = database.getPlayerId();
+		ArrayList <Integer> playerIDs = new ArrayList(); playerIDs.add(1); playerIDs.add(2); playerIDs.add(3); playerIDs.add(4); playerIDs.add(5);
+		playerList = new ArrayList<Player>();
+		this.deck.shuffle();
+		
+		for(Integer id : playerIDs) 
 		{
-			playerList.add(new PlayerHand(playerIDs.get(i))); //should create an array list of playerhands with each unique player id
+			Player player = new Player();
+			player.setPlayerId(id);
+			playerList.add(player); //should create an array list of playerhands with each unique player id
 		}
 		numberOfPlayers = playerList.size();
-		communal = new CommunalPile();
+		distributeDeck();
+		
+		
+		
 		
 	}
 	
@@ -47,8 +59,32 @@ public class Game
 		return totalDraws;
 	}
 	
-	public ArrayList getPlayerList() 
+	public ArrayList<Player> getPlayerList() 
 	{
 		return playerList;
+	}
+	
+	public void distributeDeck() 
+	{
+		ArrayList <Card> newDeck = deck.getDeck();
+		int size = newDeck.size();
+		size = size/numberOfPlayers; //want blah number of cards in each deck
+		
+//		for(Card card : deck.getDeck()) 
+//		{
+//			
+//		}
+		
+		int j = 0;
+		for (int i = 0; i < size; i ++)
+		{
+			if(j == 4) 
+			{
+				j = 0;
+			}
+			PileOfCards playerHand = playerList.get(j).getPlayerHand();
+			playerHand.addCard(newDeck.get(i));
+			j++;
+		}
 	}
 }
