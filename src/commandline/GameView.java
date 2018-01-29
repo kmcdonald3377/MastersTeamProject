@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class GameView 
 {
 	private GameController gameC;
+	private Scanner scanner;
 
 	public GameView(GameController gameC) 
 	{
 		this.gameC = gameC;
+		scanner = new Scanner(System.in);
 	}
 	
 	public void gameIntroduction() 
@@ -16,12 +18,18 @@ public class GameView
 		System.out.println("\nStar Citizen Deck has been shuffled and hands have been delt.\n");
 	}
 	
-	public void showCard(Card card) 
+	public void showCard(int humanCards, int ai1Cards, int ai2Cards, int ai3Cards, int ai4Cards, Card card) 
 	{
-		System.out.println("You have 8 cards.");
-		System.out.println("Here are the details of your first card:");
+		System.out.println("You have " + humanCards + " cards.");
+		System.out.println("AI Player 1 has " + ai1Cards + " cards.");
+		System.out.println("AI Player 2 has " + ai2Cards + " cards.");
+		System.out.println("AI Player 3 has " + ai3Cards + " cards.");
+		System.out.println("AI Player 4 has " + ai4Cards + " cards.");
+		System.out.println("\nHere are the details of your first card:");
 		System.out.println("---------------");
-		System.out.println("Description of card: " + card.getName() + "\n" + card.getAttribute1() + ": " + card.getValue1() + "\n" + card.getAttribute2() +": " + 
+		System.out.println("" + card.getName());
+		System.out.println("---------------");
+		System.out.println(card.getAttribute1() + ": " + card.getValue1() + "\n" + card.getAttribute2() +": " + 
 				card.getValue2() + "\n" + card.getAttribute3() +": " + card.getValue3() + "\n" + card.getAttribute4() + ": " 
 				+ card.getValue4() + "\n" + card.getAttribute5() + ": " + card.getValue5());
 		System.out.println("---------------");
@@ -41,15 +49,14 @@ public class GameView
 	
 	public String userInput() 
 	{
-		Scanner scanner = new Scanner(System.in);
 		String input = scanner.next();
-		scanner.close();
+		//scanner.close();
 		return input;
 	}
 	
 	public void showStats(String username, int hValue, int ai1Value, int ai2Value, int ai3Value, int ai4Value) 
 	{
-		System.out.println(username + " have: " + hValue
+		System.out.println(username + " has: " + hValue
 				+ "\nAI Player 1 has: " + ai1Value
 				+ "\nAI Player 2 has: " + ai2Value
 				+ "\nAI Player 3 has: " + ai3Value
@@ -64,7 +71,22 @@ public class GameView
 	
 	public void showDraw(String player, String player2) 
 	{
-		System.out.println(player + " and " + player2 + "have drawn!");
+		System.out.println(player + " and " + player2 + " have drawn!");
 		System.out.println("All players cards surrendered to communal pile.");
+	}
+	
+	public void removedPlayers(String player) 
+	{
+		System.out.println(player + " has run out of cards.");
+	}
+	
+	public void humanLoses() 
+	{
+		System.out.println("You have lost the game.");
+	}
+	
+	public void humanWon() 
+	{
+		System.out.println("Congratulations!\nYou have won the game!");
 	}
 }

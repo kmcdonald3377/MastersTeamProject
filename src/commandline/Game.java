@@ -68,15 +68,10 @@ public class Game
 	{
 		ArrayList <Card> newDeck = deck.getDeck();
 		int size = newDeck.size();
-		size = size/numberOfPlayers; //want blah number of cards in each deck
-		
-//		for(Card card : deck.getDeck()) 
-//		{
-//			
-//		}
+		size = size/numberOfPlayers; //want number of cards in each deck
 		
 		int j = 0;
-		for (int i = 0; i < size; i ++)
+		for (int i = 0; i < newDeck.size(); i ++)
 		{
 			if(j == 5) 
 			{

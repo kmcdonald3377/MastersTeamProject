@@ -55,9 +55,9 @@ public class Round2
 		
 	}
 	
-	public int findWinner(ArrayList categoryValues) 
+	public int findMaxScore(String category) 
 	{
-		ArrayList<Integer> valueComparison = categoryValues;
+		ArrayList<Integer> valueComparison = categoryValues(category);
 		int max = 0;
 		for(int i = 0; i < valueComparison.size(); i++) 
 		{
@@ -69,12 +69,12 @@ public class Round2
 		return max;
 	}
 	
-	public boolean isWinner(ArrayList categoryValues) 
+	public boolean isWinner(String category) 
 	{
-		ArrayList<Integer> valueComparison = categoryValues;
-		int max = findWinner(valueComparison);
+		ArrayList<Integer> valueComparison = categoryValues(category);
+		int max = findMaxScore(category);
 		int count = 0;
-		for(int i = 0; i < categoryValues.size(); i++) 
+		for(int i = 0; i < valueComparison.size(); i++) 
 		{
 			if(max == valueComparison.get(i)) 
 			{
@@ -90,10 +90,30 @@ public class Round2
 		return true;
 	}
 	
+	public ArrayList<Player> findWinner(String category) 
+	{
+		ArrayList<Player> winningPlayer = new ArrayList<Player>();
+		
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			HashMap<String, Integer> test = playerList.get(i).getPlayerHand().getCurrentCard().getAttributes();
+			
+			if(test.get(category) == findMaxScore(category)) 
+			{
+				winningPlayer.add(playerList.get(i));
+			}
+		}
+		
+		return winningPlayer;
+		
+	}
+	
 	public Card getCard(int playerID) //change playerid to position in arraylist
 	{
 		Player player = playerList.get(playerID);
 		Card currentCard = player.getPlayerHand().getCurrentCard();
 		return currentCard;
 	}
+	
+	
 }
