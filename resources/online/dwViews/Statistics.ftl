@@ -22,11 +22,23 @@
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
     	
-    	<div class="container">
-
-			<!-- Add your HTML Here -->
-		
-		</div>
+    <div class="container">
+	<h1>Top Trumps (Star Citizen Edition)</h1><br>
+	<p>Below you can view the statistics of past games.</p><br><br>
+	</div>
+	
+    <div class="container">
+		<h2>Number of games played overall: </h2><br>
+		<h2>Number of times player has won: </h2><br>
+		<h2>Number of times AI has won: </h2><br>
+		<h2>Average number of draws: </h2><br>
+		<h2>Largest number of rounds played in a single game: </h2><br><br>
+	</div>
+	
+	<div class="container">
+		<a href="C:\Users\robbi\Desktop\SelectionScreen.html"><h5>Click to return to main screen</h5></a>
+	</div>
+	
 		
 		<script type="text/javascript">
 		

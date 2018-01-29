@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 	<head>
@@ -22,11 +23,29 @@
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
     	
-    	<div class="container">
-
-			<!-- Add your HTML Here -->
+    <div class="container">
+		<h1>Top Trumps (Star Citizen Edition)</h1><br>
+	</div>
+	
+		<!-- gets number of players and human player name-->
+	<div class="container">
+		<h2>Please enter your name and the number of players</h2><br><br>
+		<form action="/action_page.php">
+		Player name:<br>
+		<input type="text" name="playername"><br><br>
+		Number of players (Max 5): 
+		<input type="number" name="numplayers" min ="1" max="5"><br><br>
+		<input type ="submit" value="Submit">
+		<input type="reset">
+		</form><br><br>
+	</div>
 		
-		</div>
+	<div class="container">
+		<h2>Game Area</h2><br>
+	
+	<div class="container">
+		<a href="C:\Users\robbi\Desktop\SelectionScreen.html"><h5>Click to return to main screen</h5></a>
+	</div>
 		
 		<script type="text/javascript">
 		
@@ -46,6 +65,30 @@
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
+			
+			var deck = function () {
+				
+				var initialDeck = []
+				var deckInPlay = []
+				var shuffleDeck = []
+				var communalPile []
+				var cardsInPlay []
+			
+			function Card (category, height, weight, length, ferocity, intelligence)	{
+				this.cardCategory = category;
+				this.cardHeight = height;
+				this.cardWeight = weight;
+				this.cardLength = length;
+				this.cardFerocity = ferocity;
+				this.cardIntelligence = intelligence; 
+			}
+				
+			function loadDeck = function () {
+				for (var i = 0; i < 41; i++)
+					initDeck[i] = new Card(category, height, weight, length, ferocity, intelligence)
+			}
+			
+			}
 		
 			// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url) {

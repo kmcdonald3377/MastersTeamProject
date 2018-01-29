@@ -21,12 +21,27 @@
 	</head>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
-    	
+    
+	<div class="container">
+	<h1>Welcome to Top Trumps (Star Citizen Edition)</h1><br>
+	<p>The objective of the game is to 'trump' your opponent by selecting a category<br>
+	(e.g. intelligence) and having a better value than your opponent. <br><br>
+	The winner of each round takes all the cards from that round and places them at the <br>
+	back of their deck, unless it is a draw. If a draw, the cards are placed in a communal pile.<br><br>
+	In the next round, the winner will take the cards from the communal pile and the round. <br>
+	The winner continues to choose the category until they lose. Players with no cards left lose,<br>
+	and the player left with all the cards is the winner of the game.</p>
+	</div>
     	<div class="container">
-
-			<!-- Add your HTML Here -->
-		
+			<!-- Links to load html for game/statistics view -->
+			<a href="C:\Users\robbi\Desktop\GameScreen.html"><h2>Play Game</h2></a><br>
+			<p>Click to play a game of Top Trumps.</a><br>
 		</div>
+		
+		<div class="container">
+			<a href="C:\Users\robbi\Desktop\Statistics.html"><h2>View Statistics</h2></a><br>
+			<p>Click to see past game statistics.</p><br>
+		</div>    
 		
 		<script type="text/javascript">
 		
