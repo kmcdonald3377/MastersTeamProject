@@ -8,12 +8,18 @@ import java.util.Random;
 
 public class Round2 
 {
-	private ArrayList<Player> playerList;
-	private ArrayList<Integer> valueComparison;
+	private ArrayList<Player> playerList, activePlayers;
+	private HashMap<Integer, Integer> valueComparison;
 	
 	public Round2(ArrayList<Player> playerList) 
 	{
 		this.playerList = playerList;
+		activePlayers = new ArrayList<Player>();
+	}
+	
+	public void setActivePlayers(ArrayList<Player> activePlayers) 
+	{
+		this.activePlayers = activePlayers;
 	}
 	
 	public String categorySelection() 
@@ -27,24 +33,24 @@ public class Round2
 		return categoryKey;
 	}
 	
-	public ArrayList<Integer> categoryValues(String category) 
+	public HashMap<Integer, Integer> categoryValues(String category) 
 	{
-		valueComparison = new ArrayList<Integer>();
+		valueComparison = new HashMap<Integer, Integer>();
 		
-		for(int i = 0; i < playerList.size(); i ++) 
+		for(int i = 0; i < activePlayers.size(); i ++) 
 		{
-			valueComparison.add(playerList.get(i).getPlayerHand().getCurrentCard().getAttributes().get(category));
+			valueComparison.put(activePlayers.get(i).getPlayerId(), activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes().get(category));
 		}
 		
 		return valueComparison;
 		
 	}
 	
-	public int findMaxScore(String category) 
+	public int findMaxScore(String category) //is failing in here
 	{
-		ArrayList<Integer> valueComparison = categoryValues(category);
+		HashMap<Integer, Integer> valueComparison = categoryValues(category);
 		int max = 0;
-		for(int i = 0; i < valueComparison.size(); i++) 
+		for(int i = 1; i <= valueComparison.size(); i++) 
 		{
 			if(valueComparison.get(i) > max) 
 			{
@@ -56,10 +62,10 @@ public class Round2
 	
 	public boolean isWinner(String category) 
 	{
-		ArrayList<Integer> valueComparison = categoryValues(category);
+		HashMap<Integer, Integer> valueComparison = categoryValues(category);
 		int max = findMaxScore(category);
 		int count = 0;
-		for(int i = 0; i < valueComparison.size(); i++) 
+		for(int i = 1; i <= valueComparison.size(); i++) 
 		{
 			if(max == valueComparison.get(i)) 
 			{
@@ -79,13 +85,13 @@ public class Round2
 	{
 		ArrayList<Player> winningPlayer = new ArrayList<Player>();
 		
-		for(int i = 0; i < playerList.size(); i ++) 
+		for(int i = 0; i < activePlayers.size(); i ++) 
 		{
-			HashMap<String, Integer> test = playerList.get(i).getPlayerHand().getCurrentCard().getAttributes();
+			HashMap<String, Integer> test = activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes();
 			
 			if(test.get(category) == findMaxScore(category)) 
 			{
-				winningPlayer.add(playerList.get(i));
+				winningPlayer.add(activePlayers.get(i));
 			}
 		}
 		
@@ -95,7 +101,7 @@ public class Round2
 	
 	public Card getCard(int playerID) //change playerid to position in arraylist
 	{
-		Player player = playerList.get(playerID);
+		Player player = activePlayers.get(playerID);
 		Card currentCard = null;
 		
 			currentCard = player.getPlayerHand().getCurrentCard();
