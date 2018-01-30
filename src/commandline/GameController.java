@@ -1,6 +1,7 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GameController 
@@ -11,7 +12,6 @@ public class GameController
 	private Player firstChoice;
 	private Game currentGame;
 	private ArrayList <Player> playerList;
-	private ArrayList <Player> activePlayers;
 
 	public GameController(PileOfCards starCitizenDeck, String username) 
 	{
@@ -20,11 +20,6 @@ public class GameController
 		currentGame = new Game(starCitizenDeck);
 		playerList = currentGame.getPlayerList();
 		this.username = username;
-		activePlayers = new ArrayList<Player>();
-		for(int i = 0; i < playerList.size(); i++) 
-		{
-			activePlayers.add(playerList.get(i));
-		}
 	}
 
 	public void startGame() 
@@ -60,9 +55,16 @@ public class GameController
 				category = gameV.userInput();
 				categoryComparison = currentRound.categoryValues(category);
 			}
-
-			gameV.showStats(username, categoryComparison.get(0), categoryComparison.get(1), 
-					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
+			
+			int humanValue = 0;
+			int ai1Value = 0;
+			int ai2Value = 0;
+			int ai3Value = 0;
+			int ai4Value = 0;
+			
+			
+			gameV.showStats(username, categoryComparison.get(0), categoryComparison.get(1), categoryComparison.get(2), 
+					categoryComparison.get(3), categoryComparison.get(4));
 
 			ArrayList<Player> winningPlayer = currentRound.findWinner(category);
 
@@ -87,7 +89,7 @@ public class GameController
 			
 			int id = firstChoice.getPlayerId();
 			
-			if(id == 5) 
+			if(id == playerList.size()) 
 			{
 				id = 1;
 			}
@@ -101,22 +103,23 @@ public class GameController
 			
 			for(int i = 0; i < playerList.size(); i ++) 
 			{
+				int j = 0;
 				if(playerList.get(i).getPlayerHand().getNumberOfCards() == 0) 
 				{
 					gameV.removedPlayers(getPlayerName(playerList.get(i).getPlayerId()));
-					activePlayers.remove(i);
+					playerList.remove(i);
 				}
 			}
 		}
 		
 		
-		if(activePlayers.get(0).getPlayerId() == 1) 
+		if(playerList.get(0).getPlayerId() == 1) 
 		{
 			gameV.humanWon();
 		}
 		else 
 		{
-			gameV.humanLoses();
+			gameV.humanLoses(getPlayerName(playerList.get(0).getPlayerId()));
 		}
 		
 	}
@@ -124,15 +127,71 @@ public class GameController
 	private void displayCard(Round2 current) 
 	{
 		Card currentCard = current.getCard(0); //0 as only currently showing the human players card
+		HashMap<Integer, Integer> playerHandSizes = new HashMap<Integer, Integer>();
+		int humanHand;
+		int ai1Hand;
+		int ai2Hand;
+		int ai3Hand;
+		int ai4Hand;
+		
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			playerHandSizes.put(playerList.get(i).getPlayerId(), playerList.get(i).getPlayerHand().getNumberOfCards());
+		}
+		
+		if(playerHandSizes.containsKey(1)) 
+		{
+			humanHand = playerHandSizes.get(1);
+		}
+		else 
+		{
+			humanHand = 0;
+		}
+		
+		if(playerHandSizes.containsKey(2)) 
+		{
+			ai1Hand = playerHandSizes.get(2);
+		}
+		else 
+		{
+			ai1Hand = 0;
+		}
+		
+		if(playerHandSizes.containsKey(3)) 
+		{
+			ai2Hand = playerHandSizes.get(3);
+		}
+		else 
+		{
+			ai2Hand = 0;
+		}
+		
+		if(playerHandSizes.containsKey(4)) 
+		{
+			ai3Hand = playerHandSizes.get(4);
+		}
+		else 
+		{
+			ai3Hand = 0;
+		}
+		
+		if(playerHandSizes.containsKey(5)) 
+		{
+			ai4Hand = playerHandSizes.get(1);
+		}
+		else 
+		{
+			ai4Hand = 0;
+		}
+		
+		
+		gameV.showCard(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand, currentCard);
 
-		gameV.showCard(playerList.get(0).getPlayerHand().getNumberOfCards(), playerList.get(1).getPlayerHand().getNumberOfCards(), 
-				playerList.get(2).getPlayerHand().getNumberOfCards(), playerList.get(3).getPlayerHand().getNumberOfCards(),
-				playerList.get(4).getPlayerHand().getNumberOfCards(), currentCard);
 	}
 
 	private boolean isValid() 
 	{
-		if(activePlayers.size() == 1) 
+		if(playerList.size() == 1) 
 		{
 			return false;
 		}

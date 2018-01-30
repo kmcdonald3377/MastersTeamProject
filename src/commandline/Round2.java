@@ -29,27 +29,12 @@ public class Round2
 	
 	public ArrayList<Integer> categoryValues(String category) 
 	{
-		Card humanPlayerCard = getCard(0);
-		HashMap<String, Integer> humanAttributes = humanPlayerCard.getAttributes();
-		
-		Card ai1Card = getCard(1);
-		HashMap<String, Integer> ai1Attributes = ai1Card.getAttributes();
-		
-		Card ai2Card = getCard(2);
-		HashMap<String, Integer> ai2Attributes = ai2Card.getAttributes();
-		
-		Card ai3Card = getCard(3);
-		HashMap<String, Integer> ai3Attributes = ai3Card.getAttributes();
-		
-		Card ai4Card = getCard(4);
-		HashMap<String, Integer> ai4Attributes = ai4Card.getAttributes();
-		
 		valueComparison = new ArrayList<Integer>();
-		valueComparison.add(humanAttributes.get(category));
-		valueComparison.add(ai1Attributes.get(category));
-		valueComparison.add(ai2Attributes.get(category));
-		valueComparison.add(ai3Attributes.get(category));
-		valueComparison.add(ai4Attributes.get(category));
+		
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			valueComparison.add(playerList.get(i).getPlayerHand().getCurrentCard().getAttributes().get(category));
+		}
 		
 		return valueComparison;
 		
@@ -111,7 +96,10 @@ public class Round2
 	public Card getCard(int playerID) //change playerid to position in arraylist
 	{
 		Player player = playerList.get(playerID);
-		Card currentCard = player.getPlayerHand().getCurrentCard();
+		Card currentCard = null;
+		
+			currentCard = player.getPlayerHand().getCurrentCard();
+		
 		return currentCard;
 	}
 	

@@ -20,9 +20,9 @@ public class GameView
 	
 	public void showCard(int humanCards, int ai1Cards, int ai2Cards, int ai3Cards, int ai4Cards, Card card) 
 	{
-		System.out.println("You have " + humanCards + " cards.");
+		System.out.println("\nYou have " + humanCards + " cards.");
 		System.out.println("AI Player 1 has " + ai1Cards + " cards.");
-		System.out.println("AI Player 2 has " + ai2Cards + " cards.");
+		System.out.println("AI Player 2 has " + ai2Cards + " cards."); 
 		System.out.println("AI Player 3 has " + ai3Cards + " cards.");
 		System.out.println("AI Player 4 has " + ai4Cards + " cards.");
 		System.out.println("\nHere are the details of your first card:");
@@ -32,7 +32,7 @@ public class GameView
 		System.out.println(card.getAttribute1() + ": " + card.getValue1() + "\n" + card.getAttribute2() +": " + 
 				card.getValue2() + "\n" + card.getAttribute3() +": " + card.getValue3() + "\n" + card.getAttribute4() + ": " 
 				+ card.getValue4() + "\n" + card.getAttribute5() + ": " + card.getValue5());
-		System.out.println("---------------");
+		System.out.println("---------------\n");
 	}
 	
 	public void aiSelectCategory(String player, String category) 
@@ -56,7 +56,7 @@ public class GameView
 	
 	public void showStats(String username, int hValue, int ai1Value, int ai2Value, int ai3Value, int ai4Value) 
 	{
-		System.out.println(username + " has: " + hValue
+		System.out.println("\n" + username + " has: " + hValue
 				+ "\nAI Player 1 has: " + ai1Value
 				+ "\nAI Player 2 has: " + ai2Value
 				+ "\nAI Player 3 has: " + ai3Value
@@ -65,28 +65,29 @@ public class GameView
 	
 	public void showWinner(String player) 
 	{
-		System.out.println(player + " wins!");
+		System.out.println("\n" + player + " wins!");
 		System.out.println("All cards has been surrendered to " + player);
 	}
 	
 	public void showDraw(String player, String player2) 
 	{
-		System.out.println(player + " and " + player2 + " have drawn!");
+		System.out.println("\n" + player + " and " + player2 + " have drawn!");
 		System.out.println("All players cards surrendered to communal pile.");
 	}
 	
 	public void removedPlayers(String player) 
 	{
-		System.out.println(player + " has run out of cards.");
+		System.out.println("\n" + player + " has run out of cards.");
 	}
 	
-	public void humanLoses() 
+	public void humanLoses(String winner) 
 	{
-		System.out.println("You have lost the game.");
+		System.out.println("\nYou have lost the game.");
+		System.out.println(winner + "has won the game!");
 	}
 	
 	public void humanWon() 
 	{
-		System.out.println("Congratulations!\nYou have won the game!");
+		System.out.println("\nCongratulations!\nYou have won the game!");
 	}
 }
