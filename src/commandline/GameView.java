@@ -92,11 +92,16 @@ public class GameView
 	public void humanLoses(String winner) 
 	{
 		System.out.println("\nYou have lost the game.");
-		System.out.println(winner + "has won the game!");
+		System.out.println(winner + " has won the game!");
 	}
 	
 	public void humanWon() 
 	{
 		System.out.println("\nCongratulations!\nYou have won the game!");
+	}
+	
+	public void errorMessage() 
+	{
+		System.out.println("Error! Please enter one of the above categories:");
 	}
 }
