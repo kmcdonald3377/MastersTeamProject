@@ -8,90 +8,67 @@ import java.util.Random;
 
 public class Round2 
 {
-	private ArrayList<Player> playerList;
-	private ArrayList<Integer> valueComparison;
+	private ArrayList<Player> playerList, activePlayers;
+	private HashMap<Integer, Integer> valueComparison;
 	
 	public Round2(ArrayList<Player> playerList) 
 	{
 		this.playerList = playerList;
+		activePlayers = new ArrayList<Player>();
 	}
 	
-	public ArrayList aiCategorySelection() 
+	public void setActivePlayers(ArrayList<Player> activePlayers) 
+	{
+		this.activePlayers = activePlayers;
+	}
+	
+	public String categorySelection() 
 	{
 		Random randomNumber = new Random();
 		int category = randomNumber.nextInt(5);
 		
 		Card humanPlayerCard = getCard(0);
-		Card ai1Card = getCard(1);
-		Card ai2Card = getCard(2);
-		Card ai3Card = getCard(3);
-		Card ai4Card = getCard(4);
-		
-		valueComparison = new ArrayList();
-		valueComparison.add(humanPlayerCard.getValueAtIndex(category));
-		valueComparison.add(ai1Card.getValueAtIndex(category));
-		valueComparison.add(ai2Card.getValueAtIndex(category));
-		valueComparison.add(ai3Card.getValueAtIndex(category));
-		valueComparison.add(ai4Card.getValueAtIndex(category));
-		
-		return valueComparison;
-	}	
+				
+		String categoryKey = humanPlayerCard.getAttributeAtIndex(category);
+		return categoryKey;
+	}
 	
-	public ArrayList humanCategorySelection(String category) 
+	public HashMap<Integer, Integer> categoryValues(String category) 
 	{
-		Card humanPlayerCard = getCard(0);
-//		HashMap<String, Integer> humanAttributes = humanPlayerCard.getAttributes();
-//		humanAttributes.get(category);
-//		
-//		Card ai1Card = getCard(1);
-//		HashMap<String, Integer> ai1Attributes = ai1Card.getAttributes();
-//		ai1Attributes.get(category);
-//		
-//		Card ai2Card = getCard(2);
-//		HashMap<String, Integer> ai2Attributes = ai1Card.getAttributes();
-//		ai2Attributes.get(category);
-//		
-//		Card ai3Card = getCard(3);
-//		HashMap<String, Integer> ai3Attributes = ai1Card.getAttributes();
-//		ai3Attributes.get(category);
-//		
-//		Card ai4Card = getCard(4);
-//		HashMap<String, Integer> ai4Attributes = ai1Card.getAttributes();
-//		ai4Attributes.get(category);
-//		
-//		
-//		
-//		valueComparison = new ArrayList();
-//		valueComparison.add();
-//		valueComparison.add();
-//		valueComparison.add();
-//		valueComparison.add();
-//		valueComparison.add();
+		valueComparison = new HashMap<Integer, Integer>();
+		
+		for(int i = 0; i < activePlayers.size(); i ++) 
+		{
+			valueComparison.put(activePlayers.get(i).getPlayerId(), activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes().get(category));
+		}
 		
 		return valueComparison;
 		
 	}
 	
-	public int findWinner(ArrayList categoryValues) 
+	public int findMaxScore(String category) //is failing in here
 	{
-		ArrayList<Integer> valueComparison = categoryValues;
+		HashMap<Integer, Integer> valueComparison = categoryValues(category);
 		int max = 0;
-		for(int i = 0; i < valueComparison.size(); i++) 
+		
+		for(int i : valueComparison.keySet()) 
 		{
 			if(valueComparison.get(i) > max) 
 			{
 				max = valueComparison.get(i);
 			}
 		}
+		
 		return max;
 	}
 	
-	public boolean isWinner(ArrayList categoryValues) 
+	public boolean isWinner(String category) 
 	{
-		ArrayList<Integer> valueComparison = categoryValues;
-		int max = findWinner(valueComparison);
+		HashMap<Integer, Integer> valueComparison = categoryValues(category);
+		int max = findMaxScore(category);
 		int count = 0;
-		for(int i = 0; i < categoryValues.size(); i++) 
+		
+		for(int i : valueComparison.keySet()) 
 		{
 			if(max == valueComparison.get(i)) 
 			{
@@ -107,10 +84,33 @@ public class Round2
 		return true;
 	}
 	
+	public ArrayList<Player> findWinner(String category) 
+	{
+		ArrayList<Player> winningPlayer = new ArrayList<Player>();
+		
+		for(int i = 0; i < activePlayers.size(); i ++) 
+		{
+			HashMap<String, Integer> test = activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes();
+			
+			if(test.get(category) == findMaxScore(category)) 
+			{
+				winningPlayer.add(activePlayers.get(i));
+			}
+		}
+		
+		return winningPlayer;
+		
+	}
+	
 	public Card getCard(int playerID) //change playerid to position in arraylist
 	{
-		Player player = playerList.get(playerID);
-		Card currentCard = player.getPlayerHand().getCurrentCard();
+		Player player = activePlayers.get(playerID);
+		Card currentCard = null;
+		
+			currentCard = player.getPlayerHand().getCurrentCard();
+		
 		return currentCard;
 	}
+	
+	
 }

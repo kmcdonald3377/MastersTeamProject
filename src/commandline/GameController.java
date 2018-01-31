@@ -1,107 +1,309 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GameController 
 {
+	private final String username;
 	private GameView gameV;
 	private PileOfCards communalPile;
 	private Player firstChoice;
 	private Game currentGame;
-	private ArrayList <Player> playerList;
-	
-	public GameController(PileOfCards starCitizenDeck) 
+	private ArrayList <Player> playerList, activePlayers;
+
+	public GameController(PileOfCards starCitizenDeck, String username) 
 	{
 		gameV = new GameView(this);
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		currentGame = new Game(starCitizenDeck);
 		playerList = currentGame.getPlayerList();
+		activePlayers = new ArrayList<Player>();
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			activePlayers.add(playerList.get(i));
+		}
+		this.username = username;
 	}
-	
+
 	public void startGame() 
 	{
 		gameV.gameIntroduction();
 		setFirstChoice();
+		runGame();
 	}
-	
+
 	public void runGame() 
 	{		
 		while(isValid()) //will make loop for as long as player has cards or 
 		{
 			Round2 currentRound = new Round2(playerList);
-			displayCard(currentRound); //displays card to user
-			
-			
-			
-//			ArrayList<Integer> categoryComparison;
-						
-			
-			if(firstChoice.getPlayerId() != 0) 
+			currentRound.setActivePlayers(activePlayers);
+			displayCard(currentRound); //displays current card to user
+
+			HashMap<Integer, Integer> categoryComparison = new HashMap<Integer, Integer>();
+			String category = "";
+
+			if(firstChoice.getPlayerId() != 1) 
 			{
+				category = currentRound.categorySelection();
+
+				categoryComparison = currentRound.categoryValues(category);
 				
-//				categoryComparison = currentRound.aiCategorySelection();
-				gameV.aiSelectCategory(""+firstChoice.getPlayerId(), null);
-				gameV.userInput(); //for enter command to try break up flow to console
+				if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+				{
+					gameV.aiSelectCategory(getPlayerName(firstChoice.getPlayerId()), category);
+					gameV.userInput();
+				}
+
+
+				
 			}
-			else 
+			else if(firstChoice.getPlayerId() == 1)
 			{
 				gameV.userSelectCategory();
-				String category = gameV.userInput();
-//				categoryComparison = currentRound.humanCategorySelection(category);
+				category = gameV.userInput();
+
+				while(!category.equalsIgnoreCase("Size") && !category.equalsIgnoreCase("Speed") && !category.equalsIgnoreCase("Range") 
+						&& !category.equalsIgnoreCase("Firepower") && !category.equalsIgnoreCase("Cargo")) 
+				{
+					gameV.errorMessage();
+					category = gameV.userInput();
+				}
+
+				if(category.equalsIgnoreCase("Size")) 
+				{
+					category = "Size";
+				}
+				if(category.equalsIgnoreCase("Speed")) 
+				{
+					category = "Speed";
+				}
+				if(category.equalsIgnoreCase("Range")) 
+				{
+					category = "Range";
+				}
+				if(category.equalsIgnoreCase("Firepower")) 
+				{
+					category = "Firepower";
+				}
+				if(category.equalsIgnoreCase("Cargo")) 
+				{
+					category = "Cargo";
+				}
+				categoryComparison = currentRound.categoryValues(category);
+			}		
+
+			int humanHand = 0;
+			int ai1Hand = 0;
+			int ai2Hand = 0;
+			int ai3Hand = 0;
+			int ai4Hand = 0;
+
+			if(categoryComparison.containsKey(1)) 
+			{
+				humanHand = categoryComparison.get(1);
 			}
-			
-			
-			
-//			
-//			
-//			
-//			gameV.showStats("Test", categoryComparison.get(0), categoryComparison.get(1), 
-//					categoryComparison.get(2), categoryComparison.get(3), categoryComparison.get(4));
-//
-//			int winningScore = currentRound.findWinner(categoryComparison);
-//			int winner;
-//			
-//			for(int i = 0; i < playerList.size(); i++) 
-//			{
-//				//need to be able to get the player/pile of cards which has the winner score - may be one or multiple for draw
-//			}
-//				
-//			if(currentRound.isWinner(categoryComparison)) //if there is an outright winner
-//			{
-//				//computeWin();
-//				//increase round won for winner
-//			}
-//			else //else if it is a draw then show draw message
-//			{
-//				computeDraw();
-//				currentGame.increaseDraws();
-//				//increase rounds drawn for the players who drew
-//			}
-//			currentGame.increaseRounds();
-//			int id = firstChoice.getPlayerId();
-//			if(id == 5) 
-//			{
-//				id = 1;
-//			}
-//			else 
-//			{
-//				id++;
-//			}
-//			firstChoice = playerList.get(id);
+
+			if(categoryComparison.containsKey(2)) 
+			{
+				ai1Hand = categoryComparison.get(2);
+			}
+
+			if(categoryComparison.containsKey(3)) 
+			{
+				ai2Hand = categoryComparison.get(3);
+			}
+
+			if(categoryComparison.containsKey(4)) 
+			{
+				ai3Hand = categoryComparison.get(4);
+			}
+
+			if(categoryComparison.containsKey(5)) 
+			{
+				ai4Hand = categoryComparison.get(5);
+			}
+
+			gameV.showStats(username, humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);			
+
+			ArrayList<Player> winningPlayer = currentRound.findWinner(category);
+
+			if(currentRound.isWinner(category)) //if there is an outright winner
+			{
+				computeWin(winningPlayer);
+				winningPlayer.get(0).increaseRoundsWon();
+			}
+			else //else if it is a draw then show draw message
+			{
+				computeDraw(winningPlayer);
+				currentGame.increaseDraws();
+
+				for(int i = 0; i < winningPlayer.size(); i++) 
+				{
+					winningPlayer.get(i).increaseRoundsDrawn();
+				}
+				currentGame.increaseDraws();
+			}
+
+			currentGame.increaseRounds();
+
+
+			for(int i = 0; i < playerList.size(); i ++) 
+			{
+				if(playerList.get(i).getPlayerHand().getNumberOfCards() == 0) 
+				{
+					gameV.removedPlayers(getPlayerName(playerList.get(i).getPlayerId()));
+					for(int j = 0; j < activePlayers.size(); j ++) 
+					{
+						int playerid = playerList.get(i).getPlayerId();
+						if (activePlayers.get(j).getPlayerId() == playerid) 
+						{
+							activePlayers.remove(j);
+						}
+					}
+				}
+			}
+
+			int id = firstChoice.getPlayerId();
+			int max = 1;
+			int min = 1;
+
+			for(int i = 0; i < activePlayers.size(); i++) 
+			{
+				if(activePlayers.get(i).getPlayerId() > max) 
+				{
+					max = activePlayers.get(i).getPlayerId();
+				}
+
+				if(activePlayers.get(i).getPlayerId() < min) 
+				{
+					min = activePlayers.get(i).getPlayerId();
+				}
+			}
+
+			int index = 0;
+			boolean test = false;
+
+
+			while(!test) 
+			{
+				if(id == max) 
+				{
+					id = min;
+					index = 0;
+					test = true;
+				}
+				else 
+				{
+					id++;
+					for(int i = 0; i < activePlayers.size(); i++) 
+					{
+						if(activePlayers.get(i).getPlayerId() == id) 
+						{
+							index = i;
+							test = true;
+						}
+
+					}
+				}
+			}
+
+
+
+			firstChoice = activePlayers.get(index);
+
 		}
+
+
+		if(activePlayers.get(0).getPlayerId() == 1) 
+		{
+			gameV.humanWon();
+		}
+		else 
+		{
+			gameV.humanLoses(getPlayerName(activePlayers.get(0).getPlayerId()));
+		}
+
 	}
-	
+
 	private void displayCard(Round2 current) 
 	{
 		Card currentCard = current.getCard(0); //0 as only currently showing the human players card
-		
-		gameV.showCard(currentCard);
+		HashMap<Integer, Integer> playerHandSizes = new HashMap<Integer, Integer>();
+		int humanHand;
+		int ai1Hand;
+		int ai2Hand;
+		int ai3Hand;
+		int ai4Hand;
+
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			playerHandSizes.put(playerList.get(i).getPlayerId(), playerList.get(i).getPlayerHand().getNumberOfCards());
+		}
+
+		if(playerHandSizes.containsKey(1)) 
+		{
+			humanHand = playerHandSizes.get(1);
+		}
+		else 
+		{
+			humanHand = 0;
+		}
+
+		if(playerHandSizes.containsKey(2)) 
+		{
+			ai1Hand = playerHandSizes.get(2);
+		}
+		else 
+		{
+			ai1Hand = 0;
+		}
+
+		if(playerHandSizes.containsKey(3)) 
+		{
+			ai2Hand = playerHandSizes.get(3);
+		}
+		else 
+		{
+			ai2Hand = 0;
+		}
+
+		if(playerHandSizes.containsKey(4)) 
+		{
+			ai3Hand = playerHandSizes.get(4);
+		}
+		else 
+		{
+			ai3Hand = 0;
+		}
+
+		if(playerHandSizes.containsKey(5)) 
+		{
+			ai4Hand = playerHandSizes.get(5);
+		}
+		else 
+		{
+			ai4Hand = 0;
+		}
+
+		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+		{
+			gameV.showCard(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand, currentCard);
+		}
+		else 
+		{
+			gameV.showCardNumbers(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);
+		}
+
+
+
 	}
-	
+
 	private boolean isValid() 
 	{
-		if(playerList.get(0).getPlayerHand().getNumberOfCards() == 0 || playerList.get(0).getPlayerHand().getNumberOfCards() == 40) 
+		if(activePlayers.size() == 1) 
 		{
 			return false;
 		}
@@ -110,51 +312,91 @@ public class GameController
 			return true;
 		}
 	}
-	
-	private void computeDraw() 
+
+	public void computeDraw(ArrayList<Player> winners) 
 	{
-		for(int i = 0; i < playerList.size(); i++) 
+		for(Player player : activePlayers) 
 		{
-			Card currentCard = playerList.get(i).getPlayerHand().getCurrentCard(); //identifies current card
+			Card currentCard = player.getPlayerHand().getCurrentCard(); //identifies current card
+			int playerid = player.getPlayerId();
 			communalPile.addCard(currentCard); //adds current card to communal pile
-			playerList.get(i).getPlayerHand().removeCard(currentCard); //removes current card from each players hand
-		}
-		gameV.showDraw(null, null); //need to feed in the two players who drew
-	}
-	
-	private void computeWin(int winner) 
-	{
-		playerList.get(winner).getPlayerHand().addCard(playerList.get(winner).getPlayerHand().getCurrentCard());
-		playerList.get(winner).getPlayerHand().removeCard(playerList.get(winner).getPlayerHand().getCurrentCard()); //this will move the current card to the back of the deck
-		
-		for(int i = 0; i < playerList.size(); i++) 
-		{
-			if(i == winner) 
+			for(int i = 0; i < playerList.size(); i ++) 
 			{
-				
+				if(playerList.get(i).getPlayerId() == playerid) 
+				{
+					playerList.get(i).getPlayerHand().removeCard(currentCard); //removes current card from each players hand
+				}
+			}
+		}
+		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+		{
+			gameV.showDraw(getPlayerName(winners.get(0).getPlayerId()), getPlayerName(winners.get(1).getPlayerId())); //need to feed in the two players who drew
+		}
+	}
+
+	public void computeWin(ArrayList<Player> winner) 
+	{
+		winner.get(0).getPlayerHand().addCard(winner.get(0).getPlayerHand().getCurrentCard());
+		winner.get(0).getPlayerHand().removeCard(winner.get(0).getPlayerHand().getCurrentCard()); //this will move the current card to the back of the deck
+
+		for(Player player : activePlayers) 
+		{
+			if(player == winner.get(0)) 
+			{
+
 			}
 			else 
 			{
-				playerList.get(winner).getPlayerHand().addCard(playerList.get(i).getPlayerHand().getCurrentCard()); //will add card to winners hand
-				playerList.get(i).getPlayerHand().removeCard(playerList.get(i).getPlayerHand().getCurrentCard()); //will remove card from losers hand
+				winner.get(0).getPlayerHand().addCard(player.getPlayerHand().getCurrentCard()); //will add card to winners hand
+				player.getPlayerHand().removeCard(player.getPlayerHand().getCurrentCard()); //will remove card from losers hand
 			}
 		}
-		
+
 		while(communalPile.getNumberOfCards() > 0) 
 		{
-			playerList.get(winner).getPlayerHand().addCard(communalPile.getCurrentCard());
+			winner.get(0).getPlayerHand().addCard(communalPile.getCurrentCard());
 			communalPile.removeCard(communalPile.getCurrentCard());
 		}
-				
-		gameV.showWinner("" + playerList.get(winner).getPlayerId());
+
+		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+		{
+		gameV.showWinner(getPlayerName(winner.get(0).getPlayerId()));
+		}
 	}
-	
+
 	private void setFirstChoice() 
 	{
 		Random randomNumber = new Random();
-		int myNumber = randomNumber.nextInt(4);
-		
-		firstChoice = playerList.get(myNumber);
+		int myNumber = randomNumber.nextInt(5);
+
+		firstChoice = activePlayers.get(myNumber);
 	}
-	
+
+	private String getPlayerName(int playerID) 
+	{
+		String playerName = "";
+		if(playerID == 1) 
+		{
+			playerName = username;
+		}
+		else if(playerID == 2) 
+		{
+			playerName = "AI Player 1";
+		}
+		else if(playerID == 3) 
+		{
+			playerName = "AI Player 2";
+		}
+		else if(playerID == 4) 
+		{
+			playerName = "AI Player 3";
+		}
+		else if(playerID == 5) 
+		{
+			playerName = "AI Player 4";
+		}
+
+		return playerName;
+	}
+
 }

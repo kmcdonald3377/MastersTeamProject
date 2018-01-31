@@ -28,7 +28,7 @@ public class MenuController
 		return choice;
 	}
 
-	public String GetName()
+	public String getName()
 	{
 		return name; 
 	}
@@ -86,9 +86,8 @@ public class MenuController
 	{
 		if(choice.equalsIgnoreCase("G")) 
 		{
-			GameController gameC = new GameController(starCitizenDeck);
+			GameController gameC = new GameController(starCitizenDeck, name);
 			gameC.startGame();
-			gameC.runGame();
 		}
 		else if(choice.equalsIgnoreCase("S")) 
 		{
