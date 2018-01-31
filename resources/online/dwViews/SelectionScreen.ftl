@@ -109,8 +109,9 @@
 			// --------------------------------------------------------------------------
 
 			// For example, lets call our sample methods
-			helloJSONList();
-			helloWord("Student");
+			//helloJSONList();
+			//helloWord("Student");
+			CardList();
 
 		}
 
@@ -147,7 +148,7 @@
 	<!-- Here are examples of how to call REST API Methods -->
 	<script type="text/javascript">
 		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-		function helloJSONList() {
+		function CardList() {
 
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/CardList"); // Request type and URL
