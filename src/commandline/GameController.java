@@ -134,19 +134,52 @@ public class GameController
 			}
 			
 			int id = firstChoice.getPlayerId();
+			int max = 1;
+			int min = 1;
 			
-			if(id == activePlayers.size()) 
+			for(int i = 0; i < activePlayers.size(); i++) 
 			{
-				id = 1;
+				if(activePlayers.get(i).getPlayerId() > max) 
+				{
+					max = activePlayers.get(i).getPlayerId();
+				}
+				
+				if(activePlayers.get(i).getPlayerId() < min) 
+				{
+					min = activePlayers.get(i).getPlayerId();
+				}
 			}
-			else 
+			
+			int index = 0;
+			boolean test = false;
+			
+
+			while(!test) 
 			{
-				id++;
+				if(id == max) 
+				{
+					id = min;
+					index = 0;
+					test = true;
+				}
+				else 
+				{
+					id++;
+					for(int i = 0; i < activePlayers.size(); i++) 
+					{
+						if(activePlayers.get(i).getPlayerId() == id) 
+						{
+							index = i;
+							test = true;
+						}
+						
+					}
+				}
 			}
+
 			
 			
-			firstChoice = activePlayers.get(id-1);
-			
+			firstChoice = activePlayers.get(index);
 			
 		}
 		
@@ -222,8 +255,16 @@ public class GameController
 			ai4Hand = 0;
 		}
 		
+		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+		{
+			gameV.showCard(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand, currentCard);
+		}
+		else 
+		{
+			gameV.showCardNumbers(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);
+		}
 		
-		gameV.showCard(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand, currentCard);
+		
 
 	}
 
@@ -290,7 +331,7 @@ public class GameController
 		String playerName = "";
 		if(playerID == 1) 
 		{
-			playerName = "Bob";
+			playerName = username;
 		}
 		else if(playerID == 2) 
 		{

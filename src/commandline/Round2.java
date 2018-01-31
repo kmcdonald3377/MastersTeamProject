@@ -50,13 +50,15 @@ public class Round2
 	{
 		HashMap<Integer, Integer> valueComparison = categoryValues(category);
 		int max = 0;
-		for(int i = 1; i <= valueComparison.size(); i++) 
+		
+		for(int i : valueComparison.keySet()) 
 		{
 			if(valueComparison.get(i) > max) 
 			{
 				max = valueComparison.get(i);
 			}
 		}
+		
 		return max;
 	}
 	
@@ -65,7 +67,8 @@ public class Round2
 		HashMap<Integer, Integer> valueComparison = categoryValues(category);
 		int max = findMaxScore(category);
 		int count = 0;
-		for(int i = 1; i <= valueComparison.size(); i++) 
+		
+		for(int i : valueComparison.keySet()) 
 		{
 			if(max == valueComparison.get(i)) 
 			{

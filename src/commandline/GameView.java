@@ -35,6 +35,15 @@ public class GameView
 		System.out.println("---------------\n");
 	}
 	
+	public void showCardNumbers(int humanCards, int ai1Cards, int ai2Cards, int ai3Cards, int ai4Cards) 
+	{
+		System.out.println("\nYou have " + humanCards + " cards.");
+		System.out.println("AI Player 1 has " + ai1Cards + " cards.");
+		System.out.println("AI Player 2 has " + ai2Cards + " cards."); 
+		System.out.println("AI Player 3 has " + ai3Cards + " cards.");
+		System.out.println("AI Player 4 has " + ai4Cards + " cards.");
+	}
+	
 	public void aiSelectCategory(String player, String category) 
 	{
 		System.out.println(player + " is first to call.\n" + player + " has selected the category " + category);
