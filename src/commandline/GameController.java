@@ -56,9 +56,6 @@ public class GameController
 					gameV.aiSelectCategory(getPlayerName(firstChoice.getPlayerId()), category);
 					gameV.userInput();
 				}
-
-
-				
 			}
 			else if(firstChoice.getPlayerId() == 1)
 			{
@@ -126,7 +123,10 @@ public class GameController
 				ai4Hand = categoryComparison.get(5);
 			}
 
-			gameV.showStats(username, humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);			
+			if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+			{
+				gameV.showStats(username, humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);			
+			}
 
 			ArrayList<Player> winningPlayer = currentRound.findWinner(category);
 
@@ -134,6 +134,15 @@ public class GameController
 			{
 				computeWin(winningPlayer);
 				winningPlayer.get(0).increaseRoundsWon();
+				winningPlayer.get(0).getPlayerId();
+				
+				for(int i = 0; i < activePlayers.size(); i++) 
+				{
+					if(activePlayers.get(i).getPlayerId() == winningPlayer.get(0).getPlayerId()) 
+					{
+						firstChoice = activePlayers.get(i);
+					}
+				}
 			}
 			else //else if it is a draw then show draw message
 			{
@@ -154,7 +163,10 @@ public class GameController
 			{
 				if(playerList.get(i).getPlayerHand().getNumberOfCards() == 0) 
 				{
-					gameV.removedPlayers(getPlayerName(playerList.get(i).getPlayerId()));
+					if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
+					{
+						gameV.removedPlayers(getPlayerName(playerList.get(i).getPlayerId()));
+					}
 					for(int j = 0; j < activePlayers.size(); j ++) 
 					{
 						int playerid = playerList.get(i).getPlayerId();
@@ -165,55 +177,7 @@ public class GameController
 					}
 				}
 			}
-
-			int id = firstChoice.getPlayerId();
-			int max = 1;
-			int min = 1;
-
-			for(int i = 0; i < activePlayers.size(); i++) 
-			{
-				if(activePlayers.get(i).getPlayerId() > max) 
-				{
-					max = activePlayers.get(i).getPlayerId();
-				}
-
-				if(activePlayers.get(i).getPlayerId() < min) 
-				{
-					min = activePlayers.get(i).getPlayerId();
-				}
-			}
-
-			int index = 0;
-			boolean test = false;
-
-
-			while(!test) 
-			{
-				if(id == max) 
-				{
-					id = min;
-					index = 0;
-					test = true;
-				}
-				else 
-				{
-					id++;
-					for(int i = 0; i < activePlayers.size(); i++) 
-					{
-						if(activePlayers.get(i).getPlayerId() == id) 
-						{
-							index = i;
-							test = true;
-						}
-
-					}
-				}
-			}
-
-
-
-			firstChoice = activePlayers.get(index);
-
+			
 		}
 
 
@@ -291,10 +255,6 @@ public class GameController
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
 			gameV.showCard(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand, currentCard);
-		}
-		else 
-		{
-			gameV.showCardNumbers(humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);
 		}
 
 
