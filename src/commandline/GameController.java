@@ -282,11 +282,13 @@ public class GameController
 
 	public void computeDraw(ArrayList<Player> winners) 
 	{
-		for(int i = 0; i < activePlayers.size(); i++) 
+		int i = 0;
+		for(Player player : activePlayers) //only looping for active players = means that when do playerList.get then will be missing some out
 		{
-			Card currentCard = activePlayers.get(i).getPlayerHand().getCurrentCard(); //identifies current card
+			Card currentCard = player.getPlayerHand().getCurrentCard(); //identifies current card
 			communalPile.addCard(currentCard); //adds current card to communal pile
 			playerList.get(i).getPlayerHand().removeCard(currentCard); //removes current card from each players hand
+			i++;
 		}
 		gameV.showDraw(getPlayerName(winners.get(0).getPlayerId()), getPlayerName(winners.get(1).getPlayerId())); //need to feed in the two players who drew
 	}
@@ -296,16 +298,16 @@ public class GameController
 		winner.get(0).getPlayerHand().addCard(winner.get(0).getPlayerHand().getCurrentCard());
 		winner.get(0).getPlayerHand().removeCard(winner.get(0).getPlayerHand().getCurrentCard()); //this will move the current card to the back of the deck
 
-		for(int i = 0; i < activePlayers.size(); i++) 
+		for(Player player : activePlayers) 
 		{
-			if(i == (winner.get(0).getPlayerId())-1) 
+			if(player == winner.get(0)) 
 			{
 
 			}
 			else 
 			{
-				winner.get(0).getPlayerHand().addCard(activePlayers.get(i).getPlayerHand().getCurrentCard()); //will add card to winners hand
-				activePlayers.get(i).getPlayerHand().removeCard(activePlayers.get(i).getPlayerHand().getCurrentCard()); //will remove card from losers hand
+				winner.get(0).getPlayerHand().addCard(player.getPlayerHand().getCurrentCard()); //will add card to winners hand
+				player.getPlayerHand().removeCard(player.getPlayerHand().getCurrentCard()); //will remove card from losers hand
 			}
 		}
 
