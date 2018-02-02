@@ -58,7 +58,7 @@ public class GameView
 	
 	public String userInput() 
 	{
-		String input = scanner.next();
+		String input = scanner.nextLine();
 		//scanner.close();
 		return input;
 	}
