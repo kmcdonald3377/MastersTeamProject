@@ -42,50 +42,17 @@ public class GameController
 			{
 				gameV.showCard(handSize[0], handSize[1], handSize[2], handSize[3], handSize[4], currentCard);
 			}
-
-			//at this point have displayed the users current card and shown the size of the hands of all players
-			
 			
 			//decide if human or ai selecting the category - method in round for each
 			HashMap<Integer, Integer> categoryComparison = new HashMap<Integer, Integer>();
 			String category = "";
 			selectCategory(currentRound, category, categoryComparison); //this will need to return to update hashmap and to update category
 			
-			//display stats 
-			int humanHand = 0;
-			int ai1Hand = 0;
-			int ai2Hand = 0;
-			int ai3Hand = 0;
-			int ai4Hand = 0;
-
-			if(categoryComparison.containsKey(1)) 
-			{
-				humanHand = categoryComparison.get(1);
-			}
-
-			if(categoryComparison.containsKey(2)) 
-			{
-				ai1Hand = categoryComparison.get(2);
-			}
-
-			if(categoryComparison.containsKey(3)) 
-			{
-				ai2Hand = categoryComparison.get(3);
-			}
-
-			if(categoryComparison.containsKey(4)) 
-			{
-				ai3Hand = categoryComparison.get(4);
-			}
-
-			if(categoryComparison.containsKey(5)) 
-			{
-				ai4Hand = categoryComparison.get(5);
-			}
-
+			//display stats
+			ArrayList<Integer> cardStats = currentRound.setCategoryValues(categoryComparison);
 			if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 			{
-				gameV.showStats(username, humanHand, ai1Hand, ai2Hand, ai3Hand, ai4Hand);	//this stays here		
+				gameV.showStats(username, cardStats.get(0), cardStats.get(1), cardStats.get(2), cardStats.get(3), cardStats.get(4));	//this stays here		
 			}
 
 			//decide on round winner
@@ -94,33 +61,12 @@ public class GameController
 			if(currentRound.isWinner(category)) //if there is an outright winner
 			{
 				displayRoundWin(winningPlayer);
-				winningPlayer.get(0).increaseRoundsWon();
-				winningPlayer.get(0).getPlayerId();
-				
-				for(int i = 0; i < activePlayers.size(); i++) 
-				{
-					if(activePlayers.get(i).getPlayerId() == winningPlayer.get(0).getPlayerId()) 
-					{
-						firstChoice = activePlayers.get(i);
-					}
-				}
 			}
 			else //else if it is a draw then show draw message
 			{
 				displayRoundDraw(winningPlayer);
-				currentGame.increaseDraws();
-
-				for(int i = 0; i < winningPlayer.size(); i++) 
-				{
-					winningPlayer.get(i).increaseRoundsDrawn();
-				}
-				currentGame.increaseDraws();
 			}
-
-			//after win or loss of round is displayed then increase the number of rounds played
 			currentGame.increaseRounds();
-			
-			//remove any players which are out of cards from the active players list - should be in another class/method
 			activePlayers = currentGame.removeFromActivePlayers(); //this method current has gameV line in it - need this in here
 		}
 		displayGameResult();
@@ -140,6 +86,12 @@ public class GameController
 
 	private void displayRoundDraw(ArrayList<Player> winners) 
 	{
+		for(int i = 0; i < winners.size(); i++) 
+		{
+			winners.get(i).increaseRoundsDrawn();
+		}
+		currentGame.increaseDraws();
+		
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
 			gameV.showDraw(getPlayerName(winners.get(0).getPlayerId()), getPlayerName(winners.get(1).getPlayerId())); //need to feed in the two players who drew
@@ -148,6 +100,17 @@ public class GameController
 
 	private void displayRoundWin(ArrayList<Player> winner) 
 	{
+		winner.get(0).increaseRoundsWon();
+		winner.get(0).getPlayerId();
+		
+		for(int i = 0; i < activePlayers.size(); i++) 
+		{
+			if(activePlayers.get(i).getPlayerId() == winner.get(0).getPlayerId()) 
+			{
+				firstChoice = activePlayers.get(i);
+			}
+		}
+		
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
 		gameV.showWinner(getPlayerName(winner.get(0).getPlayerId()));

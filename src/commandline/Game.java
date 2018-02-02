@@ -42,6 +42,18 @@ public class Game
 		return activePlayers;
 	}
 	
+	public ArrayList<Player> playersToBeRemoved()
+	{
+		ArrayList<Player> removePlayers
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			if(playerList.get(i).getPlayerHand().getNumberOfCards() == 0) 
+			{
+				
+			}
+		}
+	}
+	
 	public ArrayList<Player> removeFromActivePlayers()
 	{
 		for(int i = 0; i < playerList.size(); i ++) 

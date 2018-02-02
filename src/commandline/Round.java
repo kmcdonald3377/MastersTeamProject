@@ -250,5 +250,47 @@ public class Round
 		}
 	}
 	
+	public ArrayList<Integer> setCategoryValues(HashMap<Integer, Integer> categoryComparison) 
+	{
+		ArrayList<Integer> cardStats = new ArrayList<Integer>();
+		int humanHand = 0;
+		int ai1Hand = 0;
+		int ai2Hand = 0;
+		int ai3Hand = 0;
+		int ai4Hand = 0;
+		
+		if(categoryComparison.containsKey(1)) 
+		{
+			humanHand = categoryComparison.get(1);
+		}
+
+		if(categoryComparison.containsKey(2)) 
+		{
+			ai1Hand = categoryComparison.get(2);
+		}
+
+		if(categoryComparison.containsKey(3)) 
+		{
+			ai2Hand = categoryComparison.get(3);
+		}
+
+		if(categoryComparison.containsKey(4)) 
+		{
+			ai3Hand = categoryComparison.get(4);
+		}
+
+		if(categoryComparison.containsKey(5)) 
+		{
+			ai4Hand = categoryComparison.get(5);
+		}
+		cardStats.add(humanHand);
+		cardStats.add(ai1Hand);
+		cardStats.add(ai2Hand);
+		cardStats.add(ai3Hand);
+		cardStats.add(ai4Hand);
+		
+		return cardStats;
+	}
+	
 	
 }
