@@ -8,73 +8,17 @@ import java.util.Random;
 
 public class Round 
 {
-	private ArrayList<Player> playerList;
+	private ArrayList<Player> playerList, activePlayers;
 	private HashMap<Integer, Integer> valueComparison;
 	private Game currentGame;
+	private PileOfCards communalPile;
 	
-	public Round(ArrayList<Player> playerList) 
+	public Round(Game currentGame, ArrayList<Player> playerList, ArrayList<Player> activePlayers) 
 	{
 		this.playerList = playerList;
-	}
-	
-	
-	
-	public int[] getPlayerHandSize() 
-	{
-		HashMap<Integer, Integer> playerHandSizes = new HashMap<Integer, Integer>(); //is this needed?
-		int[] handSize = new int[5];
-
-		for(int i = 0; i < playerList.size(); i ++) 
-		{
-			playerHandSizes.put(playerList.get(i).getPlayerId(), playerList.get(i).getPlayerHand().getNumberOfCards());
-		}
-
-		if(playerHandSizes.containsKey(1)) 
-		{
-			handSize[0] = playerHandSizes.get(1);
-		}
-		else 
-		{
-			handSize[0] = 0;
-		}
-
-		if(playerHandSizes.containsKey(2)) 
-		{
-			handSize[1] = playerHandSizes.get(2);
-		}
-		else 
-		{
-			handSize[1] = 0;
-		}
-
-		if(playerHandSizes.containsKey(3)) 
-		{
-			handSize[2] = playerHandSizes.get(3);
-		}
-		else 
-		{
-			handSize[2] = 0;
-		}
-
-		if(playerHandSizes.containsKey(4)) 
-		{
-			handSize[3] = playerHandSizes.get(4);
-		}
-		else 
-		{
-			handSize[3] = 0;
-		}
-
-		if(playerHandSizes.containsKey(5)) 
-		{
-			handSize[4] = playerHandSizes.get(5);
-		}
-		else 
-		{
-			handSize[4] = 0;
-		}
-		
-		return handSize;
+		this.activePlayers = activePlayers;
+		this.currentGame = currentGame;
+		communalPile = currentGame.getCommunalPile();
 	}
 	
 	public String categorySelection() 
@@ -88,18 +32,9 @@ public class Round
 		return categoryKey;
 	}
 	
-	public HashMap<Integer, Integer> aiCategorySelection(String category, HashMap<Integer, Integer> categoryComparison) 
-	{
-		category = categorySelection();
-
-		categoryComparison = categoryValues(category);
-		
-		return categoryComparison;
-	}
-	
 	public String humanCategorySelection(String category)
 	{
-		while(!category.equalsIgnoreCase("Size") && !category.equalsIgnoreCase("Speed") && !category.equalsIgnoreCase("Range") 
+		if(!category.equalsIgnoreCase("Size") && !category.equalsIgnoreCase("Speed") && !category.equalsIgnoreCase("Range") 
 				&& !category.equalsIgnoreCase("Firepower") && !category.equalsIgnoreCase("Cargo")) 
 		{
 			category = "";
@@ -243,7 +178,7 @@ public class Round
 			}
 		}
 
-		while(currentGame.getCommunalPile().getNumberOfCards() > 0) 
+		while(currentGame.getCommunalPile().getNumberOfCards() > 0) //will add cards to winner from communal pile
 		{
 			winner.get(0).getPlayerHand().addCard(communalPile.getCurrentCard());
 			communalPile.removeCard(communalPile.getCurrentCard());

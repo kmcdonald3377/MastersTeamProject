@@ -1,24 +1,26 @@
 package commandline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Game 
 {
 	private int totalRounds, totalDraws, numberOfPlayers;
-	private Database database;
+//	private Database database;
 	private ArrayList <Player> playerList, activePlayers;
 	private PileOfCards communalPile;
 	private PileOfCards deck;
 	private Player firstChoice;
 	private String username;
 	
-	public Game(PileOfCards deck) 
+	public Game(PileOfCards deck, String username) 
 	{
-		database = new Database();
+//		database = new Database();
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		this.deck = deck;
-		ArrayList <Integer> playerIDs = database.getPlayerId();
+//		ArrayList <Integer> playerIDs = database.getPlayerId();
+		ArrayList <Integer> playerIDs = new ArrayList(); playerIDs.add(1); playerIDs.add(2); playerIDs.add(3); playerIDs.add(4); playerIDs.add(5);
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
 		
@@ -35,6 +37,65 @@ public class Game
 		{
 			activePlayers.add(playerList.get(i));
 		}
+		this.username = username;
+	}
+	
+	public int[] getPlayerHandSize() 
+	{
+		HashMap<Integer, Integer> playerHandSizes = new HashMap<Integer, Integer>();
+		int[] handSize = new int[5];
+
+		for(int i = 0; i < playerList.size(); i ++) 
+		{
+			playerHandSizes.put(playerList.get(i).getPlayerId(), playerList.get(i).getPlayerHand().getNumberOfCards());
+		}
+
+		if(playerHandSizes.containsKey(1)) 
+		{
+			handSize[0] = playerHandSizes.get(1);
+		}
+		else 
+		{
+			handSize[0] = 0;
+		}
+
+		if(playerHandSizes.containsKey(2)) 
+		{
+			handSize[1] = playerHandSizes.get(2);
+		}
+		else 
+		{
+			handSize[1] = 0;
+		}
+
+		if(playerHandSizes.containsKey(3)) 
+		{
+			handSize[2] = playerHandSizes.get(3);
+		}
+		else 
+		{
+			handSize[2] = 0;
+		}
+
+		if(playerHandSizes.containsKey(4)) 
+		{
+			handSize[3] = playerHandSizes.get(4);
+		}
+		else 
+		{
+			handSize[3] = 0;
+		}
+
+		if(playerHandSizes.containsKey(5)) 
+		{
+			handSize[4] = playerHandSizes.get(5);
+		}
+		else 
+		{
+			handSize[4] = 0;
+		}
+		
+		return handSize;
 	}
 	
 	public ArrayList<Player> getActivePlayers() 
@@ -44,14 +105,16 @@ public class Game
 	
 	public ArrayList<Player> playersToBeRemoved()
 	{
-		ArrayList<Player> removePlayers
+		ArrayList<Player> removePlayers = new ArrayList<Player>();
 		for(int i = 0; i < playerList.size(); i ++) 
 		{
 			if(playerList.get(i).getPlayerHand().getNumberOfCards() == 0) 
 			{
-				
+				removePlayers.add(playerList.get(i));
 			}
 		}
+		
+		return removePlayers;
 	}
 	
 	public ArrayList<Player> removeFromActivePlayers()
@@ -60,10 +123,6 @@ public class Game
 		{
 			if(playerList.get(i).getPlayerHand().getNumberOfCards() == 0) 
 			{
-				if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
-				{
-					gameV.removedPlayers(getPlayerName(playerList.get(i).getPlayerId())); //this should be in gamecontroller
-				}
 				for(int j = 0; j < activePlayers.size(); j ++) 
 				{
 					int playerid = playerList.get(i).getPlayerId();
@@ -74,6 +133,7 @@ public class Game
 				}
 			}
 		}
+		return activePlayers;
 	}
 	
 	public int getNumberOfPlayers() 
