@@ -44,7 +44,7 @@ public class MenuController
 		choice = menuV.getInput();
 	}	
 
-	public void readFile()
+	public PileOfCards readFile()
 	{
 		FileReader reader = null;
 		try
@@ -79,6 +79,7 @@ public class MenuController
 						values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), 
 						Integer.parseInt(values[4]), Integer.parseInt(values[5])));
 			}
+			return starCitizenDeck;
 		
 	}
 

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import commandline.MenuController;
 import commandline.PileOfCards;
 
 
@@ -38,6 +39,7 @@ public class TopTrumpsRESTAPI {
 /** A Jackson Object writer. It allows us to turn Java objects
 * into JSON strings easily. */
 ObjectWriter Cardobj = new ObjectMapper().writerWithDefaultPrettyPrinter();
+private MenuController deckCaller;
 /**
 * Contructor method for the REST API. This is called first. It provides
 * a TopTrumpsJSONConfiguration from which you can get the location of
@@ -61,22 +63,21 @@ public TopTrumpsRESTAPI(TopTrumpsJSONConfiguration conf) {
 * @return - List of words as JSON
 * @throws IOException
 */
+
+	
+
 public String CardList(PileOfCards TopTrumpsDeck) throws IOException {
 
+//deckCaller.readFile();
+//TopTrumpsDeck = new PileOfCards(null);
+
+
 String listofCards = Cardobj.writeValueAsString(TopTrumpsDeck); //Turn command line array of cards into a JSON array of cards 
-return listofCards; //Calling this from Html seems to be one of the CORS requests 
-// Online version need Round, player, Pileofcards, Game, Card
-// Supposed to do this through CORS requests but not much information on how to do this, can also call java methods from javascript 
-// <adapter>/src/main/java/<TopTrumps>
-// <script>
-// function Round {
-// var round = new Round(); <!- call round class from Java File-> 
-// var round = round.Start(); <!- call start method from Round class-> 
-// }
-// </script>
+return listofCards; //Sending as null, probably cause the TopTrumpsDeck is null, need to send it the value of StarCitzenDeck as read from the text file
+
 }
 @GET
-@Path("/helloWord")
+@Path("/hellocards")
 /**
 * Here is an example of how to read parameters provided in an HTML Get request.
 * @param Word - A word
