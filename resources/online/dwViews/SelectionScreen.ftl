@@ -72,7 +72,7 @@
 							<br />
 							<p class="card-text">Trump your Star Citizen opponents <br /> and top the leaderboard!</p>
 							<br />
-							<a href="http://localhost:7777/toptrumps/play-game" class="btn btn-outline-primary btn-lg">Play Game</a></center>
+							<a href="http://localhost:7777/toptrumps/GameScreen.ftl" class="btn btn-outline-primary btn-lg">Play Game</a></center>
 					</div>
 				</div>
 			</div>
@@ -92,7 +92,7 @@
 							<p class="card-text">View previous game statistics.</p>
 							<br />
 							<br />
-							<a href="http://localhost:7777/toptrumps/view-stats" class="btn btn-outline-primary btn-lg">View Statistics</a></center>
+							<a href="http://localhost:7777/toptrumps/Statistics.ftl" class="btn btn-outline-primary btn-lg">View Statistics</a></center>
 					</div>
 				</div>
 			</div>
@@ -109,8 +109,8 @@
 			// --------------------------------------------------------------------------
 
 			// For example, lets call our sample methods
-			helloJSONList();
-			helloWord("Student");
+			CardList(); 
+			HelloDeck(ListofCards);
 
 		}
 
@@ -147,7 +147,7 @@
 	<!-- Here are examples of how to call REST API Methods -->
 	<script type="text/javascript">
 		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-		function helloJSONList() {
+		function CardList() {
 
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/CardList"); // Request type and URL
@@ -161,7 +161,7 @@
 			// to do when the response arrives
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
-				alert(responseText); // lets produce an alert
+				alert(responseText + "Hello"); // lets produce an alert
 			};
 
 			// We have done everything we need to prepare the CORS request, so send it
@@ -169,7 +169,7 @@
 		}
 
 		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-		function helloWord(word) {
+		function HelloDeck(ListofCards) {
 
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/hellocards?ListofCards=" + ListofCards); // Request type and URL+parameters
@@ -183,7 +183,7 @@
 			// to do when the response arrives
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
-				alert(responseText); // lets produce an alert
+				alert(responseText + "Goodbye"); // lets produce an alert
 			};
 
 			// We have done everything we need to prepare the CORS request, so send it
@@ -194,3 +194,4 @@
 </body>
 
 </html>
+
