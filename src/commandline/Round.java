@@ -1,258 +1,231 @@
-////Nadya
-//package commandline;
-//
-//import java.util.ArrayList;
-//import java.util.Random;
-//
-//public class Round 
-//{
-//
-//	private ArrayList<PileOfCards> players;
-//	private PileOfCards[] playerHand;
-//	private Card[] playableCards;
-//	private PileOfCards cPile;
-//	private PileOfCards deck;
-//	private Player currentPlayer; // index of player whose turn it is to play
-//	private PileOfCards winner;
-//
-//	private int numPlayers;
-//	private int[] currentPlayers; // indexes of players who are currently in the round
-//	private int[] activePlayers; // indexes of players who are still active in the game
-//
-//	private final int ATTRIBUTES = 5;
-//	private boolean draw;
-//
-//	public Round(ArrayList<PileOfCards> players, Player currentPlayer, PileOfCards cp, PileOfCards deck, Player winner, int numCards) 
-//	{
-//
-//		this.players = players;
-//		numPlayers = this.players.size();
-//		activePlayers = new int[numPlayers];
-//		currentPlayers = new int[numPlayers];
-//		this.deck = deck;
-//		this.cPile = cp;
-//		this.currentPlayer = currentPlayer;
-//		this.winner = null;
-//	}
-//
-//	public void start() 
-//	{
-//
-//	}
-//
-//	private void printDeckAttributeNames(Card card) {
-//
-//		String attribute1 = card.getAttribute1();
-//		String attribute2 = card.getAttribute2();
-//		String attribute3 = card.getAttribute3();
-//		String attribute4 = card.getAttribute4();
-//		String attribute5 = card.getAttribute5();
-//
-//		String attributeNames = String.format("%15s %15s %15s %15s %15s", attribute1, attribute2, attribute3,
-//				attribute4, attribute5);
-//
-//		System.out.println(attributeNames);
-//
-//	}
-//
-//	// a method to display the card and its attributes to the console
-//	public void printCurrentCardValues(Card card) {
-//
-//		String name = card.getName();
-//		String att1 = Integer.toString(card.getValue1());
-//		String att2 = Integer.toString(card.getValue2());
-//		String att3 = Integer.toString(card.getValue3());
-//		String att4 = Integer.toString(card.getValue4());
-//		String att5 = Integer.toString(card.getValue5());
-//
-//		String printValues = String.format("%20s %15s %15s %15s %15s %15s", name, att1, att2, att3, att4, att5);
-//
-//		System.out.println(printValues);
-//	}
-//
-//	// a method to distribute the cards after each round, either to the winner of
-//	// the round, or to the communal pile after a draw
-//	private void giveCards() {
-//
-//		// if there is a draw
-//		if (winner == null) {
-//
-//			// add cards to CommunalPile
-//			for (int i = 0; i < playableCards.length; i++) {
-//
-//				Card cd = playableCards[i];
-//
-//				//
-//				if (cd != null) {
-//					this.cPile.addCard(cd);
-//				}
-//			}
-//		} else {
-//
-//			// give card to winner
-//			for (int i = 0; i < playableCards.length; i++) {
-//				Card cd = playableCards[i];
-//
-//				if (cd != null) {
-//					winner.addCard(cd); // add this card to the players hand
-//				}
-//			}
-//		}
-//
-//		// give cards in communal pile to winner
-//		while (cPile.getNumberOfCards() != 0) {
-//
-//			Card cd = cPile.getCurrentCard();
-//
-//			if (cd != null) {
-//				winner.addCard(cd); // add this card to the players hand
-//			}
-//		}
-//
-//		// communal pile is now empty, create new communal pile
-//		cPile = new PileOfCards(null);
-//	}
-//
-//	// a method to calculate the winning card
-//	private void calculateWinner() {
-//
-//		final int ACTIVECARD = 1; // current card can only ever be one
-//		int score;
-//
-//		for (int i = 0; i < this.players.size(); i++) {
-//
-//			// if the players hand size or the number of cards in play are greater than 0
-//			if ((playerHand[i].getHandLength() || ACTIVECARD) > 0) { // getHandLength in PlayerHand class //playerHand.getNumberOfCards?
-//
-//				try {
-//
-//					if (score == 0) {
-//
-//						winner = null; // draw
-//					}
-//				} catch (Exception e) {
-//					System.out.println(players[i] + " has no cards left to play.");
-//				}
-//			}
-//		}
-//	}
-//
-//	// a method to check if the round ended in a draw
-//	private boolean checkForDraw() {
-//
-//		boolean draw = false;
-//
-//		// code
-//
-//		return draw;
-//	}
-//
-//	public boolean isDraw() {
-//
-//		return this.draw;
-//	}
-//
-//	public PileOfCards getWinner() {
-//
-//		return winner;
-//	}
-//
-//	public boolean humanWinner() {
-//
-//		int index = 0;
-//		Player player = this.players.get(index);
-//
-//		// when the human players hand size equals the number of cards in the deck
-//		return player.getPlayerHand().getNumberOfCards() == 40; // Player class
-//	}
-//
-//	public boolean AIWinner() {
-//
-//		int index = 0;
-//		Player player = this.players.get(index);
-//
-//		// player hand is 0
-//		return player.getPlayerHand().getNumberOfCards() == 0;
-//	}
-//	
-//
-//	private ArrayList aiCategorySelection(PileOfCards player) 
-//	{
-//		Random randomNumber = new Random();
-//		int myNumber = randomNumber.nextInt();
-//		Card test = getCard();
-//		Card ai1 = players.get(1).getCurrentCard();
-//		Card ai2 = players.get(2).getCurrentCard();
-//		Card ai3 = players.get(3).getCurrentCard();
-//		Card ai4 = players.get(4).getCurrentCard();
-//		
-//		ArrayList<Integer> valueComparison = new ArrayList();
-//		valueComparison.add(test.getValueAtIndex(myNumber));
-//		valueComparison.add(ai1.getValueAtIndex(myNumber));
-//		valueComparison.add(ai2.getValueAtIndex(myNumber));
-//		valueComparison.add(ai3.getValueAtIndex(myNumber));
-//		valueComparison.add(ai4.getValueAtIndex(myNumber));
-//		
-//		return valueComparison;
-//	}
-//	
-//	public ArrayList humanCategorySelection(int number) 
-//	{
-//		Card test = getCard();
-//		Card ai1 = players.get(1).getCurrentCard();
-//		Card ai2 = players.get(2).getCurrentCard();
-//		Card ai3 = players.get(3).getCurrentCard();
-//		Card ai4 = players.get(4).getCurrentCard();
-//		
-//		ArrayList<Integer> valueComparison = new ArrayList();
-//		valueComparison.add(test.getValueAtIndex(number));
-//		valueComparison.add(ai1.getValueAtIndex(number));
-//		valueComparison.add(ai2.getValueAtIndex(number));
-//		valueComparison.add(ai3.getValueAtIndex(number));
-//		valueComparison.add(ai4.getValueAtIndex(number));
-//		
-//		return valueComparison;
-//		
-//	}
-//	
-//	public int findWinner(ArrayList test) 
-//	{
-//		ArrayList<Integer> myNumbers = test;
-//		int max = 0;
-//		for(int i = 0; i < myNumbers.size(); i++) 
-//		{
-//			if(myNumbers.get(i) > max) 
-//			{
-//				max = myNumbers.get(i);
-//			}
-//		}
-//		return max;
-//	}
-//	
-//	public boolean isWinner(ArrayList test) 
-//	{
-//		ArrayList<Integer> myNumbers = test;
-//		int max = findWinner(myNumbers);
-//		int count = 0;
-//		for(int i = 0; i < test.size(); i++) 
-//		{
-//			if(max == myNumbers.get(i)) 
-//			{
-//				count++;
-//			}
-//		}
-//		
-//		if(count > 1) 
-//		{
-//			return false;
-//		}
-//		
-//		return true;
-//	}
-//	
-//	public Card getCard() //could have int parameter to feed in which will get the card depending upon the id of the players playing
-//	{
-//		Card currentCard = players.get(0).getCurrentCard();
-//		return currentCard;
-//	}
-//}
+package commandline;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
+
+public class Round 
+{
+	private ArrayList<Player> playerList, activePlayers;
+	private HashMap<Integer, Integer> valueComparison;
+	private Game currentGame;
+	private PileOfCards communalPile;
+	
+	public Round(Game currentGame, ArrayList<Player> playerList, ArrayList<Player> activePlayers) 
+	{
+		this.playerList = playerList;
+		this.activePlayers = activePlayers;
+		this.currentGame = currentGame;
+		communalPile = currentGame.getCommunalPile();
+	}
+	
+	public String categorySelection() 
+	{
+		Random randomNumber = new Random();
+		int category = randomNumber.nextInt(5);
+		
+		Card humanPlayerCard = getCard(0);
+				
+		String categoryKey = humanPlayerCard.getAttributeAtIndex(category);
+		return categoryKey;
+	}
+	
+	public String humanCategorySelection(String category)
+	{
+		if(!category.equalsIgnoreCase("Size") && !category.equalsIgnoreCase("Speed") && !category.equalsIgnoreCase("Range") 
+				&& !category.equalsIgnoreCase("Firepower") && !category.equalsIgnoreCase("Cargo")) 
+		{
+			category = "";
+		}
+
+		if(category.equalsIgnoreCase("Size")) 
+		{
+			category = "Size";
+		}
+		if(category.equalsIgnoreCase("Speed")) 
+		{
+			category = "Speed";
+		}
+		if(category.equalsIgnoreCase("Range")) 
+		{
+			category = "Range";
+		}
+		if(category.equalsIgnoreCase("Firepower")) 
+		{
+			category = "Firepower";
+		}
+		if(category.equalsIgnoreCase("Cargo")) 
+		{
+			category = "Cargo";
+		}
+		
+		return category;
+	}
+	
+	public HashMap<Integer, Integer> categoryValues(String category) 
+	{
+		valueComparison = new HashMap<Integer, Integer>();
+		
+		for(int i = 0; i < currentGame.getActivePlayers().size(); i ++) 
+		{
+			valueComparison.put(activePlayers.get(i).getPlayerId(), activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes().get(category));
+		}
+		
+		return valueComparison;
+		
+	}
+	
+	public int findMaxScore(String category) //is failing in here
+	{
+		HashMap<Integer, Integer> valueComparison = categoryValues(category);
+		int max = 0;
+		
+		for(int i : valueComparison.keySet()) 
+		{
+			if(valueComparison.get(i) > max) 
+			{
+				max = valueComparison.get(i);
+			}
+		}
+		
+		return max;
+	}
+	
+	public boolean isWinner(String category) 
+	{
+		HashMap<Integer, Integer> valueComparison = categoryValues(category);
+		int max = findMaxScore(category);
+		int count = 0;
+		
+		for(int i : valueComparison.keySet()) 
+		{
+			if(max == valueComparison.get(i)) 
+			{
+				count++;
+			}
+		}
+		
+		if(count > 1) 
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public ArrayList<Player> findWinner(String category) 
+	{
+		ArrayList<Player> winningPlayer = new ArrayList<Player>();
+		
+		for(int i = 0; i < activePlayers.size(); i ++) 
+		{
+			HashMap<String, Integer> test = activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes();
+			
+			if(test.get(category) == findMaxScore(category)) 
+			{
+				winningPlayer.add(activePlayers.get(i));
+			}
+		}
+		
+		return winningPlayer;
+		
+	}
+	
+	public Card getCard(int playerID) //change playerid to position in arraylist
+	{
+		Player player = activePlayers.get(playerID);
+		Card currentCard = null;
+		
+			currentCard = player.getPlayerHand().getCurrentCard();
+		
+		return currentCard;
+	}
+	
+	public void computeDraw(ArrayList<Player> winners) 
+	{
+		for(Player player : activePlayers) 
+		{
+			Card currentCard = player.getPlayerHand().getCurrentCard(); //identifies current card
+			int playerid = player.getPlayerId();
+			currentGame.addToCommunalPile(currentCard); //adds current card to communal pile
+			for(int i = 0; i < playerList.size(); i ++) 
+			{
+				if(playerList.get(i).getPlayerId() == playerid) 
+				{
+					playerList.get(i).getPlayerHand().removeCard(currentCard); //removes current card from each players hand
+				}
+			}
+		}
+	}
+	
+	public void computeWin(ArrayList<Player> winner) 
+	{
+		winner.get(0).getPlayerHand().addCard(winner.get(0).getPlayerHand().getCurrentCard());
+		winner.get(0).getPlayerHand().removeCard(winner.get(0).getPlayerHand().getCurrentCard()); //this will move the current card to the back of the deck
+
+		for(Player player : activePlayers) 
+		{
+			if(player == winner.get(0)) 
+			{
+
+			}
+			else 
+			{
+				winner.get(0).getPlayerHand().addCard(player.getPlayerHand().getCurrentCard()); //will add card to winners hand
+				player.getPlayerHand().removeCard(player.getPlayerHand().getCurrentCard()); //will remove card from losers hand
+			}
+		}
+
+		while(currentGame.getCommunalPile().getNumberOfCards() > 0) //will add cards to winner from communal pile
+		{
+			winner.get(0).getPlayerHand().addCard(communalPile.getCurrentCard());
+			communalPile.removeCard(communalPile.getCurrentCard());
+		}
+	}
+	
+	public ArrayList<Integer> setCategoryValues(HashMap<Integer, Integer> categoryComparison) 
+	{
+		ArrayList<Integer> cardStats = new ArrayList<Integer>();
+		int humanHand = 0;
+		int ai1Hand = 0;
+		int ai2Hand = 0;
+		int ai3Hand = 0;
+		int ai4Hand = 0;
+		
+		if(categoryComparison.containsKey(1)) 
+		{
+			humanHand = categoryComparison.get(1);
+		}
+
+		if(categoryComparison.containsKey(2)) 
+		{
+			ai1Hand = categoryComparison.get(2);
+		}
+
+		if(categoryComparison.containsKey(3)) 
+		{
+			ai2Hand = categoryComparison.get(3);
+		}
+
+		if(categoryComparison.containsKey(4)) 
+		{
+			ai3Hand = categoryComparison.get(4);
+		}
+
+		if(categoryComparison.containsKey(5)) 
+		{
+			ai4Hand = categoryComparison.get(5);
+		}
+		cardStats.add(humanHand);
+		cardStats.add(ai1Hand);
+		cardStats.add(ai2Hand);
+		cardStats.add(ai3Hand);
+		cardStats.add(ai4Hand);
+		
+		return cardStats;
+	}
+	
+	
+}
