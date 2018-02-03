@@ -50,9 +50,9 @@ public class TestLog {
 	}
 	
 	// write original deck as loaded from file
-	public void writeInitDeck (ArrayList<Card> deck) {
+	public void writeInitDeck (PileOfCards deck) {
 		sb.append("Displaying original deck as loaded from StarCitizenDeck.txt: \r\n");
-		initDeck = deck;
+		initDeck = deck.getDeck();
 		
 		for (Card c : initDeck)
 		{
@@ -60,20 +60,20 @@ public class TestLog {
 			sb.append(" ");
 		}
 		
-		sb.append(lineBreak + "\r\n");
+		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
 	// write shuffled deck
-	public void writeShuffledDeck (ArrayList<Card> deck)	{
+	public void writeShuffledDeck (PileOfCards deck)	{
 		sb.append("Displaying deck after shuffle: \r\n");
-		shuffledDeck = deck;
+		shuffledDeck = deck.getDeck();
 		
 		for(Card c : shuffledDeck)
 		{
 			sb.append(c);
 			sb.append(" ");
 		}
-		sb.append(lineBreak + "\r\n");
+		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
 	// write communal pile
@@ -85,7 +85,7 @@ public class TestLog {
 			sb.append(c);
 			sb.append(" ");
 		}
-		sb.append(lineBreak + "\r\n");
+		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
 	// used to write deck after cards added/removed
@@ -99,35 +99,35 @@ public class TestLog {
 			sb.append(" ");
 		}
 		
-		sb.append(lineBreak + "\r\n");
+		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
 	// method to write hand, detecting if human/AI
-	public void writeHand(ArrayList<Card> hand, String playerId) {
+	public void writeHand(int j, PileOfCards playerHand) {
 		sb.append("\r\nWriting player hand... ");
 		
-		playerID = Integer.parseInt(playerId);
+		playerID = j;
 		if (playerID == 1)
 		{
-			humanHand = hand;
+			humanHand = playerHand.getDeck();
 			sb.append("Human Player " + playerID + "'s hand is:  ");
 			for(Card c: humanHand)
 			{
 				sb.append(c);
 				sb.append(" ");
 			}
-			sb.append(lineBreak + "\r\n");
+			sb.append("\r\n" + lineBreak + "\r\n");
 		}
 		else
 		{
-			AIHand = hand;
+			AIHand = playerHand.getDeck();
 			sb.append("AI Player " + playerID + "'s hand is:  ");
 			for(Card c: AIHand)
 			{
 				sb.append(c);
 				sb.append(" ");
 			}
-			sb.append(lineBreak + "\r\n");
+			sb.append("\r\n" + lineBreak + "\r\n");
 		}
 			
 	}
@@ -137,7 +137,7 @@ public class TestLog {
 		_playerID = playerID;
 		cardsIP = hand;
 		sb.append(_playerID + "'s card in play: " + hand.get(0));
-		sb.append(lineBreak + "\r\n");
+		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
 	
@@ -145,7 +145,7 @@ public class TestLog {
 	public void writeRounds (int totalRounds)	{
 		roundCount = totalRounds;
 		sb.append("\r\n Number of rounds: " + roundCount);
-		sb.append(lineBreak + "\r\n");
+		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
 	// writes if there is a winner of game 

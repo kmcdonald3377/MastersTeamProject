@@ -11,18 +11,28 @@ public class Game
 	private ArrayList <Player> playerList, activePlayers;
 	private PileOfCards communalPile;
 	private PileOfCards deck;
+	private TestLog log;
 	private Player firstChoice;
 	private String username;
 	
 	public Game(PileOfCards deck, String username) 
 	{
+		log = new TestLog();
+		//database = new Database();
+		communalPile = new PileOfCards(null);
+		this.deck = deck;
+		log.writeInitDeck(deck);
+		//ArrayList <Integer> playerIDs = database.getPlayerId();
+
 //		database = new Database();
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		this.deck = deck;
 //		ArrayList <Integer> playerIDs = database.getPlayerId();
+
 		ArrayList <Integer> playerIDs = new ArrayList(); playerIDs.add(1); playerIDs.add(2); playerIDs.add(3); playerIDs.add(4); playerIDs.add(5);
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
+		log.writeShuffledDeck(deck);
 		
 		for(Integer id : playerIDs) 
 		{
@@ -197,6 +207,8 @@ public class Game
 			PileOfCards playerHand = playerList.get(j).getPlayerHand();
 			playerHand.addCard(newDeck.get(i));
 			j++;
+			log.writeHand(j, playerHand);
+			log.writeFile();
 		}
 	}
 	

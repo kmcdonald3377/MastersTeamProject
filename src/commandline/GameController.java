@@ -12,6 +12,7 @@ public class GameController
 	private Player firstChoice;
 	private Game currentGame;
 	private ArrayList <Player> playerList, activePlayers;
+	private TestLog log;
 
 	public GameController(PileOfCards starCitizenDeck, String username) 
 	{
