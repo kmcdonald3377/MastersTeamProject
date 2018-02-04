@@ -160,6 +160,7 @@
 				</div>
 			</div>
 		</div>		
+	</div>
 	<script type="text/javascript">
 		// Method that is called on page load
 		function initalize() {
