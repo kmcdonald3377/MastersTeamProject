@@ -11,6 +11,7 @@ public class Round
 	private ArrayList<Player> playerList, activePlayers;
 	private HashMap<Integer, Integer> valueComparison;
 	private Game currentGame;
+	private int matchID;
 	private PileOfCards communalPile;
 	
 	public Round(Game currentGame, ArrayList<Player> playerList, ArrayList<Player> activePlayers) 
@@ -19,6 +20,12 @@ public class Round
 		this.activePlayers = activePlayers;
 		this.currentGame = currentGame;
 		communalPile = currentGame.getCommunalPile();
+		matchID = currentGame.getMatchID();
+	}
+	
+	public int getMatchID() 
+	{
+		return matchID;
 	}
 	
 	public String categorySelection() 
@@ -77,7 +84,7 @@ public class Round
 		
 	}
 	
-	public int findMaxScore(String category) //is failing in here
+	public int findMaxScore(String category)
 	{
 		HashMap<Integer, Integer> valueComparison = categoryValues(category);
 		int max = 0;
@@ -133,9 +140,9 @@ public class Round
 		
 	}
 	
-	public Card getCard(int playerID) //change playerid to position in arraylist
+	public Card getCard(int playerPosition)
 	{
-		Player player = activePlayers.get(playerID);
+		Player player = activePlayers.get(playerPosition);
 		Card currentCard = null;
 		
 			currentCard = player.getPlayerHand().getCurrentCard();
@@ -226,6 +233,4 @@ public class Round
 		
 		return cardStats;
 	}
-	
-	
 }

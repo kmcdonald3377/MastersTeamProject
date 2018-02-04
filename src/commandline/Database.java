@@ -272,7 +272,7 @@ public class Database
 	 * @param roundsPlayed
 	 * @param roundsDrawn
 	 */
-	public void writeToMatchStatistics(int matchID, int winnerID, int roundsPlayed, int roundsDrawn) 
+	public boolean writeToMatchStatistics(int matchID, int winnerID, int roundsPlayed, int roundsDrawn) 
 	{
 		Statement stmt = null;
 		String query = "INSERT INTO toptrumps.matchstatistics "
@@ -283,11 +283,12 @@ public class Database
 				stmt = connection.createStatement();
 				
 				stmt.executeUpdate(query); //this will update the database with the added details without returning any values
-				
+				return true;
 			}
 			catch(SQLException e) 
 			{
 				System.out.println("Could not save match statistics.");
+				return false;
 			}
 	}
 	
@@ -297,7 +298,7 @@ public class Database
 	 * @param matchID
 	 * @param roundsWon
 	 */
-	public void writeToPlayerStatistics(int playerID, int matchID, int roundsWon, int roundsDrawn) 
+	public boolean writeToPlayerStatistics(int playerID, int matchID, int roundsWon, int roundsDrawn) 
 	{
 		Statement stmt = null;
 		String query = "INSERT INTO toptrumps.playerstatistics "
@@ -308,11 +309,13 @@ public class Database
 				stmt = connection.createStatement();
 				
 				stmt.executeUpdate(query); //this will update the database with the added details without returning any values
+				return true;
 				
 			}
 			catch(SQLException e) 
 			{
 				System.out.println("Could not save indiviual player statistics for the match.");
+				return false;
 			}
 	}
 	
