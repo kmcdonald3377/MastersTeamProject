@@ -14,6 +14,7 @@ public class Game
 	private TestLog log;
 	private Player firstChoice;
 	private String username;
+	private int matchID;
 	
 	public Game(PileOfCards deck, String username) 
 	{
@@ -28,8 +29,10 @@ public class Game
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		this.deck = deck;
 //		ArrayList <Integer> playerIDs = database.getPlayerId();
-
 		ArrayList <Integer> playerIDs = new ArrayList(); playerIDs.add(1); playerIDs.add(2); playerIDs.add(3); playerIDs.add(4); playerIDs.add(5);
+		
+//		matchID = database.getMaxMatchID() + 1;
+		
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
 		log.writeShuffledDeck(deck);
@@ -48,6 +51,11 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
+	}
+	
+	public int getMatchID() 
+	{
+		return matchID;
 	}
 	
 	public int[] getPlayerHandSize() 
