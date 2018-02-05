@@ -203,8 +203,9 @@ public class TopTrumpsRESTAPI
 	//database queries
 	//-----------------
 	
+	
 	@GET
-	@Path("matchesPlayed")
+	@Path("/matchesPlayed")
 	public String matchesPlayed() throws IOException
 	{
 		return oWriter.writeValueAsString(database.getMatchesPlayed());
