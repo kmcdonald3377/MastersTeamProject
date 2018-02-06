@@ -17,15 +17,13 @@ public class TestLog {
 	private ArrayList<Card> initDeck;
 	private ArrayList<Card> shuffledDeck;
 	private ArrayList<Card> currentDeck;
-	private Card [] comPile;
-	private ArrayList<Card> cardsIP;
+	private ArrayList<Card> comPile;
+	private Card cardIP;
 	private ArrayList<Card> humanHand;
 	private ArrayList<Card> AIHand;
-	
-	private Player _winner;
 
-	private String lineBreak;
-	private String _playerID;
+	private String lineBreak, _addRemove, _winner;
+	private int _playerID;
 	
 	private int roundCount;
 	private int playerID;
@@ -35,15 +33,15 @@ public class TestLog {
 	{
 		initDeck = new ArrayList<Card>();
 		shuffledDeck = new ArrayList<Card>();
-		comPile = new Card[MAX_SIZE];
-		cardsIP = new ArrayList<Card>();
+		comPile = new ArrayList<Card>();
 		humanHand = new ArrayList<Card>();
 		AIHand = new ArrayList<Card>();
 		
-		_winner = new Player();
+		_winner = "";
 		
 		lineBreak = "------------------------------------------------------------------------";
-		_playerID = "";
+		_addRemove = "";
+		_playerID = 0;
 		
 		roundCount = 0;
 		playerID = 0;
@@ -65,7 +63,19 @@ public class TestLog {
 	
 	// write shuffled deck
 	public void writeShuffledDeck (PileOfCards deck)	{
-		sb.append("Displaying deck after shuffle: \r\n");
+		sb.append("\r\n Displaying deck after shuffle: \r\n");
+		shuffledDeck = deck.getDeck();
+		
+		for(Card c : shuffledDeck)
+		{
+			sb.append(c);
+			sb.append(" ");
+		}
+		sb.append("\r\n" + lineBreak + "\r\n");
+	}
+	
+	public void writeCurrentDeck (PileOfCards deck)	{
+		sb.append("\r\n Displaying deck after round: \r\n");
 		shuffledDeck = deck.getDeck();
 		
 		for(Card c : shuffledDeck)
@@ -77,28 +87,23 @@ public class TestLog {
 	}
 	
 	// write communal pile
-	public void writeCommunalPile (Card [] card)	{
+	public void writeCommunalPile (String addRemove, PileOfCards communalPile)	{
+		_addRemove = addRemove;
+		if (_addRemove.equalsIgnoreCase("add"))
+		{
+			sb.append("\r\n Card added to pile. \r\n");
+		}
+		else if (_addRemove.equalsIgnoreCase("remove"))
+		{
+			sb.append("\r\n Card removed from pile. \r\n");
+		}
 		sb.append("Cards in the Communal Pile: \r\n");
-		comPile = card;
+		comPile = communalPile.getDeck();
 		for (Card c: comPile)
 		{
 			sb.append(c);
 			sb.append(" ");
 		}
-		sb.append("\r\n" + lineBreak + "\r\n");
-	}
-	
-	// used to write deck after cards added/removed
-	public void writeCurrentDeck (ArrayList<Card> deck) {
-		sb.append("Displaying deck after cards added/removed: \r\n");
-		currentDeck = deck;
-		
-		for (Card c : currentDeck)
-		{
-			sb.append(c);
-			sb.append(" ");
-		}
-		
 		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
@@ -133,10 +138,13 @@ public class TestLog {
 	}
 	
 	// write first card in play
-	public void writeCardsIP (String playerID, ArrayList<Card> hand)	{
-		_playerID = playerID;
-		cardsIP = hand;
-		sb.append(_playerID + "'s card in play: " + hand.get(0));
+	public void writeCardsIP (int i, Card card)	{
+		_playerID = i+1;
+		cardIP = card;
+		sb.append("Player " + _playerID + "'s card in play: " + card.getName() + " " + card.getAttribute1()
+		+ " " + card.getValue1() + " " + card.getAttribute2() + " " + card.getValue2() + " "
+		+ " " + card.getAttribute3() + " " + card.getValue3() + " " + card.getAttribute4() + " "
+		+ card.getValue4() + " " + card.getAttribute5() + " " + card.getValue5() + "\r\n");
 		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
@@ -149,17 +157,12 @@ public class TestLog {
 	}
 	
 	// writes if there is a winner of game 
-	public void writeWinner (Player winner)	{
+	public void writeWinner (String winner)	{
 		_winner = winner;
 			sb.append("\r\nPlayer " + _winner + " wins!  ");
 			sb.append("\r\nGAME OVER");
 	}
 	
-	// writes if there is a draw in game 
-	public void writeDraw ()	{
-			sb.append("\r\nGame ends in a draw.  ");
-			sb.append("\r\nGAME OVER");
-	}
 
 	// write game log to file
 	public void writeFile () {

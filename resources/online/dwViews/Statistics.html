@@ -52,7 +52,7 @@
 		<div class="play">
 			<div class="card border-light mb-3" style="max-width: 30rem; height: 40rem;">
 				<div href="/document" style="height:100%;">
-					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt=“Stats”>
+					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt=â€œStatsâ€>
 					<div class="card-block">
 						<center>
 							<h4><b>Game Statstics</b></h4>
@@ -75,13 +75,13 @@
 
 	<script type="text/javascript">
 	
-		//var totalGamesResponse = {
-		//	totalGames: 5
-		//};
+		var totalGamesResponse = {
+			totalGames: 5
+		};
 		
-		//var computerWinsResponse = {
-		//	computerWins: 6
-		//};
+		var computerWinsResponse = {
+			computerWins: 6
+		};
 	
 		// Method that is called on page load
 		function initalize() {
@@ -90,14 +90,14 @@
 			// --------------------------------------------------------------------------
 			// For example, lets call our sample methods
 			
-			//getMatchesPlayedMock();
-			//getComputerWinsMock();
+			getMatchesPlayedMock();
+			getComputerWinsMock();
 			
-			getMatchesPlayed();
-			getComputerWins();
-			getHumanWins();
-			getAverageDraws();
-			getLargestRoundsPerGame();
+			//getMatchesPlayed(); -- real example
+			//getComputerWins();
+			//getHumanWins();
+			//getAverageDraws();
+			//getLargestRoundsPerGame();
 		}
 		// -----------------------------------------
 		// Add your other Javascript methods Here
@@ -126,22 +126,22 @@
 	<script type="text/javascript">
 	
 	//below used to test methods working to output to page 
-		//function getMatchesPlayedMock(){
+		function getMatchesPlayedMock(){
 			// call getMatches API endpoint
-			//var response = totalGamesResponse;
-			//
-			//var computerWinsSpan = document.getElementById('totalGames');
-			//
-			//computerWinsSpan.innerHTML = response.totalGames;
-		//}
-		//
-		//function getComputerWinsMock(){
-			//var response = computerWinsResponse;
-			//
-			//var totalGamesSpan = document.getElementById('computerWins');
-			//
-			//totalGamesSpan.innerHTML = response.computerWins;
-		//}
+			var response = totalGamesResponse;
+			
+			var computerWinsSpan = document.getElementById('totalGames');
+			
+			computerWinsSpan.innerHTML = response.totalGames;
+		}
+		
+		function getComputerWinsMock(){
+			var response = computerWinsResponse;
+			
+			var totalGamesSpan = document.getElementById('computerWins');
+			
+			totalGamesSpan.innerHTML = response.computerWins;
+		}
 	
 		function getMatchesPlayed() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)

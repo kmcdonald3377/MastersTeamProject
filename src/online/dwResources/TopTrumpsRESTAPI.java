@@ -203,11 +203,13 @@ public class TopTrumpsRESTAPI
 	//database queries
 	//-----------------
 	
+	
 	@GET
-	@Path("matchesPlayed")
+	@Path("/matchesPlayed")
 	public String matchesPlayed() throws IOException
 	{
 		return oWriter.writeValueAsString(database.getMatchesPlayed());
+
 	}
 	
 	@GET
@@ -215,6 +217,7 @@ public class TopTrumpsRESTAPI
 	public String computerWonMatches() throws IOException
 	{
 		return oWriter.writeValueAsString(database.getComputerWonMatches());
+		
 	}
 	
 	@GET
@@ -222,6 +225,7 @@ public class TopTrumpsRESTAPI
 	public String humanWonMatches() throws IOException
 	{
 		return oWriter.writeValueAsString(database.getHumanWonMatches());
+
 	}
 	
 	@GET
@@ -229,6 +233,7 @@ public class TopTrumpsRESTAPI
 	public String averageNumberOfDraws() throws IOException
 	{
 		return oWriter.writeValueAsString(database.getAverageNumberOfDraws());
+
 	}
 	
 	@GET

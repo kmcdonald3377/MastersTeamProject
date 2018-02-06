@@ -13,7 +13,7 @@ public class Game
 	private PileOfCards deck;
 	private TestLog log;
 	private Player firstChoice;
-	private String username;
+	private String username, addRemove;
 	private int matchID;
 	
 	public Game(PileOfCards deck, String username) 
@@ -51,6 +51,11 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
+		addRemove = "";
+	}
+	
+	public PileOfCards getDeck()	{
+		return this.deck;
 	}
 	
 	public int getMatchID() 
@@ -187,11 +192,15 @@ public class Game
 	public void addToCommunalPile(Card currentCard) 
 	{
 		communalPile.addCard(currentCard);
+		addRemove = "add";
+		log.writeCommunalPile(addRemove, communalPile);
 	}
 	
 	public void removeFromCommunalPile(Card currentCard) 
 	{
 		communalPile.removeCard(currentCard);
+		addRemove = "remove";
+		log.writeCommunalPile(addRemove, communalPile);
 	}
 	
 	public PileOfCards getCommunalPile() 
@@ -215,8 +224,15 @@ public class Game
 			PileOfCards playerHand = playerList.get(j).getPlayerHand();
 			playerHand.addCard(newDeck.get(i));
 			j++;
-			log.writeHand(j, playerHand);
-			log.writeFile();
+		}
+		
+		for (int i = 0; i < 5; i++)
+		{
+			log.writeHand(i+1, playerList.get(i).getPlayerHand());
+		}
+		for (int i = 0; i <5; i++)
+		{
+			log.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
 		}
 	}
 	
@@ -254,5 +270,10 @@ public class Game
 		}
 
 		return playerName;
+	}
+	
+	public TestLog gameLog()
+	{
+		return log;
 	}
 }
