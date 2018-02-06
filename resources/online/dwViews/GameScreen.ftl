@@ -34,38 +34,24 @@
 		background-image: url("https://images2.alphacoders.com/552/thumb-1920-552988.jpg")
 	}
 	.play {
-		position: absolute;
-		left: 0;
-		margin-top: 5%;
-		margin-left: 5%;
+		position: relative;
 	}
 		
 	.ai1 {
-		position: absolute;
-		left: 0;
-		margin-top: 10%;
-		margin-left: 10%;
+		position: relative;
 	}
 	.ai2 {
-		position: absolute;
-		left: 0;
-		margin-top: 20%;
-		margin-left; 20%;
+		position: relative;
 	}
 	.ai3 {
-		position: absolute;
-		left: 0;
-		margin-top: 30%;
-		margin-left: 30%;
+		position: relative;
 	}
 	.ai4 {
-		position: absolute;
-		left: 0;
-		margin-top: 40%;
-		margin-left: 40%;
+		position: relative;
 		}
-
-
+	.selection {
+		position: relative;
+	}
 	
 </style>
 
@@ -78,7 +64,7 @@
 
 		<!-- Add your HTML Here -->
 		<div class="play">
-			<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
 					<div class="card-block">
@@ -86,7 +72,7 @@
 						<center>
 							<h4><b>Player Card</b></h4>
 							<br />
-							<p class="card-text">Description: 350R <br /> Size: 1 <br /> Speed: 9 <br /> Range: 2 <br /> Firepower: 3 <br /> Cargo: 0 <br /></p>
+							<p class="card-text">Description: 350R <br /> Size: 1 <br /> Speed: 9 <br /> Range: 2 <br /> Firepower: 3 <br /> Cargo: 0 <br /> Current Cards: 5 <br /></p>
 							<br />
 							
 					</div>
@@ -95,7 +81,7 @@
 		</div>
 
 		<div class=“ai1”>
-			<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg" alt=“Avenger”>					
 					<div class="card-block">
@@ -103,7 +89,7 @@
 						<center>
 							<h4><b>Ai1</b></h4>
 							<br />
-							<p class="card-text">Description: Avenger <br /> Size: 2 <br /> Speed: 5 <br /> Range: 4 <br /> Firepower: 3 <br /> Cargo: 2 <br /></p>
+							<p class="card-text">Description: Avenger <br /> Size: 2 <br /> Speed: 5 <br /> Range: 4 <br /> Firepower: 3 <br /> Cargo: 2 <br /> Current Cards: 5 <br /></p>
 							<br />
 						
 					</div>
@@ -112,7 +98,7 @@
 		</div>
 		
 			<div class=“ai2”>
-			<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Carrack.jpg" alt=“350r”>
 					<div class="card-block">
@@ -120,7 +106,7 @@
 						<center>
 							<h4><b>Ai2</b></h4>
 							<br />
-							<p class="card-text">Description: Carrack <br /> Size: 6 <br /> Speed: 2 <br /> Range: 10 <br /> Firepower: 4 <br /> Cargo: 6 <br /></p>
+							<p class="card-text">Description: Carrack <br /> Size: 6 <br /> Speed: 2 <br /> Range: 10 <br /> Firepower: 4 <br /> Cargo: 6 <br /> Current Cards: 5 <br /></p>
 							<br />
 											
 					</div>
@@ -129,7 +115,7 @@
 		</div>
 
 			<div class=“ai3”>
-			<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Constellation.jpg" alt=“350r”>
 					<div class="card-block">
@@ -137,7 +123,7 @@
 						<center>
 							<h4><b>Ai3</b></h4>
 							<br />
-							<p class="card-text">Description: Constellation <br /> Size: 4 <br /> Speed: 5 <br /> Range: 7 <br /> Firepower: 3 <br /> Cargo: 4 <br /></p>
+							<p class="card-text">Description: Constellation <br /> Size: 4 <br /> Speed: 5 <br /> Range: 7 <br /> Firepower: 3 <br /> Cargo: 4 <br /> Current Cards: 5 <br /></p>
 							<br />
 											
 					</div>
@@ -145,7 +131,7 @@
 			</div>
 		</div>			
 			<div class=“ai4”>
-			<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Hawk.jpg" alt=“350r”>
 					<div class="card-block">
@@ -153,13 +139,28 @@
 						<center>
 							<h4><b>Ai4</b></h4>
 							<br />
-							<p class="card-text">Description: Hawk <br /> Size: 1 <br /> Speed: 3 <br /> Range: 2 <br /> Firepower: 4 <br /> Cargo: 0 <br /></p>
+							<p class="card-text">Description: Hawk <br /> Size: 1 <br /> Speed: 3 <br /> Range: 2 <br /> Firepower: 4 <br /> Cargo: 0 <br /> Current Cards: 5<br /</p>
 							<br />
 											
 					</div>
 				</div>
 			</div>
 		</div>		
+		<div clas="selection">
+		<div class="card border-light mb-3" style="max-width: 20rem; height: 10rem;">
+		<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Category</b></h4>
+							<br />
+							<p class="card-text">Description: Current Category: Speed <br /> AI1 chose this category<br /></p>
+							<br />
+								
+					</div>
+				</div>
+			</div>
+		</div>	
+		
 	</div>
 	<script type="text/javascript">
 		// Method that is called on page load
