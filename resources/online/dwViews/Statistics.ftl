@@ -34,10 +34,11 @@
 		background-image: url("https://images2.alphacoders.com/552/thumb-1920-552988.jpg")
 	}
 	.play {
-		position: absolute;
-		left: 0;
-		margin-top: 5%;
-		margin-left: 35%;
+		 display: block;
+    		 margin-left: auto;
+   		 margin-right: auto;
+    		 width: 40%;
+		 margin-top: 10%;
 	}
 </style>
 
@@ -53,14 +54,17 @@
 			<div class="card border-light mb-3" style="max-width: 30rem; height: 40rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt=“Stats”>
-					<div class="card-block">
+						<div class="card-block">
 						<center>
 							<h4><b>Game Statstics</b></h4>
 							<br />							
 							<p class="card-text">Overall number of games: <br /><br /> Number of computer wins: <br /><br /> Number of human wins: <br /><br /> Average number of draws <br /><br /> Largest number of rounds per game: <br /> </p>
 							<br />
 							<a href="http://localhost:7777/toptrumps/play-game"</a></center>
-					
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/javascript">
