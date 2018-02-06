@@ -133,7 +133,7 @@
 						<center>
 							<h4><b>Category</b></h4>
 							<br />
-							<p class="card-text">Description: Current Category: Speed <br /> AI1 chose this category<br /></p>
+							<p class="card-text">Current Category: Speed <br /> AI1 chose this category<br /></p>
 							<br />
 								
 					</div>
