@@ -7,12 +7,13 @@ import java.util.Random;
 public class GameController 
 {
 	private final String username;
+	private String winner;
 	private GameView gameV;
 	private PileOfCards communalPile;
 	private Player firstChoice;
 	private Game currentGame;
 	private ArrayList <Player> playerList, activePlayers;
-	private TestLog log;
+	private TestLog glog;
 
 	public GameController(PileOfCards starCitizenDeck, String username) 
 	{
@@ -22,6 +23,7 @@ public class GameController
 		playerList = currentGame.getPlayerList();
 		activePlayers = currentGame.getActivePlayers();
 		this.username = username;
+		winner = "";
 	}
 
 	public void startGame() 
@@ -38,6 +40,12 @@ public class GameController
 			activePlayers = currentGame.getActivePlayers();
 			Round currentRound = new Round(currentGame, playerList, activePlayers);
 			displayCardHandDetails(currentRound);
+			for (int i = 0; i < activePlayers.size(); i++)
+			{
+				glog = currentGame.gameLog();
+				glog.writeCardsIP(i, activePlayers.get(i).getPlayerHand().getCurrentCard());
+				glog.writeCurrentDeck(currentGame.getDeck());
+			}
 			String category = "";
 			HashMap<Integer, Integer> categoryComparison = new HashMap<Integer, Integer>();
 			category = selectCategory(currentRound, category);
@@ -176,10 +184,14 @@ public class GameController
 		if(activePlayers.get(0).getPlayerId() == 1) 
 		{
 			gameV.humanWon();
+			winner = "Human wins.";
 		}
 		else 
 		{
 			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerId()));
+			winner = "AI wins. ";
 		}
+		glog = currentGame.gameLog();
+		glog.writeFile();
 	}
 }

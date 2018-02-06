@@ -1,4 +1,3 @@
-// Nadya
 // this class represents cards to get the five attribute names and values 
 package commandline;
 
