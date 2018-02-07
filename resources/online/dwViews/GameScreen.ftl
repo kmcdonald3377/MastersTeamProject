@@ -23,35 +23,38 @@ vex.defaultOptions.className = 'vex-theme-os';
 <link rel="stylesheet" href="http://dcs.gla.ac.uk/~richardm/assets/stylesheets/vex-theme-os.css" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 
 <style>
+html {
+      height: 100%;
+}
 body {
-		/* the background image should stretch to all screen sizes */
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-image: url("https://images2.alphacoders.com/552/thumb-1920-552988.jpg")
-	}
+    margin: 0;
+    background: linear-gradient(#FFF8DC, #FFFAF0);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 .selectdrop {
-    background-color: white;
+    background-color: FloralWhite;
     color: black;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
 }
-
 /* Dropdown Content (Hidden by Default) */
 .selectplay-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: 	#f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 /* Links inside the dropdown */
 .selectplay-content a {
     color: black;
@@ -59,18 +62,15 @@ body {
     text-decoration: none;
     display: block;
 }
-
 /* Change color of dropdown links on hover */
-.selectplay-content a:hover {background-color: #f1f1f1}
-
+.selectplay-content a:hover {background-color: Gainsboro}
 /* Show the dropdown menu on hover */
 .selectplay:hover .selectplay-content {
     display: block;
 }
-
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .selectplay:hover .selectdrop {
-    background-color: #3e8e41;
+    background-color: grey;
 }
 .categorydrop {
       background-color: white;
@@ -80,7 +80,6 @@ body {
     border: none;
     cursor: pointer;
 }
-
 /* Dropdown Content (Hidden by Default) */
 .category-content {
     display: none;
@@ -90,7 +89,6 @@ body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 /* Links inside the dropdown */
 .category-content a {
     color: black;
@@ -98,20 +96,25 @@ body {
     text-decoration: none;
     display: block;
 }
-
 /* Change color of dropdown links on hover */
-.category-content a:hover {background-color: #f1f1f1}
-
+.category-content a:hover {background-color: Gainsboro}
 /* Show the dropdown menu on hover */
 .category:hover .category-content {
     display: block;
 }
-
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .category:hover .categorydrop {
-    background-color: #3e8e41;
+    background-color: grey;
 }
-
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    background-color: FloralWhite;
+    color: black;
+}
 </style>
 </div>
 </style>
@@ -120,16 +123,9 @@ body {
 <!-- HEAD -->
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 <div class="container">
-<div class="name">
-  <h2 style="color:white;">Top Trumps: Round 1</h2>
+  <div class="w3-panel w3-FloralWhite”>
+<p style="color:Black>Top Trumps : Round 1</p>
 </div>
-
-<form class="w3-container">
-
-<label style="color:white;">First Name</label>
-<input class="w3-input" type="text">
-
-</form>
 <div class="selectplay">
   <button class="selectdrop">Players</button>
   <div class="selectplay-content">
@@ -139,10 +135,14 @@ body {
     <a href="#">4</a>
   </div>
 </div>
+<form>
+<input type="text" id="fname" name="fname" value=“FirstName”>
+</br>
+</form>
 </div>
 <div class="card-deck">
 <div class="play">
-<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <h4><b>Current Card : 350R</b></h4>
 <img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
@@ -158,7 +158,7 @@ body {
 </div>
 </div>
 <div class=“ai1”>
-<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“Avenger”> 
 <div class="card-block">
@@ -173,7 +173,7 @@ body {
 </div>
 </div>
 <div class=“ai2”>
-<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -188,7 +188,7 @@ body {
 </div>
 </div>
 <div class=“ai3”>
-<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -203,7 +203,7 @@ body {
 </div>
 </div> 
 	<div class=“ai4”>
-			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 					<div class="card-block">
@@ -219,13 +219,13 @@ body {
 			</div>
 		</div>
 		<div clas="selection">
-		<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+		<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
 		<div class="card-block">
 						<br />
 						<center>
 							<h4><b>Category</b></h4>
 							<br />
-							<p class="card-text">Current Category: <br /> Player Selects<br /></p>
+							<p class="card-text">Current Category: <br /> Player Selects<br />Communal Pile: 0</p>
 							<div class="category">
   							<button class="categorydrop">Category</button>
  							<div class="category-content">
@@ -234,17 +234,21 @@ body {
  								 <a href="#">Range</a>
  								 <a href="#">Firepower</a>
 								 <a href="#">Cargo</a>
- 								 </div>
-							</div>
-						<br />
+
+ 								 </div>	</div>
 
 					</div>
 				</div>
 			</div>
 		</div>
+							
+ 				
 	</div>
 </div>
-<a href="http://localhost:7777/toptrumps"><button>Main Menu</button></a>
+</div>
+</div>
+</div>
+<a href="http://localhost:7777/toptrumps" class="w3-button w3-hover-grey">Main Menu</a>
 </div>
 <script type="text/javascript">
 // Method that is called on page load
