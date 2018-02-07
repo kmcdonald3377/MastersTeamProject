@@ -115,6 +115,11 @@ input[type=text] {
     background-color: FloralWhite;
     color: black;
 }
+h1 {
+    color:black;
+    font-size:300%;
+    text-align:center;
+}
 </style>
 </div>
 </style>
@@ -123,8 +128,7 @@ input[type=text] {
 <!-- HEAD -->
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 <div class="container">
-  <div class="w3-panel w3-FloralWhite”>
-<p style="color:Black>Top Trumps : Round 1</p>
+<h1>Top Trumps : Round 1</h1>
 </div>
 <div class="selectplay">
   <button class="selectdrop">Players</button>
