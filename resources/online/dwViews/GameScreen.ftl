@@ -27,51 +27,6 @@
 </head>
 
 <style>
-	.flex-container{
-		display:-webkit-flex;
-		display: flex;
-		-webkit-flex-flow: row wrap;
-		flex-flow: row wrap;
-		text-align: center;
-	}
-
-	.flex-container > * {
-    	padding: 15px;
-    	-webkit-flex: 1 100%;
-    	flex: 1 100%;
-	}
-
-	.play{
-		position: absolute;
-		left: 0;
-		margin-top: 2%;
-		margin-left: 5%;
-	}
-
-	.ai1{
-		position: absolute;
-		left: 20px;
-		margin-top: 2%;
-		margin-left: 5%;
-	}
-
-	header {background: black;color:white;}
-	footer {background: #aaa;color:white;}
-	.nav {background:#eee;}
-
-	.nav ul {
-    	list-style-type: none;
-   		padding: 0;
-	}
-	.nav ul a {
-    	text-decoration: none;
-	}
-
-	@media all and (min-width: 768px) {
-    	.nav {text-align:left;-webkit-flex: 1 auto;flex:1 auto;-webkit-order:1;order:1;}
-    	.play {-webkit-flex:5 0px;flex:5 0px;-webkit-order:2;order:2;}
-    	footer {-webkit-order:3;order:3;}
-	}
 
 	body {
 		/* the background image should stretch to all screen sizes */
@@ -80,7 +35,7 @@
 		background-image: url("https://images2.alphacoders.com/552/thumb-1920-552988.jpg")
 	}
 
-	
+
 </style>
 
 <body onload="initalize()">
@@ -92,22 +47,105 @@
 	<div class="container">
 
 		<!-- Add your HTML Here -->
-		<header>
-			<nav>Test</nav>
-			<h1>Round 1</h1>
-		</header>
+		<div class="card-deck">
+		<div class="play">
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+				<div href="/document" style="height:100%;">
+					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
+					<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Player Card</b></h4>
+							<br />
+							<p class="card-text">Description: 350R <br /> Size: 1 <br /> Speed: 9 <br /> Range: 2 <br /> Firepower: 3 <br /> Cargo: 0 <br /> Current Cards: 5 <br /></p>
+							<br />
 
-		<div class="get-username">
-			<p>Please enter your name</p>
-        	<button onclick="myFunction()">Press me</button>
-       		<p id="demo"></p>
-        	
-			
-
+					</div>
+				</div>
+			</div>
 		</div>
 
-		
-		
+		<div class=“ai1”>
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+				<div href="/document" style="height:100%;">
+					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg" alt=“Avenger”>
+					<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Ai1</b></h4>
+							<br />
+							<p class="card-text">Description: Avenger <br /> Size: 2 <br /> Speed: 5 <br /> Range: 4 <br /> Firepower: 3 <br /> Cargo: 2 <br /> Current Cards: 5 <br /></p>
+							<br />
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<div class=“ai2”>
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+				<div href="/document" style="height:100%;">
+					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Carrack.jpg" alt=“350r”>
+					<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Ai2</b></h4>
+							<br />
+							<p class="card-text">Description: Carrack <br /> Size: 6 <br /> Speed: 2 <br /> Range: 10 <br /> Firepower: 4 <br /> Cargo: 6 <br /> Current Cards: 5 <br /></p>
+							<br />
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<div class=“ai3”>
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+				<div href="/document" style="height:100%;">
+					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Constellation.jpg" alt=“350r”>
+					<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Ai3</b></h4>
+							<br />
+							<p class="card-text">Description: Constellation <br /> Size: 4 <br /> Speed: 5 <br /> Range: 7 <br /> Firepower: 3 <br /> Cargo: 4 <br /> Current Cards: 5 <br /></p>
+							<br />
+
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class=“ai4”>
+			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
+				<div href="/document" style="height:100%;">
+					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Hawk.jpg" alt=“350r”>
+					<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Ai4</b></h4>
+							<br />
+							<p class="card-text">Description: Hawk <br /> Size: 1 <br /> Speed: 3 <br /> Range: 2 <br /> Firepower: 4 <br /> Cargo: 0 <br /> Current Cards: 5<br /</p>
+							<br />
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div clas="selection">
+		<div class="card border-light mb-3" style="max-width: 20rem; height: 10rem;">
+		<div class="card-block">
+						<br />
+						<center>
+							<h4><b>Category</b></h4>
+							<br />
+							<p class="card-text">Current Category: Speed <br /> AI1 chose this category<br /></p>
+							<br />
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </div>
 
@@ -119,6 +157,8 @@
 			// You can call other methods you want to run when the page first loads here
 			// --------------------------------------------------------------------------
 			// For example, lets call our sample methods
+
+			var gameID;
 			startGame(x);
 			communalPile();
 			playerList();
@@ -127,10 +167,11 @@
 		// -----------------------------------------
 		// Add your other Javascript methods Here
 		// -----------------------------------------
-		
-			function startGame()
+
+			function start()
 			{
 				firstChoice();
+				runGame();
 			}
 
 			function runGame()
@@ -145,8 +186,14 @@
 						category = categorySelection();
 					}
 					findWinner();
+					isWinner();
 				}
-				
+
+			}
+
+			function isValid()
+			{
+				while(activePlayers)
 			}
 
         	function myFunction(){
@@ -158,7 +205,7 @@
               		document.getElementById("demo").innerHTML=x;
               	}
             }
-        
+
 
 		// This is a reusable method for creating a CORS request. Do not edit this.
 		function createCORSRequest(method, url) {
@@ -185,52 +232,58 @@
 
 		function startGame(username){
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame?username=" + username); // Request type and URL
-			
+
 			if (!xhr) {
 				alert("CORS not supported");
 			}
-			
+
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
-				var gameID = responseText;
+				gameID = responseText;
 				alert(responseText); // lets produce an alert
 			};
-			
+
 			xhr.send();
 		}
 
 		function playerList(){
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/playerList"); // Request type and URL
-			
+
 			if (!xhr) {
 				alert("CORS not supported");
 			}
-			
+
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var playerList = responseText;
 				alert(responseText); // lets produce an alert
 			};
-			
+
 			xhr.send();
 		}
 
 		function activePlayers(){
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/activePlayers"); // Request type and URL
-			
+
 			if (!xhr) {
 				alert("CORS not supported");
 			}
-			
+
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var activePlayers = responseText;
 				alert(responseText); // lets produce an alert
 			};
-			
+
 			xhr.send();
 		}
-	
+
+
+
+
+
+
+
 		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 		function helloJSONList() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -266,105 +319,7 @@
 			xhr.send();
 		}
 
-		//<div class="card-deck">
-		//<div class="play">
-		//	<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
-		//		<div href="/document" style="height:100%;">
-		//			<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
-		//			<div class="card-block">
-		//				<br />
-		//				<center>
-		//					<h4><b>Player Card</b></h4>
-		//					<br />
-		//					<p class="card-text">Description: 350R <br /> Size: 1 <br /> Speed: 9 <br /> Range: 2 <br /> Firepower: 3 <br /> Cargo: 0 <br /> Current Cards: 5 <br /></p>
-		//					<br />
-		//					
-		//			</div>
-		//		</div>
-		//	</div>
-		//</div>
-//
-//		<div class=“ai1”>
-//			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
-//				<div href="/document" style="height:100%;">
-//					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg" alt=“Avenger”>					
-//					<div class="card-block">
-//						<br />
-//						<center>
-//							<h4><b>Ai1</b></h4>
-//							<br />
-//							<p class="card-text">Description: Avenger <br /> Size: 2 <br /> Speed: 5 <br /> Range: 4 <br /> Firepower: 3 <br /> Cargo: 2 <br /> Current Cards: 5 <br /></p>
-//							<br />
-//						
-//					</div>
-//				</div>
-//			</div>
-//		</div>
-//		
-//			<div class=“ai2”>
-//			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
-//				<div href="/document" style="height:100%;">
-//					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Carrack.jpg" alt=“350r”>
-//					<div class="card-block">
-//						<br />
-//						<center>
-//							<h4><b>Ai2</b></h4>
-//							<br />
-//							<p class="card-text">Description: Carrack <br /> Size: 6 <br /> Speed: 2 <br /> Range: 10 <br /> Firepower: 4 <br /> Cargo: 6 <br /> Current Cards: 5 <br /></p>
-//							<br />
-//											
-//					</div>
-//				</div>
-//			</div>
-//		</div>
-//
-//			<div class=“ai3”>
-//			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
-//				<div href="/document" style="height:100%;">
-//					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Constellation.jpg" alt=“350r”>
-//					<div class="card-block">
-//						<br />
-//						<center>
-//							<h4><b>Ai3</b></h4>
-//							<br />
-//							<p class="card-text">Description: Constellation <br /> Size: 4 <br /> Speed: 5 <br /> Range: 7 <br /> Firepower: 3 <br /> Cargo: 4 <br /> Current Cards: 5 <br /></p>
-//							<br />
-//											
-//					</div>
-//				</div>
-//			</div>
-//		</div>			
-//			<div class=“ai4”>
-//			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
-//				<div href="/document" style="height:100%;">
-//					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Hawk.jpg" alt=“350r”>
-//					<div class="card-block">
-//						<br />
-//						<center>
-//							<h4><b>Ai4</b></h4>
-//							<br />
-//							<p class="card-text">Description: Hawk <br /> Size: 1 <br /> Speed: 3 <br /> Range: 2 <br /> Firepower: 4 <br /> Cargo: 0 <br /> Current Cards: 5<br /</p>
-//							<br />
-//											
-//					</div>
-//				</div>
-//			</div>
-//		</div>		
-//		<div clas="selection">
-//		<div class="card border-light mb-3" style="max-width: 20rem; height: 10rem;">
-//		<div class="card-block">
-//						<br />
-//						<center>
-//							<h4><b>Category</b></h4>
-//							<br />
-//							<p class="card-text">Current Category: Speed <br /> AI1 chose this category<br /></p>
-//							<br />
-//								
-//					</div>
-//				</div>
-//			</div>
-//		</div>	
-//	</div>
+
 	</script>
 
 </body>
