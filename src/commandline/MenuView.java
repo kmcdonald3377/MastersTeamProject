@@ -12,12 +12,12 @@ public class MenuView
 	}
 	public void setHumanName()
 	{
-		System.out.println("Please enter your name:");
+		System.out.println("\nPlease enter your name:");
 	}
 	
 	public void displayMenu() 
 	{
-		System.out.println("If you want to play a game enter G "
+		System.out.println("\nIf you want to play a game enter G "
 				+ "\nIf you want to view statstics enter S \nIf you want to quit the game enter Q");
 	}
 	
