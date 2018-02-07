@@ -255,8 +255,8 @@
 
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
-				var playerList = responseText;
-				alert(responseText); // lets produce an alert
+				var playerList = JSON.parse(responseText);
+				alert(playerList); // lets produce an alert
 			};
 
 			xhr.send();
@@ -271,8 +271,24 @@
 
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
-				var activePlayers = responseText;
-				alert(responseText); // lets produce an alert
+				var activePlayers = JSON.parse(responseText);
+				alert(activePlayers); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function communalPile(){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/communalPile"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var communalPile = JSON.parse(responseText);
+				alert(communalPile); // lets produce an alert
 			};
 
 			xhr.send();
