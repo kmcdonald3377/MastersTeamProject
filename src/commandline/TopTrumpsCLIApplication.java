@@ -29,6 +29,7 @@ public class TopTrumpsCLIApplication {
 		{
 			menuC.readFile();
 			menuC.displayMenuV();
+			menuC.log(writeGameLogsToFile);
 			menuC.setChoiceFromUserInput();
 			menuC.choiceSelection();
 

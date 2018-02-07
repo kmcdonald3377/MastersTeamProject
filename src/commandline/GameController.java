@@ -13,8 +13,9 @@ public class GameController
 	private Game currentGame;
 	private ArrayList <Player> playerList, activePlayers;
 	private TestLog glog;
+	private boolean _log;
 
-	public GameController(PileOfCards starCitizenDeck, String username) 
+	public GameController(PileOfCards starCitizenDeck, String username, boolean log) 
 	{
 		gameV = new GameView(this);
 		currentGame = new Game(starCitizenDeck, username);
@@ -22,6 +23,7 @@ public class GameController
 		playerList = currentGame.getPlayerList();
 		activePlayers = currentGame.getActivePlayers();
 		this.username = username;
+		_log = log;
 	}
 
 	public void startGame() 
@@ -214,6 +216,13 @@ public class GameController
 		}
 		glog = currentGame.gameLog();
 		glog.writeWinner(winner);
-		glog.writeFile();
+		if (!_log)
+		{
+			System.out.println("User chose not to print log.");
+		}
+		else
+		{
+			glog.writeFile();
+		}
 	}
 }

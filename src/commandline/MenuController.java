@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class MenuController 
 {
 	private String choice;
+	private boolean log;
 	private MenuView menuV;
 	private Scanner scanner;
 	private String name;
@@ -15,6 +16,7 @@ public class MenuController
 
 	public MenuController() 
 	{
+		log = false;
 		menuV = new MenuView(this);
 	}
 
@@ -82,12 +84,16 @@ public class MenuController
 			return starCitizenDeck;
 		
 	}
+	
+	public void log(boolean writeGameLogsToFile)	{
+		log = writeGameLogsToFile;
+	}
 
 	public void choiceSelection() 
 	{
 		if(choice.equalsIgnoreCase("G")) 
 		{
-			GameController gameC = new GameController(starCitizenDeck, name);
+			GameController gameC = new GameController(starCitizenDeck, name, log);
 			gameC.startGame();
 		}
 		else if(choice.equalsIgnoreCase("S")) 
