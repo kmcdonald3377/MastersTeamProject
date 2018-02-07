@@ -119,6 +119,7 @@ h1 {
     color:black;
     font-size:300%;
     text-align:center;
+    text-shadow: 3px 2px grey;
 }
 </style>
 </div>
