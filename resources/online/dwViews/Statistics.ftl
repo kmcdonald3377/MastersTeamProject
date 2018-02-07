@@ -75,6 +75,7 @@
 				</div>
 			</div>
 		</div>
+		<a href="http://localhost:7777/toptrumps"><button>Main Menu</button></a>
 	</div>
 
 	<script type="text/javascript">
