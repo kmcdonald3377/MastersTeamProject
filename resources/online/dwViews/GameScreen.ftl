@@ -29,14 +29,14 @@ vex.defaultOptions.className = 'vex-theme-os';
 </head>
 
 <style>
-body {	
-        background: linear-gradient(#E0FFFF, #AFEEEE);
-
-
-    /* Center and scale the image nicely */
-    background-position: center;
+html {
+      height: 100%;
+}
+body {
+    margin: 0;
+    background: linear-gradient(#E0FFFF, #AFEEEE);;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-attachment: fixed;
 }
 .selectdrop {
     background-color: white;
@@ -225,7 +225,7 @@ body {
 						<center>
 							<h4><b>Category</b></h4>
 							<br />
-							<p class="card-text">Current Category: <br /> Player Selects<br /></p>
+							<p class="card-text">Current Category: <br /> Player Selects<br />Communal Pile: 0</p>
 							<div class="category">
   							<button class="categorydrop">Category</button>
  							<div class="category-content">
@@ -234,20 +234,13 @@ body {
  								 <a href="#">Range</a>
  								 <a href="#">Firepower</a>
 								 <a href="#">Cargo</a>
+
  								 </div>	</div>
 
 					</div>
 				</div>
 			</div>
 		</div>
-		<div clas="selection">
-		<div class="card border-light mb-3" style="max-width: 127rem; height: 10rem;">
-		<div class="card-block">
-						<br />
-						<center>
-							<h4><b>Communal Pile</b></h4>
-							<br />
-							<p class="card-text">Current Card: 0<br /> <br /></p>
 							
  				
 	</div>
