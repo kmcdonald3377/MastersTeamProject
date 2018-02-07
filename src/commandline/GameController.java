@@ -7,7 +7,6 @@ import java.util.Random;
 public class GameController 
 {
 	private final String username;
-	private String winner;
 	private GameView gameV;
 	private PileOfCards communalPile;
 	private Player firstChoice;
@@ -23,7 +22,6 @@ public class GameController
 		playerList = currentGame.getPlayerList();
 		activePlayers = currentGame.getActivePlayers();
 		this.username = username;
-		winner = "";
 	}
 
 	public void startGame() 
@@ -37,21 +35,16 @@ public class GameController
 	{		
 		while(isValid()) //will make loop for as long as player has cards or 
 		{
+			glog = currentGame.gameLog();
 			activePlayers = currentGame.getActivePlayers();
 			Round currentRound = new Round(currentGame, playerList, activePlayers);
 			displayCardHandDetails(currentRound);
-			for (int i = 0; i < activePlayers.size(); i++)
-			{
-				glog = currentGame.gameLog();
-				glog.writeCardsIP(i, activePlayers.get(i).getPlayerHand().getCurrentCard());
-				glog.writeCurrentDeck(currentGame.getDeck());
-			}
 			String category = "";
 			HashMap<Integer, Integer> categoryComparison = new HashMap<Integer, Integer>();
 			category = selectCategory(currentRound, category);
 			categoryComparison = makeCategoryComparison(currentRound, category, categoryComparison); //this will need to return to update hashmap and to update category
 			displayStats(currentRound, categoryComparison);
-			decideRoundWinners(currentRound, category);			
+			decideRoundWinners(currentRound, category);		
 			currentGame.increaseRounds();
 			ArrayList<Player> removePlayers = currentGame.playersToBeRemoved();
 			for(int i = 0; i < removePlayers.size(); i++) 
@@ -61,8 +54,9 @@ public class GameController
 					gameV.removedPlayers(currentGame.getPlayerName(removePlayers.get(i).getPlayerId())); //this should be in gamecontroller
 				}
 			}
-			
 			activePlayers = currentGame.removeFromActivePlayers(); //this method current has gameV line in it - need this in here
+			this.cardsInPlay();
+			this.writeHand();
 		}
 		displayGameResult();
 	}
@@ -88,6 +82,22 @@ public class GameController
 			gameV.showCard(handSize[0], handSize[1], handSize[2], handSize[3], handSize[4], currentCard);
 		}
 	}
+	
+	private void cardsInPlay()
+	{
+		for (int i = 0; i < activePlayers.size(); i++)
+		{
+			glog.writeCardsIP(i, activePlayers.get(i).getPlayerHand().getCurrentCard());
+		}
+	}
+	
+	private void writeHand()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			glog.writeHand(i+1, playerList.get(i).getPlayerHand());
+		}
+	}
 
 	private String selectCategory(Round currentRound, String category) 
 	{
@@ -105,6 +115,7 @@ public class GameController
 			gameV.userSelectCategory();
 			category = gameV.userInput();
 			category = currentRound.humanCategorySelection(category);
+			
 			while(category.equals("")) 
 			{
 				gameV.errorMessage();
@@ -112,6 +123,7 @@ public class GameController
 				category = currentRound.humanCategorySelection(category);
 			}
 		}	
+		glog.writeCategory(category);
 		return category;
 	}
 	
@@ -126,7 +138,13 @@ public class GameController
 		ArrayList<Integer> cardStats = currentRound.setCategoryValues(categoryComparison);
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
-			gameV.showStats(username, cardStats.get(0), cardStats.get(1), cardStats.get(2), cardStats.get(3), cardStats.get(4));	//this stays here		
+			gameV.showStats(username, cardStats.get(0), cardStats.get(1), cardStats.get(2), cardStats.get(3), cardStats.get(4));	//this stays here
+			String s = ("\n" + username + " has: " + cardStats.get(0)
+					+ " \nAI Player 1 has: " + cardStats.get(1)
+					+ " \nAI Player 2 has: " + cardStats.get(2)
+					+ " \nAI Player 3 has: " + cardStats.get(3)
+					+ " \nAI Player 4 has: " + cardStats.get(4));
+			glog.writeStats(s);
 		}
 	}
 	
@@ -147,6 +165,7 @@ public class GameController
 	private void displayRoundDraw(Round currentRound, ArrayList<Player> winners) 
 	{
 		currentRound.computeDraw(winners);
+		glog.writeCommunalPile(communalPile);
 		for(int i = 0; i < winners.size(); i++) 
 		{
 			winners.get(i).increaseRoundsDrawn();
@@ -161,6 +180,7 @@ public class GameController
 
 	private void displayRoundWin(Round currentRound, ArrayList<Player> winner) 
 	{
+		glog.writeCommunalPileEmpty();
 		currentRound.computeWin(winner);
 		winner.get(0).increaseRoundsWon();
 		winner.get(0).getPlayerId();
@@ -179,19 +199,21 @@ public class GameController
 		}
 	}
 	
-	private void displayGameResult() 
+	private void displayGameResult()
 	{
+		String winner ="";
 		if(activePlayers.get(0).getPlayerId() == 1) 
 		{
 			gameV.humanWon();
-			winner = "Human wins.";
+			winner = "Human ";
 		}
 		else 
 		{
 			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerId()));
-			winner = "AI wins. ";
+			winner = "AI ";
 		}
 		glog = currentGame.gameLog();
+		glog.writeWinner(winner);
 		glog.writeFile();
 	}
 }
