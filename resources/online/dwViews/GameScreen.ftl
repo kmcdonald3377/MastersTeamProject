@@ -142,7 +142,7 @@ input[type=text] {
 </div>
 <div class="card-deck">
 <div class="play">
-<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <h4><b>Current Card : 350R</b></h4>
 <img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
@@ -158,7 +158,7 @@ input[type=text] {
 </div>
 </div>
 <div class=“ai1”>
-<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“Avenger”> 
 <div class="card-block">
@@ -173,7 +173,7 @@ input[type=text] {
 </div>
 </div>
 <div class=“ai2”>
-<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -188,7 +188,7 @@ input[type=text] {
 </div>
 </div>
 <div class=“ai3”>
-<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -203,7 +203,7 @@ input[type=text] {
 </div>
 </div> 
 	<div class=“ai4”>
-			<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
+			<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 					<div class="card-block">
@@ -219,7 +219,7 @@ input[type=text] {
 			</div>
 		</div>
 		<div clas="selection">
-		<div class="card border-light mb-3" style="max-width: 20rem; height: 27rem;">
+		<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
 		<div class="card-block">
 						<br />
 						<center>
