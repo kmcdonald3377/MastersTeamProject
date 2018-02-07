@@ -53,7 +53,7 @@
 		<div class="play">
 			<div class="card border-light mb-3" style="max-width: 30rem; height: 40rem;">
 				<div href="/document" style="height:100%;">
-					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt=“Stats”>
+					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt="Stats">
 					<div class="card-block">
 						<center>
 							<h4><b>Game Statstics</b></h4>
@@ -70,7 +70,7 @@
 								<br /> 
 							</p>
 							<br />
-							<a href="http://localhost:7777/toptrumps/play-game"</a></center>
+							<a href="http://localhost:7777/toptrumps/game"</a></center>
 					</div>
 				</div>
 			</div>
@@ -79,25 +79,9 @@
 	</div>
 
 	<script type="text/javascript">
-	
-		//var totalGamesResponse = {
-		//	totalGames: 5
-		//};
 		
-		//var computerWinsResponse = {
-		//	computerWins: 6
-		//};
-	
 		// Method that is called on page load
 		function initalize() {
-			// --------------------------------------------------------------------------
-			// You can call other methods you want to run when the page first loads here
-			// --------------------------------------------------------------------------
-			// For example, lets call our sample methods
-			
-			//getMatchesPlayedMock();
-			//getComputerWinsMock();
-			
 			getMatchesPlayed();
 			getComputerWins();
 			getHumanWins();
@@ -107,6 +91,8 @@
 		// -----------------------------------------
 		// Add your other Javascript methods Here
 		// -----------------------------------------
+
+
 		// This is a reusable method for creating a CORS request. Do not edit this.
 		function createCORSRequest(method, url) {
 			var xhr = new XMLHttpRequest();
@@ -127,27 +113,8 @@
 		}
 	</script>
 
-	<!-- Here are examples of how to call REST API Methods -->
 	<script type="text/javascript">
-	
-	//below used to test methods working to output to page 
-		//function getMatchesPlayedMock(){
-			// call getMatches API endpoint
-			//var response = totalGamesResponse;
-			//
-			//var computerWinsSpan = document.getElementById('totalGames');
-			//
-			//computerWinsSpan.innerHTML = response.totalGames;
-		//}
-		//
-		//function getComputerWinsMock(){
-			//var response = computerWinsResponse;
-			//
-			//var totalGamesSpan = document.getElementById('computerWins');
-			//
-			//totalGamesSpan.innerHTML = response.computerWins;
-		//}
-	
+				
 		function getMatchesPlayed() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/matchesPlayed"); // Request type and URL
@@ -243,41 +210,6 @@
 				var totalGamesSpan = document.getElementById('highestRoundsPerGame');
 		
 				totalGamesSpan.innerHTML = responseText;
-			};
-			// We have done everything we need to prepare the CORS request, so send it
-			xhr.send();
-		}
-	
-		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-		function helloJSONList() {
-			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/CardList"); // Request type and URL
-			// Message is not sent yet, but we can check that the browser supports CORS
-			if (!xhr) {
-				alert("CORS not supported");
-			}
-			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-			// to do when the response arrives
-			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				alert(responseText); // lets produce an alert
-			};
-			// We have done everything we need to prepare the CORS request, so send it
-			xhr.send();
-		}
-		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-		function helloWord(word) {
-			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/hellocards?ListofCards=" + ListofCards); // Request type and URL+parameters
-			// Message is not sent yet, but we can check that the browser supports CORS
-			if (!xhr) {
-				alert("CORS not supported");
-			}
-			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-			// to do when the response arrives
-			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				alert(responseText); // lets produce an alert
 			};
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
