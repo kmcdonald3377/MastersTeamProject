@@ -42,7 +42,7 @@ public class TopTrumpsRESTAPI
 	 * into JSON strings easily. */
 	ObjectWriter oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
 	MenuController menuC;
-	Game currentGame;
+	ArrayList<Game> gameList;
 	Round currentRound;
 	Database database;
 	
@@ -56,11 +56,13 @@ public class TopTrumpsRESTAPI
 	{
 		menuC = new MenuController();
 		database = new Database();
+		gameList = new ArrayList<Game>();
 		// ----------------------------------------------------
 		// Add relevant initalization here
 		// ----------------------------------------------------
 	}
 	
+<<<<<<< HEAD
 //	@GET
 //	@Path("/startGame")
 //	public String startGame(@QueryParam("username") String username) throws IOException
@@ -70,6 +72,31 @@ public class TopTrumpsRESTAPI
 //		return oWriter.writeValueAsString(currentGame.getMatchID());
 //	}
 //	
+=======
+	private Game getGame(String matchID) 
+	{
+		int gameID = Integer.parseInt(matchID);
+		for(Game x : gameList) 
+		{
+			if(gameID == x.getMatchID()) 
+			{
+				return x;
+			}
+		}
+		return null;
+	}
+	
+	@GET
+	@Path("/startGame")
+	public String startGame(@QueryParam("username") String username) throws IOException
+	{
+		Game currentGame = new Game(menuC.readFile(), username);
+		gameList.add(currentGame);
+		
+		return oWriter.writeValueAsString(currentGame.getMatchID());
+	}
+	
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	@GET
 //	@Path("/newRound")
 //	public String newRound(@QueryParam("currentGame") Game currentGame, @QueryParam("playerList") ArrayList<Player> playerList, 
@@ -80,6 +107,7 @@ public class TopTrumpsRESTAPI
 //		return oWriter.writeValueAsString(currentRound);
 //	}
 //	
+<<<<<<< HEAD
 //	@GET
 //	@Path("/activePlayers")
 //	public String activePlayers() throws IOException
@@ -146,47 +174,150 @@ public class TopTrumpsRESTAPI
 //	@GET
 //	@Path("/categorySelection")
 //	public String categorySelection() throws IOException
+=======
+	@GET
+	@Path("/activePlayers")
+	public String activePlayers(@QueryParam("matchID") String matchID) throws IOException //cannot pass in a java object from javascript
+	{ //going to have to be a string from JSON and then convert into a game object
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.getActivePlayers());
+	}
+	
+	@GET
+	@Path("/playerList")
+	public String playerList(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.getPlayerList());
+	}
+	
+	@GET
+	@Path("/communalPile")
+	public String communalPile(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.getCommunalPile());
+	}
+	
+	@GET
+	@Path("/playerHandSizes")
+	public String playerHandSizes(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.getPlayerHandSize());
+	}
+	
+	@GET
+	@Path("/playersToBeRemoved")
+	public String playersToBeRemoved(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.playersToBeRemoved());
+	}
+	
+	@GET
+	@Path("/removedFromActivePlayers")
+	public String removedFromActivePlayers(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.removeFromActivePlayers());
+	}
+	
+	@GET
+	@Path("/totalRounds")
+	public String totalRounds(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.getTotalRounds());
+	}
+	
+	@GET
+	@Path("/totalDraws")
+	public String totalDraws(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.getTotalDraws());
+	}
+	
+	@GET
+	@Path("/firstPlayer")
+	public String firstPlayer(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.setFirstChoice());
+	}
+	
+//	@GET
+//	@Path("/categorySelection")
+//	public String categorySelection(@QueryParam("currentRound") Round currentRound) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.categorySelection());
 //	}
 //	
 //	@GET
 //	@Path("/humanCategorySelection")
+<<<<<<< HEAD
 //	public String humanCategorySelection(@QueryParam("Category") String Category) throws IOException
+=======
+//	public String humanCategorySelection(@QueryParam("currentRound") Round currentRound, 
+//			@QueryParam("Category") String Category) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.humanCategorySelection(Category));
 //	}
 //	
 //	@GET
 //	@Path("/categoryValues")
+<<<<<<< HEAD
 //	public String categoryValues(@QueryParam("Category") String Category) throws IOException
+=======
+//	public String categoryValues(@QueryParam("currentRound") Round currentRound,
+//			@QueryParam("Category") String Category) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.categoryValues(Category));
 //	}
 //	
 //	@GET
 //	@Path("/maxScore")
+<<<<<<< HEAD
 //	public String maxScore(@QueryParam("Category") String Category) throws IOException
+=======
+//	public String maxScore(@QueryParam("currentRound") Round currentRound, 
+//			@QueryParam("Category") String Category) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.findMaxScore(Category));
 //	}
 //	
 //	@GET
 //	@Path("/isWinner")
+<<<<<<< HEAD
 //	public String isWinner(@QueryParam("Category") String Category) throws IOException
+=======
+//	public String isWinner(@QueryParam("currentRound") Round currentRound, 
+//			@QueryParam("Category") String Category) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.isWinner(Category));
 //	}
 //	
 //	@GET
 //	@Path("/findWinner")
+<<<<<<< HEAD
 //	public String findWinner(@QueryParam("Category") String Category) throws IOException
+=======
+//	public String findWinner(@QueryParam("currentRound") Round currentRound, 
+//			@QueryParam("Category") String Category) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.findWinner(Category));
 //	}
 //	
 //	@GET
 //	@Path("/currentCard")
+<<<<<<< HEAD
 //	public String currentCard(@QueryParam("PlayerPosition") int PlayerPosition) throws IOException
 //	{
 //		return oWriter.writeValueAsString(currentRound.getCard(PlayerPosition));
@@ -195,6 +326,18 @@ public class TopTrumpsRESTAPI
 //	@GET
 //	@Path("/categoryValueList")
 //	public String categoryValueList(@QueryParam("CategoryComparison") HashMap<Integer, Integer> CategoryComparison) throws IOException
+=======
+//	public String currentCard(@QueryParam("currentRound") Round currentRound, 
+//			@QueryParam("PlayerPosition") int PlayerPosition) throws IOException
+//	{
+//		return oWriter.writeValueAsString(currentRound.getCard(PlayerPosition));
+//	}
+	
+//	@GET
+//	@Path("/categoryValueList")
+//	public String categoryValueList(@QueryParam("currentRound") Round currentRound, 
+//			@QueryParam("CategoryComparison") HashMap<Integer, Integer> CategoryComparison) throws IOException
+>>>>>>> b6f70f53a6259e133b4ed2f5f49857ff2bad7ae3
 //	{
 //		return oWriter.writeValueAsString(currentRound.setCategoryValues(CategoryComparison));
 //	}

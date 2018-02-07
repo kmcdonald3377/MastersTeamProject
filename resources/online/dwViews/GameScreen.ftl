@@ -27,11 +27,15 @@
 </head>
 
 <style>
+
 	body {
 		/* the background image should stretch to all screen sizes */
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-image: url("https://images2.alphacoders.com/552/thumb-1920-552988.jpg")
+	}
+
+
 </style>
 
 <body onload="initalize()">
@@ -39,6 +43,7 @@
 	<!-- HEAD -->
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 
+<div class="flex-container">
 	<div class="container">
 
 		<!-- Add your HTML Here -->
@@ -54,7 +59,7 @@
 							<br />
 							<p class="card-text">Description: 350R <br /> Size: 1 <br /> Speed: 9 <br /> Range: 2 <br /> Firepower: 3 <br /> Cargo: 0 <br /> Current Cards: 5 <br /></p>
 							<br />
-							
+
 					</div>
 				</div>
 			</div>
@@ -63,7 +68,7 @@
 		<div class=“ai1”>
 			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
-					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg" alt=“Avenger”>					
+					<img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg" alt=“Avenger”>
 					<div class="card-block">
 						<br />
 						<center>
@@ -71,12 +76,12 @@
 							<br />
 							<p class="card-text">Description: Avenger <br /> Size: 2 <br /> Speed: 5 <br /> Range: 4 <br /> Firepower: 3 <br /> Cargo: 2 <br /> Current Cards: 5 <br /></p>
 							<br />
-						
+
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 			<div class=“ai2”>
 			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
@@ -88,7 +93,7 @@
 							<br />
 							<p class="card-text">Description: Carrack <br /> Size: 6 <br /> Speed: 2 <br /> Range: 10 <br /> Firepower: 4 <br /> Cargo: 6 <br /> Current Cards: 5 <br /></p>
 							<br />
-											
+
 					</div>
 				</div>
 			</div>
@@ -105,11 +110,11 @@
 							<br />
 							<p class="card-text">Description: Constellation <br /> Size: 4 <br /> Speed: 5 <br /> Range: 7 <br /> Firepower: 3 <br /> Cargo: 4 <br /> Current Cards: 5 <br /></p>
 							<br />
-											
+
 					</div>
 				</div>
 			</div>
-		</div>			
+		</div>
 			<div class=“ai4”>
 			<div class="card border-light mb-3" style="max-width: 20rem; height: 25rem;">
 				<div href="/document" style="height:100%;">
@@ -121,11 +126,11 @@
 							<br />
 							<p class="card-text">Description: Hawk <br /> Size: 1 <br /> Speed: 3 <br /> Range: 2 <br /> Firepower: 4 <br /> Cargo: 0 <br /> Current Cards: 5<br /</p>
 							<br />
-											
+
 					</div>
 				</div>
 			</div>
-		</div>		
+		</div>
 		<div clas="selection">
 		<div class="card border-light mb-3" style="max-width: 20rem; height: 10rem;">
 		<div class="card-block">
@@ -135,26 +140,73 @@
 							<br />
 							<p class="card-text">Current Category: Speed <br /> AI1 chose this category<br /></p>
 							<br />
-								
+
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 </div>
+</div>
+
 	<script type="text/javascript">
 		// Method that is called on page load
 		function initalize() {
+
 			// --------------------------------------------------------------------------
 			// You can call other methods you want to run when the page first loads here
 			// --------------------------------------------------------------------------
 			// For example, lets call our sample methods
-			helloJSONList();
-			helloWord("Student");
+
+			var gameID;
+			startGame(x);
+			communalPile();
+			playerList();
+			activePlayers();
 		}
 		// -----------------------------------------
 		// Add your other Javascript methods Here
 		// -----------------------------------------
+
+			function start()
+			{
+				firstChoice();
+				runGame();
+			}
+
+			function runGame()
+			{
+				while(isValid()){
+					newRound();
+					activePlayers();
+					currentCard();
+					var category;
+					if(firstChoice().playerid != 1)
+					{
+						category = categorySelection();
+					}
+					findWinner();
+					isWinner();
+				}
+
+			}
+
+			function isValid()
+			{
+				while(activePlayers)
+			}
+
+        	function myFunction(){
+            	var x;
+           		var person=prompt("Please enter your name","");
+            	if (person!=null)
+            	{
+              		x="Hello " + person + "! How are you today?";
+              		document.getElementById("demo").innerHTML=x;
+              	}
+            }
+
+
 		// This is a reusable method for creating a CORS request. Do not edit this.
 		function createCORSRequest(method, url) {
 			var xhr = new XMLHttpRequest();
@@ -177,6 +229,61 @@
 
 	<!-- Here are examples of how to call REST API Methods -->
 	<script type="text/javascript">
+
+		function startGame(username){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame?username=" + username); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				gameID = responseText;
+				alert(responseText); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function playerList(){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/playerList"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var playerList = responseText;
+				alert(responseText); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function activePlayers(){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/activePlayers"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var activePlayers = responseText;
+				alert(responseText); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+
+
+
+
+
+
 		// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 		function helloJSONList() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -211,6 +318,8 @@
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
 		}
+
+
 	</script>
 
 </body>
