@@ -120,7 +120,6 @@ body {
 <!-- HEAD -->
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 <div class="container">
-<a href="http://localhost:7777/toptrumps"><button>Main Menu</button></a>
 <div class="name">
   <h2 style="color:white;">Top Trumps: Round 1</h2>
 </div>
@@ -245,6 +244,7 @@ body {
 		</div>
 	</div>
 </div>
+<a href="http://localhost:7777/toptrumps"><button>Main Menu</button></a>
 </div>
 <script type="text/javascript">
 // Method that is called on page load
