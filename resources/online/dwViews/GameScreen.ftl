@@ -34,12 +34,12 @@ html {
 }
 body {
     margin: 0;
-    background: linear-gradient(#FFF8DC, #FFFAF0);
+    background: linear-gradient(Azure, Lavender);
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 .selectdrop {
-    background-color: FloralWhite;
+    background-color: #F8F8FF;
     color: black;
     padding: 16px;
     font-size: 16px;
@@ -73,7 +73,7 @@ body {
     background-color: grey;
 }
 .categorydrop {
-      background-color: white;
+      background-color: #F8F8FF;
     color: black;
     padding: 16px;
     font-size: 16px;
@@ -112,14 +112,13 @@ input[type=text] {
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
-    background-color: FloralWhite;
+    background-color: #F8F8FF;
     color: black;
 }
 h1 {
     color:black;
     font-size:300%;
     text-align:center;
-    text-shadow: 3px 2px grey;
 }
 </style>
 </div>
@@ -147,7 +146,7 @@ h1 {
 </div>
 <div class="card-deck">
 <div class="play">
-<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <h4><b>Current Card : 350R</b></h4>
 <img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
@@ -163,7 +162,7 @@ h1 {
 </div>
 </div>
 <div class=“ai1”>
-<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“Avenger”> 
 <div class="card-block">
@@ -178,7 +177,7 @@ h1 {
 </div>
 </div>
 <div class=“ai2”>
-<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -193,7 +192,7 @@ h1 {
 </div>
 </div>
 <div class=“ai3”>
-<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -208,7 +207,7 @@ h1 {
 </div>
 </div> 
 	<div class=“ai4”>
-			<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
+			<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 					<div class="card-block">
@@ -224,7 +223,7 @@ h1 {
 			</div>
 		</div>
 		<div clas="selection">
-		<div class="card card-inverse" style="background-color: FloralWhite; border-color: #333; max-width: 20rem; height: 27rem;">
+		<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
 		<div class="card-block">
 						<br />
 						<center>
