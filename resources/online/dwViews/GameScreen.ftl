@@ -30,7 +30,7 @@ vex.defaultOptions.className = 'vex-theme-os';
 
 <style>
 body {	
-        background: repeating-linear-gradient(#F0F8FF, 	#E0FFFF 10%, #B0E0E6 20%);
+        background: linear-gradient(#E0FFFF, #AFEEEE);
 
 
     /* Center and scale the image nicely */
