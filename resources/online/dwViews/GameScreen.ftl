@@ -34,7 +34,7 @@ html {
 }
 body {
     margin: 0;
-    background: linear-gradient(#E0FFFF, #AFEEEE);;
+    background: linear-gradient(#FFF8DC, #FFFAF0);
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
