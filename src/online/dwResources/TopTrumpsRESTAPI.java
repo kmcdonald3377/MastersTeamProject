@@ -61,7 +61,7 @@ public class TopTrumpsRESTAPI
 		// Add relevant initalization here
 		// ----------------------------------------------------
 	}
-	
+  
 	private Game getGame(String matchID) 
 	{
 		int gameID = Integer.parseInt(matchID);
@@ -221,7 +221,7 @@ public class TopTrumpsRESTAPI
 //	{
 //		return oWriter.writeValueAsString(currentRound.getCard(PlayerPosition));
 //	}
-	
+//	
 //	@GET
 //	@Path("/categoryValueList")
 //	public String categoryValueList(@QueryParam("currentRound") Round currentRound, 
