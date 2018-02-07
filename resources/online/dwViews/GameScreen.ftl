@@ -29,14 +29,12 @@ vex.defaultOptions.className = 'vex-theme-os';
 </head>
 
 <style>
-html {
-      height: 100%;
-}
+
 body {
-    margin: 0;
-    background: linear-gradient(Azure, Lavender);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+	background-repeat: no-repeat;
+		background-size: cover;   
+ background: url(webbackground.jpg);   
+   
 }
 .selectdrop {
     background-color: #F8F8FF;
@@ -129,6 +127,10 @@ h1 {
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 <div class="container">
 <h1>Top Trumps : Round 1</h1>
+</br>
+</br>
+</br>
+</br>
 </div>
 <div class="selectplay">
   <button class="selectdrop">Players</button>
@@ -229,7 +231,7 @@ h1 {
 						<center>
 							<h4><b>Category</b></h4>
 							<br />
-							<p class="card-text">Current Category: <br /> Player Selects<br />Communal Pile: 0</p>
+							<p class="card-text">Current Category: <br /> Player Selects<br />Communal Pile: 0 </br>Round 1</p>
 							<div class="category">
   							<button class="categorydrop">Category</button>
  							<div class="category-content">
