@@ -135,7 +135,7 @@ public class TestLog {
 
 	// writes if there is a winner of game 
 	public void writeWinner (String winner)	{
-		_winner = winner.toString();
+		_winner = winner;
 		sb.append("\r\n" + _winner + " player wins!  ");
 		sb.append("\r\nGAME OVER");
 	}
