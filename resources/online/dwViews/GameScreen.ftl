@@ -158,7 +158,6 @@
 			// --------------------------------------------------------------------------
 			// For example, lets call our sample methods
 
-			var gameID;
 			startGame(x);
 			communalPile();
 			playerList();
@@ -168,15 +167,16 @@
 		// Add your other Javascript methods Here
 		// -----------------------------------------
 
+			var gameID;
+
 			function start()
 			{
 				firstChoice();
 				runGame();
 			}
 
-			function runGame()
-			{
-				while(isValid()){
+			function runGame(){
+				while(isValid){
 					newRound();
 					activePlayers();
 					currentCard();
@@ -191,20 +191,29 @@
 
 			}
 
-			function isValid()
-			{
-				while(activePlayers)
+			function isValid(){
+				while(activePlayers.length != 1)
+				{
+					isValid = true;
+				}
+				isValid = false;
 			}
 
-        	function myFunction(){
-            	var x;
-           		var person=prompt("Please enter your name","");
-            	if (person!=null)
-            	{
-              		x="Hello " + person + "! How are you today?";
-              		document.getElementById("demo").innerHTML=x;
-              	}
-            }
+      function getName(){
+        	var x;
+       		var person=prompt("Please enter your name","");
+        	if (person!=null)
+        	{
+          		x="Hello " + person + "! How are you today?";
+          		document.getElementById("demo").innerHTML=x;
+          	}
+      }
+
+			function getNumberOfPlayers(){
+				var x;
+				var person=prompt("Please select the number of players you wish to face:");
+				//need to get what the user has selected
+			}
 
 
 		// This is a reusable method for creating a CORS request. Do not edit this.
@@ -227,7 +236,6 @@
 		}
 	</script>
 
-	<!-- Here are examples of how to call REST API Methods -->
 	<script type="text/javascript">
 
 		function startGame(username){
@@ -262,7 +270,7 @@
 			xhr.send();
 		}
 
-		function activePlayers(){
+		function activePlayers(gameID){
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/activePlayers"); // Request type and URL
 
 			if (!xhr) {
@@ -271,14 +279,14 @@
 
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
-				var activePlayers = JSON.parse(responseText);
+				activePlayers = JSON.parse(responseText);
 				alert(activePlayers); // lets produce an alert
 			};
 
 			xhr.send();
 		}
 
-		function communalPile(){
+		function communalPile(gameID){
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/communalPile"); // Request type and URL
 
 			if (!xhr) {
@@ -289,6 +297,102 @@
 				var responseText = xhr.response; // the text of the response
 				var communalPile = JSON.parse(responseText);
 				alert(communalPile); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function playerHandSizes(gameID){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/playerHandSizes"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var playerHandSizes = JSON.parse(responseText);
+				alert(playerHandSizes); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function playersToBeRemoved(gameID){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/playersToBeRemoved"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var playersToBeRemoved = JSON.parse(responseText);
+				alert(playersToBeRemoved); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function removedFromActivePlayers(gameID){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/removedFromActivePlayers"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var removedFromActivePlayers = JSON.parse(responseText);
+				alert(removedFromActivePlayers); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function totalRounds(gameID){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/totalRounds"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var totalRounds = responseText;
+				alert(totalRounds); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function totalDraws(gameID){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/totalDraws"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var totalDraws = responseText;
+				alert(totalDraws); // lets produce an alert
+			};
+
+			xhr.send();
+		}
+
+		function firstPlayer(gameID){
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/firstPlayer"); // Request type and URL
+
+			if (!xhr) {
+				alert("CORS not supported");
+			}
+
+			xhr.onload = function(e) {
+				var responseText = xhr.response; // the text of the response
+				var firstPlayer = responseText;
+				alert(firstPlayer); // lets produce an alert
 			};
 
 			xhr.send();
@@ -334,7 +438,6 @@
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
 		}
-
 
 	</script>
 
