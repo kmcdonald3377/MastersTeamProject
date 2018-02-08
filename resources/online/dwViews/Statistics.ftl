@@ -28,10 +28,9 @@
 
 <style>
 	body {
-		/* the background image should stretch to all screen sizes */
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-image: url("https://images2.alphacoders.com/552/thumb-1920-552988.jpg")
+	background-repeat: no-repeat;
+		background-size: cover;   
+ background: url(webbackground.jpg);   
 	}
 	.play {
 		 display: block;
@@ -51,7 +50,8 @@
 
 		<!-- Add your HTML Here -->
 		<div class="play">
-			<div class="card border-light mb-3" style="max-width: 30rem; height: 40rem;">
+			</br>
+			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 50rem; height: 39rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt="Stats">
 					<div class="card-block">
@@ -70,14 +70,12 @@
 								<br /> 
 							</p>
 							<br />
-							<a href="http://localhost:7777/toptrumps/game"</a></center>
+							<a href="http://localhost:7777/toptrumps/" class="btn btn-outline-primary btn-lg">Main Menu</a></center>
 					</div>
 				</div>
 			</div>
 		</div>
-		<a href="http://localhost:7777/toptrumps"><button>Main Menu</button></a>
 	</div>
-
 	<script type="text/javascript">
 		
 		// Method that is called on page load
