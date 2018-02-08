@@ -29,17 +29,15 @@ vex.defaultOptions.className = 'vex-theme-os';
 </head>
 
 <style>
-html {
-      height: 100%;
-}
+
 body {
-    margin: 0;
-    background: linear-gradient(Azure, Lavender);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+	background-repeat: no-repeat;
+		background-size: cover;   
+ background: url(webbackground.jpg);   
+   
 }
 .selectdrop {
-    background-color: #F8F8FF;
+    background-color: Gainsboro;
     color: black;
     padding: 16px;
     font-size: 16px;
@@ -63,7 +61,7 @@ body {
     display: block;
 }
 /* Change color of dropdown links on hover */
-.selectplay-content a:hover {background-color: Gainsboro}
+.selectplay-content a:hover {background-color: LightSteelBlue}
 /* Show the dropdown menu on hover */
 .selectplay:hover .selectplay-content {
     display: block;
@@ -73,7 +71,7 @@ body {
     background-color: grey;
 }
 .categorydrop {
-      background-color: #F8F8FF;
+      background-color: Gainsboro;
     color: black;
     padding: 16px;
     font-size: 16px;
@@ -97,7 +95,7 @@ body {
     display: block;
 }
 /* Change color of dropdown links on hover */
-.category-content a:hover {background-color: Gainsboro}
+.category-content a:hover {background-color: LightSteelBlue}
 /* Show the dropdown menu on hover */
 .category:hover .category-content {
     display: block;
@@ -112,7 +110,7 @@ input[type=text] {
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
-    background-color: #F8F8FF;
+    background-color: Gainsboro;
     color: black;
 }
 h1 {
@@ -129,6 +127,10 @@ h1 {
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 <div class="container">
 <h1>Top Trumps : Round 1</h1>
+</br>
+</br>
+</br>
+</br>
 </div>
 <div class="selectplay">
   <button class="selectdrop">Players</button>
@@ -146,7 +148,7 @@ h1 {
 </div>
 <div class="card-deck">
 <div class="play">
-<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <h4><b>Current Card : 350R</b></h4>
 <img class="card-img-top" src="http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg" alt=“350r”>
@@ -162,7 +164,7 @@ h1 {
 </div>
 </div>
 <div class=“ai1”>
-<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“Avenger”> 
 <div class="card-block">
@@ -177,7 +179,7 @@ h1 {
 </div>
 </div>
 <div class=“ai2”>
-<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -192,7 +194,7 @@ h1 {
 </div>
 </div>
 <div class=“ai3”>
-<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
+<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 27rem;">
 <div href="/document" style="height:100%;">
 <img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 <div class="card-block">
@@ -207,7 +209,7 @@ h1 {
 </div>
 </div> 
 	<div class=“ai4”>
-			<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
+	<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 27rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/D7MJOZF.jpg" alt=“350r”>
 					<div class="card-block">
@@ -223,13 +225,13 @@ h1 {
 			</div>
 		</div>
 		<div clas="selection">
-		<div class="card card-inverse" style="background-color: #F8F8FF; border-color: #333; max-width: 20rem; height: 27rem;">
+		<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 27rem;">
 		<div class="card-block">
 						<br />
 						<center>
 							<h4><b>Category</b></h4>
 							<br />
-							<p class="card-text">Current Category: <br /> Player Selects<br />Communal Pile: 0</p>
+							<p class="card-text">Current Category: <br /> Player Selects<br />Communal Pile: 0 </br>Round 1</p>
 							<div class="category">
   							<button class="categorydrop">Category</button>
  							<div class="category-content">
@@ -252,7 +254,7 @@ h1 {
 </div>
 </div>
 </div>
-<a href="http://localhost:7777/toptrumps" class="w3-button w3-hover-grey">Main Menu</a>
+<a href="http://localhost:7777/toptrumps/stats" class="btn btn-outline-primary btn-lg">Main Menu</a></cen
 </div>
 <script type="text/javascript">
 // Method that is called on page load
