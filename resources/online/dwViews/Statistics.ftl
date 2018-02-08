@@ -51,7 +51,7 @@
 		<!-- Add your HTML Here -->
 		<div class="play">
 			</br>
-			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 50rem; height: 40rem;">
+			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 50rem; height: 39rem;">
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/Z6X85jK.jpg" alt="Stats">
 					<div class="card-block">
@@ -70,7 +70,7 @@
 								<br /> 
 							</p>
 							<br />
-							<a href="http://localhost:7777/toptrumps" class="w3-button w3-hover-grey">Main Menu</a>
+							<a href="http://localhost:7777/toptrumps/" class="btn btn-outline-primary btn-lg">Main Menu</a></center>
 					</div>
 				</div>
 			</div>
