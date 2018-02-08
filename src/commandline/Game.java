@@ -51,6 +51,7 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
+		matchID = 33;
 	}
 	
 	public PileOfCards getDeck()	{

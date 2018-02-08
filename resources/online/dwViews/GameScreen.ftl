@@ -45,7 +45,13 @@
 
 <div class="flex-container">
 	<div class="container">
+		<form action="" onsubmit="return startGame(this);">
+		  First name:<br>
+		  <input type="text" name="firstname" value="Mickey">
+		  <br>
 
+		  <input type="submit" value="Submit">
+		</form>
 		<!-- Add your HTML Here -->
 		<div class="card-deck">
 		<div class="play">
@@ -151,26 +157,32 @@
 
 	<script type="text/javascript">
 		// Method that is called on page load
-		function initalize() {
+		var gameID;
+
+		function initalize()
+		{
 
 			// --------------------------------------------------------------------------
 			// You can call other methods you want to run when the page first loads here
 			// --------------------------------------------------------------------------
 			// For example, lets call our sample methods
 
-			startGame(x);
 			communalPile();
 			playerList();
 			activePlayers();
+			firstChoice();
 		}
 		// -----------------------------------------
 		// Add your other Javascript methods Here
 		// -----------------------------------------
 
-			var gameID;
+
 
 			function start()
 			{
+				communalPile();
+				playerList();
+				activePlayers();
 				firstChoice();
 				runGame();
 			}
@@ -239,7 +251,7 @@
 	<script type="text/javascript">
 
 		function startGame(username){
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame?username=" + username); // Request type and URL
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame?username=" + username.firstname); // Request type and URL
 
 			if (!xhr) {
 				alert("CORS not supported");
@@ -248,7 +260,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				gameID = responseText;
-				alert(responseText); // lets produce an alert
+				//alert(responseText); // lets produce an alert
 			};
 
 			xhr.send();
@@ -264,7 +276,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var playerList = JSON.parse(responseText);
-				alert(playerList); // lets produce an alert
+				//alert(playerList); // lets produce an alert
 			};
 
 			xhr.send();
@@ -280,7 +292,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				activePlayers = JSON.parse(responseText);
-				alert(activePlayers); // lets produce an alert
+				//alert(activePlayers); // lets produce an alert
 			};
 
 			xhr.send();
@@ -296,7 +308,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var communalPile = JSON.parse(responseText);
-				alert(communalPile); // lets produce an alert
+			//	alert(communalPile); // lets produce an alert
 			};
 
 			xhr.send();
@@ -312,7 +324,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var playerHandSizes = JSON.parse(responseText);
-				alert(playerHandSizes); // lets produce an alert
+			//	alert(playerHandSizes); // lets produce an alert
 			};
 
 			xhr.send();
@@ -328,7 +340,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var playersToBeRemoved = JSON.parse(responseText);
-				alert(playersToBeRemoved); // lets produce an alert
+			//	alert(playersToBeRemoved); // lets produce an alert
 			};
 
 			xhr.send();
@@ -344,7 +356,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var removedFromActivePlayers = JSON.parse(responseText);
-				alert(removedFromActivePlayers); // lets produce an alert
+			//	alert(removedFromActivePlayers); // lets produce an alert
 			};
 
 			xhr.send();
@@ -360,7 +372,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var totalRounds = responseText;
-				alert(totalRounds); // lets produce an alert
+			//	alert(totalRounds); // lets produce an alert
 			};
 
 			xhr.send();
@@ -376,7 +388,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var totalDraws = responseText;
-				alert(totalDraws); // lets produce an alert
+			//	alert(totalDraws); // lets produce an alert
 			};
 
 			xhr.send();
@@ -392,7 +404,7 @@
 			xhr.onload = function(e) {
 				var responseText = xhr.response; // the text of the response
 				var firstPlayer = responseText;
-				alert(firstPlayer); // lets produce an alert
+				//alert(firstPlayer); // lets produce an alert
 			};
 
 			xhr.send();
