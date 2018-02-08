@@ -254,7 +254,7 @@ h1 {
 </div>
 </div>
 </div>
-<a href="http://localhost:7777/toptrumps" class="w3-button w3-hover-grey">Main Menu</a>
+<a href="http://localhost:7777/toptrumps/stats" class="btn btn-outline-primary btn-lg">Main Menu</a></cen
 </div>
 <script type="text/javascript">
 // Method that is called on page load
