@@ -77,9 +77,10 @@ public class TopTrumpsRESTAPI
 	
 	@GET
 	@Path("/startGame")
-	public String startGame(@QueryParam("username") String username) throws IOException
+	public String startGame(@QueryParam("username") String username, 
+			@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException
 	{
-		Game currentGame = new Game(menuC.readFile(), username);
+		Game currentGame = new Game(menuC.readFile(), username, numberOfPlayers+1);
 		gameList.add(currentGame);
 		
 		return oWriter.writeValueAsString(currentGame.getMatchID());
@@ -272,20 +273,6 @@ public class TopTrumpsRESTAPI
 	public String highestNumberOfRounds() throws IOException
 	{
 		return oWriter.writeValueAsString(database.getHighestNumberOfRounds());
-	}
-	
-	@GET
-	@Path("/maxMatchID")
-	public String maxMatchID() throws IOException
-	{
-		return oWriter.writeValueAsString(database.getMaxMatchID());
-	}
-	
-	@GET
-	@Path("/playerIDs")
-	public String playerIDs() throws IOException
-	{
-		return oWriter.writeValueAsString(database.getPlayerId());
 	}
 	
 	@POST

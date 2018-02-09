@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class GameController 
 {
+	private final int PLAYERS = 5;
 	private final String username;
 	private GameView gameV;
 	private PileOfCards communalPile;
@@ -18,7 +19,7 @@ public class GameController
 	public GameController(PileOfCards starCitizenDeck, String username, boolean log) 
 	{
 		gameV = new GameView(this);
-		currentGame = new Game(starCitizenDeck, username);
+		currentGame = new Game(starCitizenDeck, username, PLAYERS);
 		communalPile = currentGame.getCommunalPile();
 		playerList = currentGame.getPlayerList();
 		activePlayers = currentGame.getActivePlayers();

@@ -48,12 +48,13 @@ public class Database
 	 * Will return the total number of matches that have been played.
 	 * @return
 	 */
-	public String getMatchesPlayed() 
+	public int getMatchesPlayed() 
 	{
+		int matchesPlayed = 0;
 		Statement stmt = null;
 		String query = "SELECT COUNT (matchstatistics.matchID) AS total FROM toptrumps.matchstatistics";
 		
-		String result = "";
+		
 		
 		try 
 		{
@@ -63,8 +64,7 @@ public class Database
 			
 			while (rs.next()) 
 			{
-				String totalMatchesPlayed = rs.getString("total");
-				result += totalMatchesPlayed;
+				matchesPlayed = rs.getInt("total");
 			}
 		}
 		catch(SQLException e) 
@@ -73,16 +73,16 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return result;
+		return matchesPlayed;
 	}
 	
 	/**
 	 * Will return the number of matches in which the computer has won the match.
 	 * @return
 	 */
-	public String getComputerWonMatches() 
+	public int getComputerWonMatches() 
 	{
-		String result = "";
+		int computerWins = 0;
 		Statement stmt = null;
 		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics "
 				+ "WHERE (SELECT player.isai FROM toptrumps.player WHERE isai = true)";
@@ -95,8 +95,7 @@ public class Database
 			
 			while (rs.next()) 
 			{
-				String computerWins = rs.getString("total");
-				result += computerWins;
+				computerWins = rs.getInt("total");
 			}
 		}
 		catch(SQLException e) 
@@ -105,19 +104,20 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return result;
+		return computerWins;
 	}
 	
 	/**
 	 * Will return the number of matches in which the human player has won the match.
 	 * @return
 	 */
-	public String getHumanWonMatches() 
+	public int getHumanWonMatches() 
 	{
+		int humanWins = 0;
 		Statement stmt = null;
 		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics \"\r\n" + 
 				"				+ \"WHERE (SELECT player.isai FROM toptrumps.player WHERE isai = false)";
-		String result = "";
+		
 		
 		try 
 		{
@@ -127,8 +127,7 @@ public class Database
 			
 			while (rs.next()) 
 			{
-				String humanWins = rs.getString("total");
-				result += humanWins;
+				humanWins = rs.getInt("total");
 			}
 		}
 		catch(SQLException e) 
@@ -137,16 +136,16 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return result;
+		return humanWins;
 	}
 	
 	/**
 	 * Will return the average number of draws per match.
 	 * @return
 	 */
-	public String getAverageNumberOfDraws() 
+	public int getAverageNumberOfDraws() 
 	{	
-		String result = "";
+		int avgDraws = 0;
 		Statement stmt = null;
 		String query = "SELECT avg (matchstatistics.roundsdrawn) AS average FROM toptrumps.matchstatistics";
 		
@@ -158,8 +157,7 @@ public class Database
 			
 			while (rs.next()) 
 			{
-				String averageRoundDraws = rs.getString("average");
-				result += averageRoundDraws + "\n";
+				avgDraws = rs.getInt("average");
 			}
 		}
 		catch(SQLException e) 
@@ -168,16 +166,16 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return result;
+		return avgDraws;
 	}
 	
 	/**
 	 * Will return the highest number of rounds played in a match so far.
 	 * @return
 	 */
-	public String getHighestNumberOfRounds() 
+	public int getHighestNumberOfRounds() 
 	{
-		String test = "";
+		int highestNumRnds = 0;
 		Statement stmt = null;
 		String query = "SELECT max (matchstatistics.roundsplayed) AS maximum FROM toptrumps.matchstatistics";
 		
@@ -189,8 +187,7 @@ public class Database
 			
 			while (rs.next()) 
 			{
-				String highestRounds = rs.getString("maximum");
-				test += highestRounds;
+				highestNumRnds = rs.getInt("maximum");
 			}
 		}
 		catch(SQLException e) 
@@ -199,7 +196,7 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return test;
+		return highestNumRnds;
 	}
 	
 	/**
@@ -207,9 +204,9 @@ public class Database
 	 * Rather than this would generate random identifiers for the matchID.
 	 * @return
 	 */
-	public String getMaxMatchID() 
+	public int getMaxMatchID() 
 	{
-		String test = "";
+		int maxMatch = 0;
 		Statement stmt = null;
 		String query = "SELECT max (matchstatistics.matchid) AS maximum FROM toptrumps.matchstatistics";
 		
@@ -221,8 +218,7 @@ public class Database
 			
 			while (rs.next()) 
 			{
-				String highestRounds = rs.getString("maximum");
-				test += highestRounds;
+				maxMatch = rs.getInt("maximum");
 			}
 		}
 		catch(SQLException e) 
@@ -231,18 +227,18 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return test;
+		return maxMatch;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public ArrayList getPlayerId() 
+	public ArrayList getPlayerId(int numberOfPlayers) 
 	{
-		ArrayList<Integer> test = new ArrayList();
+		ArrayList<Integer> playerIdList = new ArrayList();
 		Statement stmt = null;
-		String query = "SELECT player.playerid FROM toptrumps.player";
+		String query = "SELECT player.playerid FROM toptrumps.player LIMIT " + numberOfPlayers;
 		
 		try 
 		{
@@ -253,7 +249,7 @@ public class Database
 			while (rs.next()) 
 			{
 				int playerIDs = rs.getInt("playerid");
-				test.add(playerIDs);
+				playerIdList.add(playerIDs);
 			}
 		}
 		catch(SQLException e) 
@@ -262,7 +258,7 @@ public class Database
 			System.err.println("error executing query " + query);
 		}
 		
-		return test;
+		return playerIdList;
 	}
 	
 	/**
