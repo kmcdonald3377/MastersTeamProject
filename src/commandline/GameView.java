@@ -37,9 +37,16 @@ public class GameView
 			System.out.println("|\t" + card.getName()+"\t\t|");
 		}
 		System.out.println("-------------------------");
+		if (card.getValue1()!=10)
+		{
 		System.out.println("|\t" + card.getAttribute1() + ": " + card.getValue1() + "\t\t|\n" + "|\t" + card.getAttribute2() +": " + 
 				card.getValue2() + "\t|\n" + "|\t" + card.getAttribute3() +": " + card.getValue3() + "\t|\n" + "|\t" + card.getAttribute4() + ": " 
 				+ card.getValue4() + "\t|\n" + "|\t" + card.getAttribute5() + ": " + card.getValue5() + "\t|");
+		}
+		else
+			System.out.println("|\t" + card.getAttribute1() + ": " + card.getValue1() + "\t|\n" + "|\t" + card.getAttribute2() +": " + 
+					card.getValue2() + "\t|\n" + "|\t" + card.getAttribute3() +": " + card.getValue3() + "\t|\n" + "|\t" + card.getAttribute4() + ": " 
+					+ card.getValue4() + "\t|\n" + "|\t" + card.getAttribute5() + ": " + card.getValue5() + "\t|");
 		System.out.println("-------------------------\n");
 	}
 
