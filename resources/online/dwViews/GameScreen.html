@@ -32,6 +32,11 @@
 
 		<h1>Top Trumps</h1>
 		<div id="mainSection">
+			<p>
+				Round <span id="roundDisplay"></span>
+				<br>
+				<span id="gameProgression"></span>
+			</p>
 			<input placeholder="player name" id="playerN" type="text"/>
 			<button id="startGameBtn" onclick="displayGameStart()">Start Game</button>
 			<br>
@@ -208,6 +213,8 @@
 			var players = {};
 			var activePlayers = {};
 			var handSizes = [];
+			var comPile = {};
+			var playersTurn = null;
 
 			// Method that is called on page load
 			function initalize() {
@@ -228,6 +235,23 @@
 
 			function playGame(){
 				displayPlayerCard();
+				firstChoice();
+				if(playersTurn == 1){
+					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
+				}
+				else if(playersTurn == 2){
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 1's choice to select a category.";
+				}
+				else if(playersTurn == 3){
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 2's choice to select a category.";
+				}
+				else if(playersTurn == 4){
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 3's choice to select a category.";
+				}
+				else{
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 4's choice to select a category";
+				}
+				console.log(playersTurn);
 			}
 			
 			
@@ -395,7 +419,7 @@
 			// 		alert("CORS not supported");
 			// 	}
 			// 	xhr.onload = function (e) {
-			// 		comPile = JSON.parse(xhr.response);
+			// 		comPile = xhr.response;
 			// 	};
 			// 	xhr.send();
 			// }
@@ -411,16 +435,17 @@
 				xhr.send();
 			}
 
-			// function firstChoice(){
-			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/firstPlayer?matchID=" + matchID, false);
-			// 	if (!xhr) {
-			// 		alert("CORS not supported");
-			// 	}
-			// 	xhr.onload = function (e) {
-			// 		activePlayers = JSON.parse(xhr.response);
-			// 	};
-			// 	xhr.send();
-			// }
+			function firstChoice(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/firstPlayer?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					var player = JSON.parse(xhr.response);
+					playersTurn = player.playerId;
+				};
+				xhr.send();
+			}
 
 
 
