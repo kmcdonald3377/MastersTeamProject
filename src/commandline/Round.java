@@ -39,6 +39,35 @@ public class Round
 		return categoryKey;
 	}
 	
+	public String maxCategory(PileOfCards hand)
+	{
+		int index = 0;
+		Card playerCard = hand.getCurrentCard();
+		int max = playerCard.getValue1();
+		if (max<playerCard.getValue2())
+		{
+		max=playerCard.getValue2();
+		index=1;
+		}
+		if (max<playerCard.getValue3())
+		{
+		max=playerCard.getValue3();
+		index=2;
+		}
+		if (max<playerCard.getValue4())
+		{
+		max=playerCard.getValue4();
+		index=3;
+		}
+		if (max<playerCard.getValue5())
+		{
+		max=playerCard.getValue5();
+		index=4;
+		}
+		String categoryKey = playerCard.getAttributeAtIndex(index);
+		return categoryKey;
+	}
+	
 	public String humanCategorySelection(String category)
 	{
 		if(!category.equalsIgnoreCase("Size") && !category.equalsIgnoreCase("Speed") && !category.equalsIgnoreCase("Range") 
