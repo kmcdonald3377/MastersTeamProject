@@ -32,21 +32,48 @@
 
 		<h1>Top Trumps</h1>
 		<div id="mainSection">
-			<input placeholder="player name" id="playername" type="text"/>
-			<button id="startGameBtn" onclick="startGame()">Start Game</button>
+			<input placeholder="player name" id="playerN" type="text"/>
+			<button id="startGameBtn" onclick="displayGameStart()">Start Game</button>
 			<br>
 			<span id="input">Number of AI Players:</span>
 			<br>
-			<select id="aiCount" size="4" value="1">
+			<select id="noOfPlayers" size="4" value="1">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
 				<option>4</option>
 			</select>
+			<button id="revealCards" onclick="anotherFunction()" style="display:none">Reveal Cards</button>
 
 			<div class="container">
 
-				<div class="player">
+				<div class="player" id="player" style="display:none">
+					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+						<div href="/document" style="height:100%;">
+							<center>
+								<h4 id="cardName"><b>Name of card here</b></h4>
+							</center>
+							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+							<div class="card-block">
+								<br />
+								<left>
+									<button id="attribute1">Attribute 1:</button>
+									<br>
+									<button id="attribute2">Attribute 2:</button>
+									<br>
+									<button id="attribute3">Attribute 3:</button>
+									<br>
+									<button id="attribute4">Attribute 4:</button>
+									<br>
+									<button id="attribute5">Attribute 5:</button>
+									<br>
+								</left>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ai1" id="ai1" style="display:none">
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -72,7 +99,7 @@
 					</div>
 				</div>
 
-				<div class="ai1">
+				<div class="ai2" id="ai2" style="display:none">
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -98,7 +125,7 @@
 					</div>
 				</div>
 
-				<div class="ai2">
+				<div class="ai3" id="ai3" style="display:none">
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -124,7 +151,7 @@
 					</div>
 				</div>
 
-				<div class="ai3">
+				<div class="ai4" id="ai4" style="display:none">
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -149,46 +176,8 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="ai4">
-					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-						<div href="/document" style="height:100%;">
-							<center>
-								<h4><b>Name of card here</b></h4>
-							</center>
-							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-							<div class="card-block">
-								<br />
-								<left>
-									<button>Attribute 1:</button>
-									<br>
-									<button>Attribute 2:</button>
-									<br>
-									<button>Attribute 3:</button>
-									<br>
-									<button>Attribute 4:</button>
-									<br>
-									<button>Attribute 5:</button>
-									<br>
-								</left>
-							</div>
-						</div>
-					</div>
-				</div>
-
-					
-
-
-
-
-
-
-
 
 			</div>
-
-
-
 
 		</div>
 
@@ -216,10 +205,11 @@
 			
 			function displayGameStart()
 			{
-				startGame();
 				myFunction();
-				playerList();
-				activePlayers();
+				startGame(playerName, aiPlayerCount);
+				
+				//playerList();
+				//activePlayers();
 			}
 
 			function playGame(){
@@ -231,12 +221,12 @@
 
 
 			// This is a reusable method for creating a CORS request. Do not edit this.
-			function createCORSRequest(method, url) {
+			function createCORSRequest(method, url, async) {
 				var xhr = new XMLHttpRequest();
 				if ("withCredentials" in xhr) {
 					// Check if the XMLHttpRequest object has a "withCredentials" property.
 					// "withCredentials" only exists on XMLHTTPRequest2 objects.
-					xhr.open(method, url, true);
+					xhr.open(method, url, async);
 				} else if (typeof XDomainRequest != "undefined") {
 					// Otherwise, check if XDomainRequest.
 					// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
@@ -251,52 +241,70 @@
 
 			
 			function myFunction(){
-				document.getElementById('playername').style.display = 'none';
+				playerName = document.getElementById('playerN').value;
+				aiPlayerCount = document.getElementById("noOfPlayers").value;
+				document.getElementById('playerN').style.display = 'none';
 				document.getElementById('startGameBtn').style.display = 'none';
 				document.getElementById('input').style.display = 'none';
-				document.getElementById('aiCount').style.display = 'none';
+				document.getElementById('noOfPlayers').style.display = 'none';
+				document.getElementById('player').style.display = 'block';
+				document.getElementById('revealCards').style.display = 'block';
+			}
+
+			function anotherFunction(){
+				document.getElementById('revealCards').style.display = 'none';
+				document.getElementById('ai1').style.display = 'block';
+				document.getElementById('ai2').style.display = 'block';
+				document.getElementById('ai3').style.display = 'block';
+				document.getElementById('ai4').style.display = 'block';
 			}
 
 
-			function startGame(){
-				playerName = document.getElementById("playername").value;
-				aiPlayerCount = document.getElementById("aiCount").value;
-
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/startGame?username=" + playerName + "?numberOfPlayers=" + aiCount);
+			function startGame(username, numberOfPlayers){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/startGame?username=" + username + "&numberOfPlayers=" + numberOfPlayers, false);
 				if (!xhr) {
 					alert("CORS not supported");
 				}
 				xhr.onload = function (e) {
-					matchID = xhr.response;
+					var responseText = xhr.response;
+					console.log(responseText);
 				};
-				xhr.send();
-			}
-
-			function playerList(){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID);
-				if (!xhr) {
-					alert("CORS not supported");
+				xhr.onerror = function(){
+					console.log("There was an arror!");
 				}
-				xhr.onload = function (e) {
-					players = JSON.parse(xhr.response);
-				};
 				xhr.send();
 			}
 
-			function activePlayers(){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/activePlayers?matchID=" + matchID);
-				if (!xhr) {
-					alert("CORS not supported");
-				}
-				xhr.onload = function (e) {
-					activePlayers = JSON.parse(xhr.response);
-				};
-				xhr.send();
-			}
+			// function playerList(){
+			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID);
+			// 	if (!xhr) {
+			// 		alert("CORS not supported");
+			// 	}
+			// 	xhr.onload = function (e) {
+			// 		players = JSON.parse(xhr.response);
+			// 	};
+			// 	xhr.send();
+			// }
 
-			function displayPlayerCard(){
+			// function activePlayers(){
+			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/activePlayers?matchID=" + matchID);
+			// 	if (!xhr) {
+			// 		alert("CORS not supported");
+			// 	}
+			// 	xhr.onload = function (e) {
+			// 		activePlayers = JSON.parse(xhr.response);
+			// 	};
+			// 	xhr.send();
+			// }
 
-			}
+			// function displayPlayerCard(){
+			// 	document.getElementById("cardName").innerHTML = activePlayers[0].getPlayerHand.getCurrentCard.getName;
+			// 	for(i = 0; i < activePlayers.length; i++){
+			// 		document.getElementById("attribute" + (i+1)).innerHTML = activePlayers[0].getPlayerHand.getCurrentCard.getAttributeAtIndex[i];
+			// 		//document.getElementById("value" + (i+1)).innerHTML = activePlayers[0].getPlayerHand.getCurrentCard.getValueAtIndex[i];
+			// 	}
+				
+			// }
 
 		</script>
 	</body>

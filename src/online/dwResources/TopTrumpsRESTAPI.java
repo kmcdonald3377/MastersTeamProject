@@ -79,8 +79,8 @@ public class TopTrumpsRESTAPI
 	@Path("/startGame")
 	public String startGame(@QueryParam("username") String username, 
 			@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException
-	{
-		Game currentGame = new Game(menuC.readFile(), username, numberOfPlayers+1);
+	{		
+		Game currentGame = new Game(menuC.readFile(), username, numberOfPlayers);
 		gameList.add(currentGame);
 		
 		return oWriter.writeValueAsString(currentGame.getMatchID());

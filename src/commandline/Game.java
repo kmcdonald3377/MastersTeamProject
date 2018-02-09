@@ -28,14 +28,12 @@ public class Game
 
 //		database = new Database();
 //		matchID = database.getMaxMatchID();
-		matchID = 0;
 //		incrementMatchID();
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		this.deck = deck;
 //		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
 		ArrayList <Integer> playerIDs = new ArrayList(); for(int i = 1; i <= this.numberOfPlayers; i++) {playerIDs.add(i);}
-		
-//		matchID = database.getMaxMatchID() + 1;
+
 		
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
@@ -55,6 +53,7 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
+		this.matchID = 0;
 	}
 	
 	public PileOfCards getDeck()	{
