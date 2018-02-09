@@ -27,10 +27,9 @@
 </head>
 
 <style>
-	body {
-	background-repeat: no-repeat;
-	background-size: cover;   
-	 background: url(webbackground.jpg);   
+		body {
+	background: black;
+	background: linear-gradient(black, grey);
 	}
 	.play {
 		position: absolute;
@@ -130,3 +129,4 @@
 </body>
 
 </html>
+
