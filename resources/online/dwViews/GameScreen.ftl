@@ -43,11 +43,13 @@
 				<option>3</option>
 				<option>4</option>
 			</select>
+			<p id="gameProgress"></p>
 			<button id="revealCards" onclick="anotherFunction()" style="display:none">Reveal Cards</button>
 
 			<div class="container">
 
 				<div class="player" id="player" style="display:none">
+					<h3><b><span id="playerPlacehold"></span></b></h3>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -74,6 +76,7 @@
 				</div>
 
 				<div class="ai1" id="ai1" style="display:none">
+					<h3><b>AI Player 1</b></h3>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -100,6 +103,7 @@
 				</div>
 
 				<div class="ai2" id="ai2" style="display:none">
+					<h3><b>AI Player 2</b></h3>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -126,6 +130,7 @@
 				</div>
 
 				<div class="ai3" id="ai3" style="display:none">
+					<h3><b>AI Player 3</b></h3>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -152,6 +157,7 @@
 				</div>
 
 				<div class="ai4" id="ai4" style="display:none">
+					<h3><b>AI Player 4</b></h3>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -181,7 +187,7 @@
 
 		</div>
 
-		
+
 
 
 
@@ -200,11 +206,11 @@
 
 			// Method that is called on page load
 			function initalize() {
-								
+
 			}
 
 
-			
+
 			function displayGameStart(){
 				myFunction();
 				startGame();
@@ -216,8 +222,8 @@
 			function playGame(){
 				displayPlayerCard();
 			}
-			
-			
+
+
 
 
 
@@ -240,10 +246,11 @@
 			return xhr;
 			}
 
-			
+
 			function myFunction(){
 				playerName = document.getElementById('playerN').value;
 				aiPlayerCount = document.getElementById("noOfPlayers").value;
+				document.getElementById('playerPlacehold').innerHTML = playerName;
 				document.getElementById('playerN').style.display = 'none';
 				document.getElementById('startGameBtn').style.display = 'none';
 				document.getElementById('input').style.display = 'none';
@@ -307,11 +314,11 @@
 				document.getElementById("value2").innerHTML = activePlayers[0].playerHand.currentCard.value2;
 				document.getElementById("value3").innerHTML = activePlayers[0].playerHand.currentCard.value3;
 				document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
-				document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;				
+				document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
 			}
 
 			function displayOpponentsCard(){
-				
+
 				document.getElementById("ai1CardName").innerHTML = activePlayers[1].playerHand.currentCard.name;
 				document.getElementById("ai1attribute1").innerHTML = activePlayers[1].playerHand.currentCard.attribute1;
 				document.getElementById("ai1attribute2").innerHTML = activePlayers[1].playerHand.currentCard.attribute2;
@@ -367,7 +374,7 @@
 				document.getElementById("ai4value3").innerHTML = activePlayers[4].playerHand.currentCard.value3;
 				document.getElementById("ai4value4").innerHTML = activePlayers[4].playerHand.currentCard.value4;
 				document.getElementById("ai4value5").innerHTML = activePlayers[4].playerHand.currentCard.value5;
-						
+
 			}
 
 		</script>
