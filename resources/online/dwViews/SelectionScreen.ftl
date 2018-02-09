@@ -35,14 +35,14 @@
 	.play {
 		position: absolute;
 		left: 0;
-		margin-top: 13%;
+		margin-top: 10%;
 		margin-left: 25%;
 	}
 	/* I have only been able to test this on 15.1, 10.1, and 21.1 inch screen sizes, so keep as two separate classes for now */
 	.viewStats {
 		position: absolute;
 		right: 0;
-		margin-top: 13%;
+		margin-top: 10%;
 		margin-right: 25%;
 	}
 </style>
