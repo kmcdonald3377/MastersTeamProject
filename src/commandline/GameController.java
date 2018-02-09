@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class GameController 
 {
 	private final String username;
-	private String difficulty;
+	private int difficulty;
 	private GameView gameV;
 	private PileOfCards communalPile;
 	private Player firstChoice;
@@ -26,15 +27,29 @@ public class GameController
 		activePlayers = currentGame.getActivePlayers();
 		this.username = username;
 		_log = log;
-		difficulty = "";
+		difficulty = 0;
 	}
 
 	public void startGame() 
 	{
-		System.out.println("Please select a difficulty: easy/hard");
+		System.out.println("Please select a difficulty level: \n1. RANDOM \n2. EASY "
+				+ "\n3. MEDIUM \n4. HARD \n5. YOU WILL NOT WIN.\n");
 		Scanner in = new Scanner(System.in);
-		//		in.useDelimiter("\\n");s
-		difficulty.equalsIgnoreCase(in.nextLine());
+		boolean valid = false;
+		while(!valid)
+		{
+			try
+			{
+				difficulty = in.nextInt();
+				valid =true;
+				break;
+			}
+			catch(InputMismatchException e)
+			{
+				System.out.println("Invalid choice. Please enter a number to choose difficulty\n");
+				in.next();
+			}
+		}
 		gameV.gameIntroduction();
 		firstChoice = currentGame.setFirstChoice(); //reference to game
 		runGame();
@@ -64,8 +79,8 @@ public class GameController
 				}
 			}
 			activePlayers = currentGame.removeFromActivePlayers(); //this method current has gameV line in it - need this in here
-			this.cardsInPlay();
 			this.writeHand();
+			this.cardsInPlay();
 		}
 		displayGameResult();
 	}
@@ -94,9 +109,16 @@ public class GameController
 
 	private void cardsInPlay()
 	{
-		for (int i = 0; i < activePlayers.size(); i++)
+		for (int i = 0; i < 5; i++)
 		{
-			glog.writeCardsIP(i, activePlayers.get(i).getPlayerHand().getCurrentCard());
+			try
+			{
+				glog.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
+			}
+			catch (IndexOutOfBoundsException e)
+			{
+				continue;
+			}
 		}
 	}
 
@@ -104,7 +126,7 @@ public class GameController
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			glog.writeHand(i+1, playerList.get(i).getPlayerHand());
+			glog.writeHand(i, playerList.get(i).getPlayerHand());
 		}
 	}
 
@@ -112,13 +134,21 @@ public class GameController
 	{
 		if(firstChoice.getPlayerId() != 1) 
 		{
-			if(difficulty.equalsIgnoreCase("easy"))
+			if(difficulty == 1)
 			{
 				category = currentRound.categorySelection();
 			}
+			else if(difficulty == 2)
+			{
+				category = currentRound.applyDifficulty(firstChoice.getPlayerHand(), difficulty);
+			}
+			else if(difficulty == 3)
+			{
+				category = currentRound.applyDifficulty(firstChoice.getPlayerHand(), (difficulty+1));
+			}
 			else
 			{
-				category = currentRound.maxCategory(firstChoice.getPlayerHand());
+				category = currentRound.applyDifficulty(firstChoice.getPlayerHand(), (difficulty*2));
 			}
 			if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) //stays here
 			{
@@ -139,7 +169,7 @@ public class GameController
 				category = currentRound.humanCategorySelection(category);
 			}
 		}	
-		glog.writeCategory(category);
+		glog.writeCategory(firstChoice.getPlayerId(), category);
 		return category;
 	}
 
@@ -155,11 +185,11 @@ public class GameController
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
 			gameV.showStats(username, cardStats.get(0), cardStats.get(1), cardStats.get(2), cardStats.get(3), cardStats.get(4));	//this stays here
-			String s = ("\n" + username + " has: " + cardStats.get(0)
-			+ " \nAI Player 1 has: " + cardStats.get(1)
-			+ " \nAI Player 2 has: " + cardStats.get(2)
-			+ " \nAI Player 3 has: " + cardStats.get(3)
-			+ " \nAI Player 4 has: " + cardStats.get(4));
+			String s = ("\r\n" + username + " has: " + cardStats.get(0)
+			+ " \r\nAI Player 1 has: " + cardStats.get(1)
+			+ " \r\nAI Player 2 has: " + cardStats.get(2)
+			+ " \r\nAI Player 3 has: " + cardStats.get(3)
+			+ " \r\nAI Player 4 has: " + cardStats.get(4));
 			glog.writeStats(s);
 		}
 	}
@@ -221,12 +251,12 @@ public class GameController
 		if(activePlayers.get(0).getPlayerId() == 1) 
 		{
 			gameV.humanWon();
-			winner = "Human ";
+			winner = "Human "+ activePlayers.get(0).getPlayerId();
 		}
 		else 
 		{
 			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerId()));
-			winner = "AI ";
+			winner = "AI " + (activePlayers.get(0).getPlayerId()-1);
 		}
 		glog = currentGame.gameLog();
 		glog.writeWinner(winner);

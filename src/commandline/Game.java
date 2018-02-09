@@ -221,13 +221,13 @@ public class Game
 			j++;
 		}
 		
-		for (int i = 0; i < 5; i++)
-		{
-			log.writeHand(i+1, playerList.get(i).getPlayerHand());
-		}
 		for (int i = 0; i <5; i++)
 		{
 			log.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
+		}
+		for (int i = 0; i < 5; i++)
+		{
+			log.writeHand(i, playerList.get(i).getPlayerHand());
 		}
 	}
 	
