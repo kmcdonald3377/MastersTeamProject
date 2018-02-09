@@ -135,9 +135,10 @@ public class Game
 		return numberOfPlayers;
 	}
 	
-	public void increaseRounds() 
+	public boolean increaseRounds() 
 	{
 		totalRounds += 1;
+		return true;
 	}
 	
 	public void increaseDraws() 

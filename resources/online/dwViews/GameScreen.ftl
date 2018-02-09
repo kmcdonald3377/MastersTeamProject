@@ -43,13 +43,12 @@
 				<option>3</option>
 				<option>4</option>
 			</select>
-			<p id="gameProgress"></p>
 			<button id="revealCards" onclick="anotherFunction()" style="display:none">Reveal Cards</button>
 
 			<div class="container">
 
 				<div class="player" id="player" style="display:none">
-					<h3><b><span id="playerPlacehold"></span></b></h3>
+						<h4><b><span id="playerNamePlacement"></span></b></h4>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -73,10 +72,11 @@
 							</div>
 						</div>
 					</div>
+					<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
 				</div>
 
 				<div class="ai1" id="ai1" style="display:none">
-					<h3><b>AI Player 1</b></h3>
+						<h4><b>AI Player 1</b></h4>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -100,10 +100,11 @@
 							</div>
 						</div>
 					</div>
+					<h5><b>Cards Remaining: <span id="ai1Cards"></span></b></h5>
 				</div>
 
 				<div class="ai2" id="ai2" style="display:none">
-					<h3><b>AI Player 2</b></h3>
+						<h4><b>AI Player 2</b></h4>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -127,10 +128,11 @@
 							</div>
 						</div>
 					</div>
+					<h5><b>Cards Remaining: <span id="ai2Cards"></span></b></h5>
 				</div>
 
 				<div class="ai3" id="ai3" style="display:none">
-					<h3><b>AI Player 3</b></h3>
+						<h4><b>AI Player 3</b></h4>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -154,10 +156,11 @@
 							</div>
 						</div>
 					</div>
+					<h5><b>Cards Remaining: <span id="ai3Cards"></span></b></h5>
 				</div>
 
 				<div class="ai4" id="ai4" style="display:none">
-					<h3><b>AI Player 4</b></h3>
+					<h4><b>AI Player 4</b></h4>
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
@@ -181,13 +184,14 @@
 							</div>
 						</div>
 					</div>
+					<h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5>
 				</div>
 
 			</div>
 
 		</div>
 
-
+		
 
 
 
@@ -203,27 +207,30 @@
 			var aiPlayerCount;
 			var players = {};
 			var activePlayers = {};
+			var handSizes = [];
 
 			// Method that is called on page load
 			function initalize() {
-
+								
 			}
 
 
-
+			
 			function displayGameStart(){
 				myFunction();
 				startGame();
 				getPlayers();
 				activeP();
+				playerHandSizes();
+				document.getElementById('playerCards').innerHTML = handSizes[0];
 				playGame();
 			}
 
 			function playGame(){
 				displayPlayerCard();
 			}
-
-
+			
+			
 
 
 
@@ -246,11 +253,11 @@
 			return xhr;
 			}
 
-
+			
 			function myFunction(){
 				playerName = document.getElementById('playerN').value;
 				aiPlayerCount = document.getElementById("noOfPlayers").value;
-				document.getElementById('playerPlacehold').innerHTML = playerName;
+				document.getElementById('playerNamePlacement').innerHTML = playerName;
 				document.getElementById('playerN').style.display = 'none';
 				document.getElementById('startGameBtn').style.display = 'none';
 				document.getElementById('input').style.display = 'none';
@@ -266,40 +273,11 @@
 				document.getElementById('ai3').style.display = 'block';
 				document.getElementById('ai4').style.display = 'block';
 				displayOpponentsCard();
-			}
-
-
-			function startGame(){
-				playerName = document.getElementById("playerN").value;
-                var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName, false)
-
-                xhr.onload = function (e) {
-                    matchID = xhr.response;
-                };
-
-                xhr.send();
-			}
-
-			function getPlayers(){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID, false);
-				if (!xhr) {
-					alert("CORS not supported");
-				}
-				xhr.onload = function (e) {
-					players = JSON.parse(xhr.response);
-				};
-				xhr.send();
-			}
-
-			function activeP(){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/activePlayers?matchID=" + matchID, false);
-				if (!xhr) {
-					alert("CORS not supported");
-				}
-				xhr.onload = function (e) {
-					activePlayers = JSON.parse(xhr.response);
-				};
-				xhr.send();
+				document.getElementById('playerCards').innerHTML = handSizes[0];
+				document.getElementById('ai1Cards').innerHTML = handSizes[1];
+				document.getElementById('ai2Cards').innerHTML = handSizes[2];
+				document.getElementById('ai3Cards').innerHTML = handSizes[3];
+				document.getElementById('ai4Cards').innerHTML = handSizes[4];
 			}
 
 			function displayPlayerCard(){
@@ -314,11 +292,11 @@
 				document.getElementById("value2").innerHTML = activePlayers[0].playerHand.currentCard.value2;
 				document.getElementById("value3").innerHTML = activePlayers[0].playerHand.currentCard.value3;
 				document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
-				document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
+				document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;				
 			}
 
 			function displayOpponentsCard(){
-
+				
 				document.getElementById("ai1CardName").innerHTML = activePlayers[1].playerHand.currentCard.name;
 				document.getElementById("ai1attribute1").innerHTML = activePlayers[1].playerHand.currentCard.attribute1;
 				document.getElementById("ai1attribute2").innerHTML = activePlayers[1].playerHand.currentCard.attribute2;
@@ -374,8 +352,79 @@
 				document.getElementById("ai4value3").innerHTML = activePlayers[4].playerHand.currentCard.value3;
 				document.getElementById("ai4value4").innerHTML = activePlayers[4].playerHand.currentCard.value4;
 				document.getElementById("ai4value5").innerHTML = activePlayers[4].playerHand.currentCard.value5;
-
+						
 			}
+
+
+			function startGame(){
+				playerName = document.getElementById("playerN").value;
+                var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName, false)
+
+                xhr.onload = function (e) {
+                    matchID = xhr.response;
+                };
+
+                xhr.send();
+			}
+
+			function getPlayers(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					players = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
+
+			function activeP(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/activePlayers?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					activePlayers = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
+
+			// function communalPile(){ //maybe just need a method to add/remove from communal pile
+			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/communalPile?matchID=" + matchID, false);
+			// 	if (!xhr) {
+			// 		alert("CORS not supported");
+			// 	}
+			// 	xhr.onload = function (e) {
+			// 		comPile = JSON.parse(xhr.response);
+			// 	};
+			// 	xhr.send();
+			// }
+
+			function playerHandSizes(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerHandSizes?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					handSizes = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
+
+			// function firstChoice(){
+			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/firstPlayer?matchID=" + matchID, false);
+			// 	if (!xhr) {
+			// 		alert("CORS not supported");
+			// 	}
+			// 	xhr.onload = function (e) {
+			// 		activePlayers = JSON.parse(xhr.response);
+			// 	};
+			// 	xhr.send();
+			// }
+
+
+
+			
 
 		</script>
 	</body>

@@ -150,6 +150,14 @@ public class TopTrumpsRESTAPI
 		Game currentGame = getGame(matchID);
 		return oWriter.writeValueAsString(currentGame.getTotalRounds());
 	}
+
+	@POST
+	@Path("/increaseRounds")
+	public String increaseRounds(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.increaseRounds());
+	}
 	
 	@GET
 	@Path("/totalDraws")
@@ -157,6 +165,14 @@ public class TopTrumpsRESTAPI
 	{
 		Game currentGame = getGame(matchID);
 		return oWriter.writeValueAsString(currentGame.getTotalDraws());
+	}
+
+	@POST
+	@Path("/increaseDraws")
+	public String increaseDraws(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		return oWriter.writeValueAsString(currentGame.increaseDraws());
 	}
 	
 	@GET
