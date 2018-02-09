@@ -111,6 +111,14 @@ public class TestLog {
 	// write each players first card in play
 	public void writeCardsIP (int i, Card card)	{
 		_playerID = i+1;
+		if (_playerID==1)
+		{
+			sb.append("Human ");
+		}
+		else
+		{
+			sb.append("AI ");
+		}
 		sb.append("Player " + _playerID + "'s card in play: " + card.getName() + " " + card.getAttribute1()
 		+ " " + card.getValue1() + " " + card.getAttribute2() + " " + card.getValue2() + " "
 		+ " " + card.getAttribute3() + " " + card.getValue3() + " " + card.getAttribute4() + " "
