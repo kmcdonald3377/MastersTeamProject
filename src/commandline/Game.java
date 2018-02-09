@@ -16,9 +16,9 @@ public class Game
 	private String username;
 	private int matchID;
 	
-	public Game(PileOfCards deck, String username, int numberOfPlayers) 
+	public Game(PileOfCards deck, String username) 
 	{
-		this.numberOfPlayers = numberOfPlayers;
+		this.numberOfPlayers = 5;
 		log = new TestLog();
 		//database = new Database();
 		communalPile = new PileOfCards(null);

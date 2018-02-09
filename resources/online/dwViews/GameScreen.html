@@ -28,7 +28,7 @@
 
 	</head>
 
-	<body onload="initalize()" style="background-colour:black;">
+	<body onload="initalize()">
 
 		<h1>Top Trumps</h1>
 		<div id="mainSection">
@@ -57,15 +57,15 @@
 							<div class="card-block">
 								<br />
 								<left>
-									<button id="attribute1">Attribute 1:</button>
+									<button id="attribute1">Attribute 1:</button><span id="value1"></span>
 									<br>
-									<button id="attribute2">Attribute 2:</button>
+									<button id="attribute2">Attribute 2:</button><span id="value2"></span>
 									<br>
-									<button id="attribute3">Attribute 3:</button>
+									<button id="attribute3">Attribute 3:</button><span id="value3"></span>
 									<br>
-									<button id="attribute4">Attribute 4:</button>
+									<button id="attribute4">Attribute 4:</button><span id="value4"></span>
 									<br>
-									<button id="attribute5">Attribute 5:</button>
+									<button id="attribute5">Attribute 5:</button><span id="value5"></span>
 									<br>
 								</left>
 							</div>
@@ -77,21 +77,21 @@
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
-								<h4><b>Name of card here</b></h4>
+								<h4 id="ai1CardName"><b>Name of card here</b></h4>
 							</center>
 							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 							<div class="card-block">
 								<br />
 								<left>
-									<button>Attribute 1:</button>
+									<span id="ai1attribute1">Attribute 1: </span><span id="ai1value1"></span>
 									<br>
-									<button>Attribute 2:</button>
+									<span id="ai1attribute2">Attribute 2: </span><span id="ai1value2"></span>
 									<br>
-									<button>Attribute 3:</button>
+									<span id="ai1attribute3">Attribute 3: </span><span id="ai1value3"></span>
 									<br>
-									<button>Attribute 4:</button>
+									<span id="ai1attribute4">Attribute 4: </span><span id="ai1value4"></span>
 									<br>
-									<button>Attribute 5:</button>
+									<span id="ai1attribute5">Attribute 5: </span><span id="ai1value5"></span>
 									<br>
 								</left>
 							</div>
@@ -103,21 +103,21 @@
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
-								<h4><b>Name of card here</b></h4>
+								<h4 id="ai2CardName"><b>Name of card here</b></h4>
 							</center>
 							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 							<div class="card-block">
 								<br />
 								<left>
-									<button>Attribute 1:</button>
+									<span id="ai2attribute1">Attribute 1: </span><span id="ai2value1"></span>
 									<br>
-									<button>Attribute 2:</button>
+									<span id="ai2attribute2">Attribute 2: </span><span id="ai2value2"></span>
 									<br>
-									<button>Attribute 3:</button>
+									<span id="ai2attribute3">Attribute 3: </span><span id="ai2value3"></span>
 									<br>
-									<button>Attribute 4:</button>
+									<span id="ai2attribute4">Attribute 4: </span><span id="ai2value4"></span>
 									<br>
-									<button>Attribute 5:</button>
+									<span id="ai2attribute5">Attribute 5: </span><span id="ai2value5"></span>
 									<br>
 								</left>
 							</div>
@@ -129,21 +129,21 @@
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
-								<h4><b>Name of card here</b></h4>
+								<h4 id="ai3CardName"><b>Name of card here</b></h4>
 							</center>
 							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 							<div class="card-block">
 								<br />
 								<left>
-									<button>Attribute 1:</button>
+									<span id="ai3attribute1">Attribute 1: </span><span id="ai3value1"></span>
 									<br>
-									<button>Attribute 2:</button>
+									<span id="ai3attribute2">Attribute 2: </span><span id="ai3value2"></span>
 									<br>
-									<button>Attribute 3:</button>
+									<span id="ai3attribute3">Attribute 3: </span><span id="ai3value3"></span>
 									<br>
-									<button>Attribute 4:</button>
+									<span id="ai3attribute4">Attribute 4: </span><span id="ai3value4"></span>
 									<br>
-									<button>Attribute 5:</button>
+									<span id="ai3attribute5">Attribute 5: </span><span id="ai3value5"></span>
 									<br>
 								</left>
 							</div>
@@ -155,21 +155,21 @@
 					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 						<div href="/document" style="height:100%;">
 							<center>
-								<h4><b>Name of card here</b></h4>
+								<h4 id="ai4CardName"><b>Name of card here</b></h4>
 							</center>
 							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 							<div class="card-block">
 								<br />
 								<left>
-									<button>Attribute 1:</button>
+									<span id="ai4attribute1">Attribute 1: </span><span id="ai4value1"></span>
 									<br>
-									<button>Attribute 2:</button>
+									<span id="ai4attribute2">Attribute 2: </span><span id="ai4value2"></span>
 									<br>
-									<button>Attribute 3:</button>
+									<span id="ai4attribute3">Attribute 3: </span><span id="ai4value3"></span>
 									<br>
-									<button>Attribute 4:</button>
+									<span id="ai4attribute4">Attribute 4: </span><span id="ai4value4"></span>
 									<br>
-									<button>Attribute 5:</button>
+									<span id="ai4attribute5">Attribute 5: </span><span id="ai4value5"></span>
 									<br>
 								</left>
 							</div>
@@ -192,7 +192,9 @@
 
 		<script type="text/javascript">
 
-			var matchID, playerName, aiPlayerCount;
+			var matchID = null;
+			var playerName = null;
+			var aiPlayerCount;
 			var players = {};
 			var activePlayers = {};
 
@@ -203,20 +205,19 @@
 
 
 			
-			function displayGameStart()
-			{
+			function displayGameStart(){
 				myFunction();
-				startGame(playerName, aiPlayerCount);
-				
-				//playerList();
-				//activePlayers();
+				startGame();
+				getPlayers();
+				activeP();
+				playGame();
 			}
 
 			function playGame(){
-
+				displayPlayerCard();
 			}
 			
-
+			
 
 
 
@@ -257,54 +258,117 @@
 				document.getElementById('ai2').style.display = 'block';
 				document.getElementById('ai3').style.display = 'block';
 				document.getElementById('ai4').style.display = 'block';
+				displayOpponentsCard();
 			}
 
 
-			function startGame(username, numberOfPlayers){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/startGame?username=" + username + "&numberOfPlayers=" + numberOfPlayers, false);
+			function startGame(){
+				playerName = document.getElementById("playerN").value;
+                var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName, false)
+
+                xhr.onload = function (e) {
+                    matchID = xhr.response;
+                };
+
+                xhr.send();
+			}
+
+			function getPlayers(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID, false);
 				if (!xhr) {
 					alert("CORS not supported");
 				}
 				xhr.onload = function (e) {
-					var responseText = xhr.response;
-					console.log(responseText);
+					players = JSON.parse(xhr.response);
 				};
-				xhr.onerror = function(){
-					console.log("There was an arror!");
-				}
 				xhr.send();
 			}
 
-			// function playerList(){
-			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID);
-			// 	if (!xhr) {
-			// 		alert("CORS not supported");
-			// 	}
-			// 	xhr.onload = function (e) {
-			// 		players = JSON.parse(xhr.response);
-			// 	};
-			// 	xhr.send();
-			// }
+			function activeP(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/activePlayers?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					activePlayers = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
 
-			// function activePlayers(){
-			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/activePlayers?matchID=" + matchID);
-			// 	if (!xhr) {
-			// 		alert("CORS not supported");
-			// 	}
-			// 	xhr.onload = function (e) {
-			// 		activePlayers = JSON.parse(xhr.response);
-			// 	};
-			// 	xhr.send();
-			// }
+			function displayPlayerCard(){
+				document.getElementById("cardName").innerHTML = activePlayers[0].playerHand.currentCard.name;
+				document.getElementById("attribute1").innerHTML = activePlayers[0].playerHand.currentCard.attribute1;
+				document.getElementById("attribute2").innerHTML = activePlayers[0].playerHand.currentCard.attribute2;
+				document.getElementById("attribute3").innerHTML = activePlayers[0].playerHand.currentCard.attribute3;
+				document.getElementById("attribute4").innerHTML = activePlayers[0].playerHand.currentCard.attribute4;
+				document.getElementById("attribute5").innerHTML = activePlayers[0].playerHand.currentCard.attribute5;
 
-			// function displayPlayerCard(){
-			// 	document.getElementById("cardName").innerHTML = activePlayers[0].getPlayerHand.getCurrentCard.getName;
-			// 	for(i = 0; i < activePlayers.length; i++){
-			// 		document.getElementById("attribute" + (i+1)).innerHTML = activePlayers[0].getPlayerHand.getCurrentCard.getAttributeAtIndex[i];
-			// 		//document.getElementById("value" + (i+1)).innerHTML = activePlayers[0].getPlayerHand.getCurrentCard.getValueAtIndex[i];
-			// 	}
+				document.getElementById("value1").innerHTML = activePlayers[0].playerHand.currentCard.value1;
+				document.getElementById("value2").innerHTML = activePlayers[0].playerHand.currentCard.value2;
+				document.getElementById("value3").innerHTML = activePlayers[0].playerHand.currentCard.value3;
+				document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
+				document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;				
+			}
+
+			function displayOpponentsCard(){
 				
-			// }
+				document.getElementById("ai1CardName").innerHTML = activePlayers[1].playerHand.currentCard.name;
+				document.getElementById("ai1attribute1").innerHTML = activePlayers[1].playerHand.currentCard.attribute1;
+				document.getElementById("ai1attribute2").innerHTML = activePlayers[1].playerHand.currentCard.attribute2;
+				document.getElementById("ai1attribute3").innerHTML = activePlayers[1].playerHand.currentCard.attribute3;
+				document.getElementById("ai1attribute4").innerHTML = activePlayers[1].playerHand.currentCard.attribute4;
+				document.getElementById("ai1attribute5").innerHTML = activePlayers[1].playerHand.currentCard.attribute5;
+
+				document.getElementById("ai1value1").innerHTML = activePlayers[1].playerHand.currentCard.value1;
+				document.getElementById("ai1value2").innerHTML = activePlayers[1].playerHand.currentCard.value2;
+				document.getElementById("ai1value3").innerHTML = activePlayers[1].playerHand.currentCard.value3;
+				document.getElementById("ai1value4").innerHTML = activePlayers[1].playerHand.currentCard.value4;
+				document.getElementById("ai1value5").innerHTML = activePlayers[1].playerHand.currentCard.value5;
+
+
+
+				document.getElementById("ai2CardName").innerHTML = activePlayers[2].playerHand.currentCard.name;
+				document.getElementById("ai2attribute1").innerHTML = activePlayers[2].playerHand.currentCard.attribute1;
+				document.getElementById("ai2attribute2").innerHTML = activePlayers[2].playerHand.currentCard.attribute2;
+				document.getElementById("ai2attribute3").innerHTML = activePlayers[2].playerHand.currentCard.attribute3;
+				document.getElementById("ai2attribute4").innerHTML = activePlayers[2].playerHand.currentCard.attribute4;
+				document.getElementById("ai2attribute5").innerHTML = activePlayers[2].playerHand.currentCard.attribute5;
+
+				document.getElementById("ai2value1").innerHTML = activePlayers[2].playerHand.currentCard.value1;
+				document.getElementById("ai2value2").innerHTML = activePlayers[2].playerHand.currentCard.value2;
+				document.getElementById("ai2value3").innerHTML = activePlayers[2].playerHand.currentCard.value3;
+				document.getElementById("ai2value4").innerHTML = activePlayers[2].playerHand.currentCard.value4;
+				document.getElementById("ai2value5").innerHTML = activePlayers[2].playerHand.currentCard.value5;
+
+
+				document.getElementById("ai3CardName").innerHTML = activePlayers[3].playerHand.currentCard.name;
+				document.getElementById("ai3attribute1").innerHTML = activePlayers[3].playerHand.currentCard.attribute1;
+				document.getElementById("ai3attribute2").innerHTML = activePlayers[3].playerHand.currentCard.attribute2;
+				document.getElementById("ai3attribute3").innerHTML = activePlayers[3].playerHand.currentCard.attribute3;
+				document.getElementById("ai3attribute4").innerHTML = activePlayers[3].playerHand.currentCard.attribute4;
+				document.getElementById("ai3attribute5").innerHTML = activePlayers[3].playerHand.currentCard.attribute5;
+
+				document.getElementById("ai3value1").innerHTML = activePlayers[3].playerHand.currentCard.value1;
+				document.getElementById("ai3value2").innerHTML = activePlayers[3].playerHand.currentCard.value2;
+				document.getElementById("ai3value3").innerHTML = activePlayers[3].playerHand.currentCard.value3;
+				document.getElementById("ai3value4").innerHTML = activePlayers[3].playerHand.currentCard.value4;
+				document.getElementById("ai3value5").innerHTML = activePlayers[3].playerHand.currentCard.value5;
+
+
+				document.getElementById("ai4CardName").innerHTML = activePlayers[4].playerHand.currentCard.name;
+				document.getElementById("ai4attribute1").innerHTML = activePlayers[4].playerHand.currentCard.attribute1;
+				document.getElementById("ai4attribute2").innerHTML = activePlayers[4].playerHand.currentCard.attribute2;
+				document.getElementById("ai4attribute3").innerHTML = activePlayers[4].playerHand.currentCard.attribute3;
+				document.getElementById("ai4attribute4").innerHTML = activePlayers[4].playerHand.currentCard.attribute4;
+				document.getElementById("ai4attribute5").innerHTML = activePlayers[4].playerHand.currentCard.attribute5;
+
+				document.getElementById("ai4value1").innerHTML = activePlayers[4].playerHand.currentCard.value1;
+				document.getElementById("ai4value2").innerHTML = activePlayers[4].playerHand.currentCard.value2;
+				document.getElementById("ai4value3").innerHTML = activePlayers[4].playerHand.currentCard.value3;
+				document.getElementById("ai4value4").innerHTML = activePlayers[4].playerHand.currentCard.value4;
+				document.getElementById("ai4value5").innerHTML = activePlayers[4].playerHand.currentCard.value5;
+						
+			}
 
 		</script>
 	</body>

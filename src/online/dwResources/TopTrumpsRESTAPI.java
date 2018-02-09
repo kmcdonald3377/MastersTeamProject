@@ -75,12 +75,11 @@ public class TopTrumpsRESTAPI
 		return null;
 	}
 	
-	@GET
+	@POST
 	@Path("/startGame")
-	public String startGame(@QueryParam("username") String username, 
-			@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException
+	public String startGame(@QueryParam("username") String username) throws IOException
 	{		
-		Game currentGame = new Game(menuC.readFile(), username, numberOfPlayers);
+		Game currentGame = new Game(menuC.readFile(), username);
 		gameList.add(currentGame);
 		
 		return oWriter.writeValueAsString(currentGame.getMatchID());

@@ -19,7 +19,7 @@ public class GameController
 	public GameController(PileOfCards starCitizenDeck, String username, boolean log) 
 	{
 		gameV = new GameView(this);
-		currentGame = new Game(starCitizenDeck, username, PLAYERS);
+		currentGame = new Game(starCitizenDeck, username);
 		communalPile = currentGame.getCommunalPile();
 		playerList = currentGame.getPlayerList();
 		activePlayers = currentGame.getActivePlayers();
