@@ -19,7 +19,7 @@ public class GameController
 	public GameController(PileOfCards starCitizenDeck, String username, boolean log) 
 	{
 		gameV = new GameView(this);
-		currentGame = new Game(starCitizenDeck, username);
+		currentGame = new Game(starCitizenDeck, username, PLAYERS);
 		communalPile = currentGame.getCommunalPile();
 		playerList = currentGame.getPlayerList();
 		activePlayers = currentGame.getActivePlayers();
@@ -54,7 +54,7 @@ public class GameController
 			{
 				if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 				{
-					gameV.removedPlayers(currentGame.getPlayerName(removePlayers.get(i).getPlayerId())); //this should be in gamecontroller
+					gameV.removedPlayers(currentGame.getPlayerName(removePlayers.get(i).getPlayerID())); //this should be in gamecontroller
 				}
 			}
 			activePlayers = currentGame.removeFromActivePlayers(); //this method current has gameV line in it - need this in here
@@ -104,12 +104,12 @@ public class GameController
 
 	private String selectCategory(Round currentRound, String category) 
 	{
-		if(firstChoice.getPlayerId() != 1) 
+		if(firstChoice.getPlayerID() != 1) 
 		{
 			category = currentRound.categorySelection();
 			if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) //stays here
 			{
-				gameV.aiSelectCategory(currentGame.getPlayerName(firstChoice.getPlayerId()), category);
+				gameV.aiSelectCategory(currentGame.getPlayerName(firstChoice.getPlayerID()), category);
 				gameV.userInput();
 			}
 		}
@@ -177,7 +177,7 @@ public class GameController
 		
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
-			gameV.showDraw(currentGame.getPlayerName(winners.get(0).getPlayerId()), currentGame.getPlayerName(winners.get(1).getPlayerId())); //need to feed in the two players who drew
+			gameV.showDraw(currentGame.getPlayerName(winners.get(0).getPlayerID()), currentGame.getPlayerName(winners.get(1).getPlayerID())); //need to feed in the two players who drew
 		}
 	}
 
@@ -186,11 +186,11 @@ public class GameController
 		glog.writeCommunalPileEmpty();
 		currentRound.computeWin(winner);
 		winner.get(0).increaseRoundsWon();
-		winner.get(0).getPlayerId();
+		winner.get(0).getPlayerID();
 		
 		for(int i = 0; i < activePlayers.size(); i++) 
 		{
-			if(activePlayers.get(i).getPlayerId() == winner.get(0).getPlayerId()) 
+			if(activePlayers.get(i).getPlayerID() == winner.get(0).getPlayerID()) 
 			{
 				firstChoice = activePlayers.get(i);
 			}
@@ -198,21 +198,21 @@ public class GameController
 		
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
-			gameV.showWinner(currentGame.getPlayerName(winner.get(0).getPlayerId()));
+			gameV.showWinner(currentGame.getPlayerName(winner.get(0).getPlayerID()));
 		}
 	}
 	
 	private void displayGameResult()
 	{
 		String winner ="";
-		if(activePlayers.get(0).getPlayerId() == 1) 
+		if(activePlayers.get(0).getPlayerID() == 1) 
 		{
 			gameV.humanWon();
 			winner = "Human ";
 		}
 		else 
 		{
-			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerId()));
+			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerID()));
 			winner = "AI ";
 		}
 		glog = currentGame.gameLog();

@@ -21,7 +21,7 @@ public class Player
 		return playerHand;
 	}
 
-	public int getPlayerId() 
+	public int getPlayerID() 
 	{
 		return playerID;
 	}

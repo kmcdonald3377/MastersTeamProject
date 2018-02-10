@@ -35,6 +35,8 @@
 			<p>
 				<h2>Round <span id="roundDisplay"></span></h2>
 				<br>
+				<h3>Rounds Drawn: <span id="roundDrawnDisplay"></span></h3>
+				<br>
 				<span id="gameProgression"></span>
 			</p>
 			<input placeholder="player name" id="playerN" type="text"/>
@@ -49,6 +51,7 @@
 				<option>4</option>
 			</select>
 			<button id="revealCards" onclick="anotherFunction()" style="display:none">Reveal Cards</button>
+			<button id="revealCardsTwo" onclick="partTwo()" style="display:none">Reveal Cards</button>
 
 			<div class="container">
 
@@ -219,14 +222,20 @@
 
 			var matchID = null;
 			var playerName = null;
-			var aiPlayerCount;
+			var aiPlayerCount = null;
 			var players = {};
 			var activePlayers = {};
 			var handSizes = [];
 			var comPile = {};
 			var playersTurn = null;
-			var currentRound = {};
+			var currentRound = null;
 			var category = null;
+			var maxScore = null;
+			var isWinner = false;
+			var winners = {};
+			var rounds = null;
+			var roundsDrawn = null;
+			var removed = {};
 
 			// Method that is called on page load
 			function initalize() {
@@ -240,6 +249,7 @@
 				startGame();
 				getPlayers();
 				activeP();
+				communalPile();
 				playerHandSizes();
 				displayPlayerCard();
 				document.getElementById('playerCards').innerHTML = handSizes[0];
@@ -259,15 +269,69 @@
 				else{
 					document.getElementById('gameProgression').innerHTML = "It is AI Player 4's choice to select a category";
 				}
-				//playGame();
+				round();
+				increaseRoundsPlayed();
+				totalRounds();
+				totalDraws();
+				document.getElementById('roundDisplay').innerHTML = rounds;
+				document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
+				if(playersTurn == 1){
+						document.getElementById('attribute1').disabled = false;
+						document.getElementById('attribute2').disabled = false;
+						document.getElementById('attribute3').disabled = false;
+						document.getElementById('attribute4').disabled = false;
+						document.getElementById('attribute5').disabled = false;
+					}
+					else{
+						aiCatSel();
+					}
+
+					document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
+					document.getElementById('revealCardsTwo');
+					findMax();
+					isAWinner();
+					findWinners();
+
+					if(isWinner){
+						document.getElementById('gameProgression').innerHTML = winners.playerID + "wins the round with " + maxScore + " in the category " + category + "!";
+						roundWin();
+						playersTurn = winners.playerID;
+					}
+					else{
+						var winningPlayers = null;
+						for(i=0; i < winners.length; i++){
+							winningPlayers += winners[i].playerID + ", "
+						}
+						document.getElementById('gameProgression').innerHTML = winningPlayers + "have drawn the round with " + maxScore + " in the category " + category + 
+						"! All players cards have been forfeited to the communal pile!";
+						roundDraw();
+						increaseDraws();
+					}
+					
+					playersToBeRemoved();
+					removedFromActivePlayers();
+					var removedPlayers = null;
+					if(removed.length != 0){
+						for(i=0; i < removed.length; i++){
+						removedPlayers += removed[i].playerID + ", "
+					}
+					document.getElementById('gameProgression').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
+					" players remain!";
+					}
+					endOfRound();
 			}
 
 			function playGame(){
 				
-				while(isValid())
-				{
+				//while(isValid())
+				//{
 					activeP();
-					//round();
+					round();
+					increaseRoundsPlayed();
+					totalRounds();
+					totalDraws();
+					document.getElementById('roundDisplay').innerHTML = rounds;
+					document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
 					displayPlayerCard();
 					if(firstChoice == 1){
 						document.getElementById('attribute1').disabled = false;
@@ -281,27 +345,54 @@
 					}
 
 					document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
-
-					if(isWinner){
-						//will say x won the round - all forfeit cards, x gains all cards from hands and communal pile
-						//firstPlayer/Choice = winner
-					}
-					else{
-						//will say draw between x, y, z - all forfeit cards to communal pile
-					}
+					document.getElementById('revealCardsTwo');
+					partTwo();
 					
-					for(i=0; i<activePlayers; i++){
-						if(activePlayers[i].handSizes == 0){
-							//feed players to be removed into the method from api
-						}
-					}
 				
-				}
-				//when have reached only one player left then will display win/lose message depending upon the winner of the game
+				//}
+				// if(activePlayers[0].playerID == 1){
+				// 	document.getElementById('gameProgression').innerHTML = "Congratulations you have won!";
+				// }
+				// else{
+				// 	document.getElementById('gameProgression').innerHTML = "AI Player " + (activePlayers[0].playerID + 1) + " has won!";
+				// }
 			}
 			
-			function isValid()
-			{
+			function partTwo(){
+				findMax();
+					isAWinner();
+					findWinners();
+
+					if(isWinner){
+						document.getElementById('gameProgression').innerHTML = winners.playerID + "wins the round with " + maxScore + " in the category " + category + "!";
+						roundWin();
+						playersTurn = winners.playerID;
+					}
+					else{
+						var winningPlayers = null;
+						for(i=0; i < winners.length; i++){
+							winningPlayers += winners[i].playerID + ", "
+						}
+						document.getElementById('gameProgression').innerHTML = winningPlayers + "have drawn the round with " + maxScore + " in the category " + category + 
+						"! All players cards have been forfeited to the communal pile!";
+						roundDraw();
+						increaseDraws();
+					}
+					
+					playersToBeRemoved();
+					removedFromActivePlayers();
+					var removedPlayers = null;
+					if(removed.length != 0){
+						for(i=0; i < removed.length; i++){
+						removedPlayers += removed[i].playerID + ", "
+					}
+					document.getElementById('gameProgression').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
+					" players remain!";
+					}
+					endOfRound();
+			}
+
+			function isValid(){
 				if(activePlayers.length > 1)
 				{
 					return true;
@@ -359,6 +450,14 @@
 				document.getElementById('ai2Cards').innerHTML = handSizes[2];
 				document.getElementById('ai3Cards').innerHTML = handSizes[3];
 				document.getElementById('ai4Cards').innerHTML = handSizes[4];
+			}
+
+			function endOfRound(){
+				document.getElementById('ai1').style.display = 'none';
+				document.getElementById('ai2').style.display = 'none';
+				document.getElementById('ai3').style.display = 'none';
+				document.getElementById('ai4').style.display = 'none';
+				document.getElementById('communal').style.display = 'none';
 			}
 
 			function displayPlayerCard(){
@@ -458,8 +557,7 @@
 
 
 			function startGame(){
-				playerName = document.getElementById("playerN").value;
-                var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName, false)
+                var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName + "&numberOfPlayers=" + aiPlayerCount, false)
 
                 xhr.onload = function (e) {
                     matchID = xhr.response;
@@ -490,16 +588,16 @@
 				xhr.send();
 			}
 
-			// function communalPile(){ //maybe just need a method to add/remove from communal pile
-			// 	var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/communalPile?matchID=" + matchID, false);
-			// 	if (!xhr) {
-			// 		alert("CORS not supported");
-			// 	}
-			// 	xhr.onload = function (e) {
-			// 		comPile = xhr.response;
-			// 	};
-			// 	xhr.send();
-			// }
+			function communalPile(){ //maybe just need a method to add/remove from communal pile
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/communalPile?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					comPile = xhr.response;
+				};
+				xhr.send();
+			}
 
 			function playerHandSizes(){
 				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerHandSizes?matchID=" + matchID, false);
@@ -518,30 +616,155 @@
 					alert("CORS not supported");
 				}
 				xhr.onload = function (e) {
-					var player = JSON.parse(xhr.response);
-					playersTurn = player.playerId;
+					playersTurn = xhr.response;
 				};
 				xhr.send();
 			}
 
-			// function round(){
-			// 	var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/round?matchID=" + matchID, false);
-			// 	if (!xhr) {
-			// 		alert("CORS not supported");
-			// 	}
-			// 	xhr.onload = function (e) {
-			// 		currentRound = JSON.parse(xhr.response);
-			// 	};
-			// 	xhr.send();
-			// }
+			function round(){
+				var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/newRound?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					currentRound = xhr.response;
+				};
+				xhr.send();
+			}
 
 			function aiCatSel(){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/categorySelection?currentRound=" + currentRound, false);
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/categorySelection?matchID=" + matchID, false);
 				if (!xhr) {
 					alert("CORS not supported");
 				}
 				xhr.onload = function (e) {
 					category = xhr.response;
+				};
+				xhr.send();
+			}
+
+			function findMax(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/maxScore?matchID=" + matchID + "&Category=" + category, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					maxScore = xhr.response;
+				};
+				xhr.send();
+			}
+
+			function isAWinner(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/isWinner?matchID=" + matchID + "&Category=" + category, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					if(xhr.response == True){
+						isWinner = true;
+					}
+					else{
+						isWinner = false;
+					}
+				};
+				xhr.send();
+			}
+
+			function findWinners(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/findWinner?matchID=" + matchID + "&Category=" + category, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					winners = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
+
+			function totalRounds(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/totalRounds?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					rounds = xhr.response;
+				};
+				xhr.send();
+			}
+
+			function increaseRoundsPlayed(){
+				var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/increaseRounds?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					var test = xhr.response;
+				};
+				xhr.send();
+			}
+
+			function totalDraws(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/totalDraws?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					roundsDrawn = xhr.response;
+				};
+				xhr.send();
+			}
+
+			function increaseDraws(){
+				var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/increaseDraws?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					xhr.response;
+				};
+				xhr.send();
+			}
+
+			function playersToBeRemoved(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playersToBeRemoved?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					removed = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
+
+			function removedFromActivePlayers(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/removedFromActivePlayers?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					activePlayers = JSON.parse(xhr.response);
+				};
+				xhr.send();
+			}
+
+			function roundWin(){
+				var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/computeRoundWin?matchID=" + matchID + "&Category=" + category, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					xhr.response;
+				};
+				xhr.send();
+			}
+
+			function roundDraw(){
+				var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/computeRoundDraw?matchID=" + matchID + "&Category=" + category, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					xhr.response;
 				};
 				xhr.send();
 			}

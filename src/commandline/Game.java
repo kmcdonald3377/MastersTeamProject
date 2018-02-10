@@ -2,6 +2,7 @@ package commandline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Game 
@@ -9,6 +10,7 @@ public class Game
 	private int totalRounds, totalDraws, numberOfPlayers;
 //	private Database database;
 	private ArrayList <Player> playerList, activePlayers;
+	private LinkedList <Round> roundList;
 	private PileOfCards communalPile;
 	private PileOfCards deck;
 	private TestLog log;
@@ -16,9 +18,9 @@ public class Game
 	private String username;
 	private int matchID;
 	
-	public Game(PileOfCards deck, String username) 
+	public Game(PileOfCards deck, String username, int numberOfPlayers) 
 	{
-		this.numberOfPlayers = 5;
+		this.numberOfPlayers = numberOfPlayers;
 		log = new TestLog();
 		//database = new Database();
 		communalPile = new PileOfCards(null);
@@ -54,10 +56,22 @@ public class Game
 		}
 		this.username = username;
 		this.matchID = 0;
+		roundList = new LinkedList<Round>();
 	}
 	
-	public PileOfCards getDeck()	{
+	public PileOfCards getDeck()	
+	{
 		return deck;
+	}
+	
+	public LinkedList<Round> getRoundList()
+	{
+		return roundList;
+	}
+	
+	public void addToRoundList(Round currentRound) 
+	{
+		roundList.add(currentRound);
 	}
 	
 	public int getMatchID() 
@@ -77,7 +91,7 @@ public class Game
 
 		for(int i = 0; i < playerList.size(); i ++) 
 		{
-			playerHandSizes.put(playerList.get(i).getPlayerId(), playerList.get(i).getPlayerHand().getNumberOfCards());
+			playerHandSizes.put(playerList.get(i).getPlayerID(), playerList.get(i).getPlayerHand().getNumberOfCards());
 			
 			if(playerHandSizes.containsKey(1)) 
 			{
@@ -119,8 +133,8 @@ public class Game
 			{
 				for(int j = 0; j < activePlayers.size(); j ++) 
 				{
-					int playerid = playerList.get(i).getPlayerId();
-					if (activePlayers.get(j).getPlayerId() == playerid) 
+					int playerid = playerList.get(i).getPlayerID();
+					if (activePlayers.get(j).getPlayerID() == playerid) 
 					{
 						activePlayers.remove(j);
 					}
@@ -141,9 +155,10 @@ public class Game
 		return true;
 	}
 	
-	public void increaseDraws() 
+	public boolean increaseDraws() 
 	{
 		totalDraws += 1;
+		return true;
 	}
 	
 	public int getTotalRounds() 
@@ -183,7 +198,7 @@ public class Game
 		int j = 0;
 		for (int i = 0; i < newDeck.size(); i ++)
 		{
-			if(j == 5) 
+			if(j == playerList.size()) 
 			{
 				j = 0;
 			}
@@ -192,11 +207,11 @@ public class Game
 			j++;
 		}
 		
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < numberOfPlayers; i++)
 		{
 			log.writeHand(i+1, playerList.get(i).getPlayerHand());
 		}
-		for (int i = 0; i <5; i++)
+		for (int i = 0; i < numberOfPlayers; i++)
 		{
 			log.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
 		}
