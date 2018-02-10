@@ -85,16 +85,18 @@ public class TopTrumpsRESTAPI
 		return oWriter.writeValueAsString(currentGame.getMatchID());
 	}
 	
-//	@GET
-//	@Path("/newRound")
-//	public String newRound(@QueryParam("currentGame") Game currentGame, @QueryParam("playerList") ArrayList<Player> playerList, 
-//			@QueryParam("activePlayers") ArrayList<Player> activePlayers) throws IOException
-//	{
-//		currentRound = new Round(currentGame, playerList, activePlayers);
-//		
-//		return oWriter.writeValueAsString(currentRound);
-//	}
-//	
+	@POST
+	@Path("/newRound")
+	public String newRound(@QueryParam("matchID") String matchID) throws IOException
+	{
+		Game currentGame = getGame(matchID);
+		ArrayList<Player> playerList = currentGame.getPlayerList();
+		ArrayList<Player> activePlayers = currentGame.getActivePlayers();
+		currentRound = new Round(currentGame, playerList, activePlayers);
+		
+		return oWriter.writeValueAsString(currentRound);
+	}
+	
 	@GET
 	@Path("/activePlayers")
 	public String activePlayers(@QueryParam("matchID") String matchID) throws IOException //cannot pass in a java object from javascript
@@ -167,13 +169,13 @@ public class TopTrumpsRESTAPI
 		return oWriter.writeValueAsString(currentGame.getTotalDraws());
 	}
 
-	@POST
-	@Path("/increaseDraws")
-	public String increaseDraws(@QueryParam("matchID") String matchID) throws IOException
-	{
-		Game currentGame = getGame(matchID);
-		return oWriter.writeValueAsString(currentGame.increaseDraws());
-	}
+//	@POST
+//	@Path("/increaseDraws")
+//	public String increaseDraws(@QueryParam("matchID") String matchID) throws IOException
+//	{
+//		Game currentGame = getGame(matchID);
+//		return oWriter.writeValueAsString(currentGame.increaseDraws());
+//	}
 	
 	@GET
 	@Path("/firstPlayer")
@@ -189,9 +191,9 @@ public class TopTrumpsRESTAPI
 //	{
 //		return oWriter.writeValueAsString(currentRound.categorySelection());
 //	}
-//	
+	
 //	@GET
-//	@Path("/humanCategorySelection")
+//	@Path("/humanCategorySelection") //don't really need this
 //	public String humanCategorySelection(@QueryParam("currentRound") Round currentRound, 
 //			@QueryParam("Category") String Category) throws IOException
 //	{

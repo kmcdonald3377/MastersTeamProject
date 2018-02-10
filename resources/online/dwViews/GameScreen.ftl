@@ -33,7 +33,7 @@
 		<h1>Top Trumps</h1>
 		<div id="mainSection">
 			<p>
-				Round <span id="roundDisplay"></span>
+				<h2>Round <span id="roundDisplay"></span></h2>
 				<br>
 				<span id="gameProgression"></span>
 			</p>
@@ -63,15 +63,15 @@
 							<div class="card-block">
 								<br />
 								<left>
-									<button id="attribute1">Attribute 1:</button><span id="value1"></span>
+									<button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button><span id="value1"></span>
 									<br>
-									<button id="attribute2">Attribute 2:</button><span id="value2"></span>
+									<button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button><span id="value2"></span>
 									<br>
-									<button id="attribute3">Attribute 3:</button><span id="value3"></span>
+									<button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button><span id="value3"></span>
 									<br>
-									<button id="attribute4">Attribute 4:</button><span id="value4"></span>
+									<button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button><span id="value4"></span>
 									<br>
-									<button id="attribute5">Attribute 5:</button><span id="value5"></span>
+									<button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button><span id="value5"></span>
 									<br>
 								</left>
 							</div>
@@ -192,6 +192,16 @@
 					<h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5>
 				</div>
 
+				<div class="communal" id="communal" style="display:none">
+						<h4><b>Communal Pile</b></h4>
+						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+							<div href="/document" style="height:100%;">
+								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+							</div>
+						</div>
+						<h5><b>Cards in Communal Pile: <span id="communalPileCards"></span></b></h5>
+					</div>
+
 			</div>
 
 		</div>
@@ -215,6 +225,8 @@
 			var handSizes = [];
 			var comPile = {};
 			var playersTurn = null;
+			var currentRound = {};
+			var category = null;
 
 			// Method that is called on page load
 			function initalize() {
@@ -229,12 +241,8 @@
 				getPlayers();
 				activeP();
 				playerHandSizes();
-				document.getElementById('playerCards').innerHTML = handSizes[0];
-				playGame();
-			}
-
-			function playGame(){
 				displayPlayerCard();
+				document.getElementById('playerCards').innerHTML = handSizes[0];
 				firstChoice();
 				if(playersTurn == 1){
 					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
@@ -251,10 +259,58 @@
 				else{
 					document.getElementById('gameProgression').innerHTML = "It is AI Player 4's choice to select a category";
 				}
-				console.log(playersTurn);
+				//playGame();
+			}
+
+			function playGame(){
+				
+				while(isValid())
+				{
+					activeP();
+					//round();
+					displayPlayerCard();
+					if(firstChoice == 1){
+						document.getElementById('attribute1').disabled = false;
+						document.getElementById('attribute2').disabled = false;
+						document.getElementById('attribute3').disabled = false;
+						document.getElementById('attribute4').disabled = false;
+						document.getElementById('attribute5').disabled = false;
+					}
+					else{
+						aiCatSel();
+					}
+
+					document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
+
+					if(isWinner){
+						//will say x won the round - all forfeit cards, x gains all cards from hands and communal pile
+						//firstPlayer/Choice = winner
+					}
+					else{
+						//will say draw between x, y, z - all forfeit cards to communal pile
+					}
+					
+					for(i=0; i<activePlayers; i++){
+						if(activePlayers[i].handSizes == 0){
+							//feed players to be removed into the method from api
+						}
+					}
+				
+				}
+				//when have reached only one player left then will display win/lose message depending upon the winner of the game
 			}
 			
-			
+			function isValid()
+			{
+				if(activePlayers.length > 1)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
 
 
 
@@ -296,6 +352,7 @@
 				document.getElementById('ai2').style.display = 'block';
 				document.getElementById('ai3').style.display = 'block';
 				document.getElementById('ai4').style.display = 'block';
+				document.getElementById('communal').style.display = 'block';
 				displayOpponentsCard();
 				document.getElementById('playerCards').innerHTML = handSizes[0];
 				document.getElementById('ai1Cards').innerHTML = handSizes[1];
@@ -379,6 +436,26 @@
 						
 			}
 
+			function att1(){
+				category = activePlayers[0].playerHand.currentCard.attribute1;
+			}
+
+			function att2(){
+				category = activePlayers[0].playerHand.currentCard.attribute2;
+			}
+
+			function att3(){
+				category = activePlayers[0].playerHand.currentCard.attribute3;
+			}
+
+			function att4(){
+				category = activePlayers[0].playerHand.currentCard.attribute4;
+			}
+
+			function att5(){
+				category = activePlayers[0].playerHand.currentCard.attribute5;
+			}
+
 
 			function startGame(){
 				playerName = document.getElementById("playerN").value;
@@ -447,7 +524,27 @@
 				xhr.send();
 			}
 
+			// function round(){
+			// 	var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/round?matchID=" + matchID, false);
+			// 	if (!xhr) {
+			// 		alert("CORS not supported");
+			// 	}
+			// 	xhr.onload = function (e) {
+			// 		currentRound = JSON.parse(xhr.response);
+			// 	};
+			// 	xhr.send();
+			// }
 
+			function aiCatSel(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/categorySelection?currentRound=" + currentRound, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					category = xhr.response;
+				};
+				xhr.send();
+			}
 
 			
 
