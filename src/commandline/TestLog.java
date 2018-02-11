@@ -41,7 +41,7 @@ public class TestLog {
 		humanHand = new ArrayList<Card>();
 		AIHand = new ArrayList<Card>();
 		_winner = "";
-		lineBreak = "------------------------------------------------------------------------";
+		lineBreak = "--------------------------------------";
 		_playerID = 0;
 		playerID = 0;
 	}
@@ -57,7 +57,7 @@ public class TestLog {
 		for (Card c : initDeck)
 		{
 			sb.append(c);
-			sb.append(" ");
+			sb.append(" \r\n");
 		}
 
 		sb.append("\r\n" + lineBreak + "\r\n");
@@ -75,7 +75,7 @@ public class TestLog {
 		for(Card c : shuffledDeck)
 		{
 			sb.append(c);
-			sb.append(" ");
+			sb.append(" \r\n");
 		}
 		sb.append("\r\n" + lineBreak + "\r\n");
 	}
@@ -94,7 +94,7 @@ public class TestLog {
 			for (Card c: comPile)
 			{
 				sb.append(c);
-				sb.append(" ");
+				sb.append(" \r\n");
 			}
 			
 			sb.append("\r\n" + lineBreak + "\r\n");
@@ -119,26 +119,26 @@ public class TestLog {
 	 */
 
 	public void writeHand(int j, PileOfCards playerHand) {
-		playerID = j;
+		playerID = j+1;
 		if (playerID == 1)
 		{
 			humanHand = playerHand.getDeck();
-			sb.append("\r\nHuman Player " + playerID + "'s deck is:  \r\n");
+			sb.append("\r\nHuman Player " + playerID + "'s deck is:  \r\n\r\n");
 			for(Card c: humanHand)
 			{
 				sb.append(c);
-				sb.append(" ");
+				sb.append(" \r\n");
 			}
 			sb.append("\r\n" + lineBreak + "\r\n");
 		}
 		else
 		{
 			AIHand = playerHand.getDeck();
-			sb.append("\r\nAI Player " + playerID + "'s deck is:  \r\n");
+			sb.append("\r\nAI Player " + playerID + "'s deck is:  \r\n\r\n");
 			for(Card c: AIHand)
 			{
 				sb.append(c);
-				sb.append(" ");
+				sb.append(" \r\n");
 			}
 			sb.append("\r\n" + lineBreak + "\r\n");
 		}
@@ -156,16 +156,16 @@ public class TestLog {
 		_playerID = i+1;
 		if (_playerID==1)
 		{
-			sb.append("Human ");
+			sb.append("\r\nHuman ");
 		}
 		else
 		{
-			sb.append("AI ");
+			sb.append("\r\nAI ");
 		}
-		sb.append("Player " + _playerID + "'s card in play: " + card.getName() + " " + card.getAttribute1()
-		+ " " + card.getValue1() + " " + card.getAttribute2() + " " + card.getValue2() + " "
-		+ " " + card.getAttribute3() + " " + card.getValue3() + " " + card.getAttribute4() + " "
-		+ card.getValue4() + " " + card.getAttribute5() + " " + card.getValue5() + "\r\n");
+		sb.append("Player " + _playerID + "'s card in play: \r\n\r\n" + card.getName() + " \r\n" + card.getAttribute1()
+		+ " " + card.getValue1() + " \r\n" + card.getAttribute2() + " " + card.getValue2() + " \r\n"
+		+ card.getAttribute3() + " " + card.getValue3() + " \r\n" + card.getAttribute4() + " "
+		+ card.getValue4() + " \r\n" + card.getAttribute5() + " " + card.getValue5() + "\r\n");
 		sb.append("\r\n" + lineBreak + "\r\n");
 	}
 	
@@ -178,7 +178,12 @@ public class TestLog {
 
 	public void writeCategory(String category)
 	{
-		sb.append("\r\nSelected Category: " + category + "\r\n");
+		if (player == 1)
+		{
+		sb.append("\r\nHuman Player " + player + " Selected Category: " + category + "\r\n");
+		}
+		else
+			sb.append("\r\nAI Player " + player + " Selected Category: " + category + "\r\n");
 	}
 	
 	/**
@@ -187,7 +192,7 @@ public class TestLog {
 	 */
 	public void writeStats(String s)
 	{
-		sb.append("Showing stats: ");
+		sb.append("\r\nShowing stats: ");
 		sb.append(s);
 		sb.append("\r\n" + lineBreak + "\r\n");
 	}
@@ -199,8 +204,10 @@ public class TestLog {
 	 */
 	public void writeWinner (String winner)	{
 		_winner = winner;
-		sb.append("\r\n" + _winner + " player wins!  ");
+		sb.append("\r\n" + _winner + " player wins!  \r\n");
+		sb.append(lineBreak);
 		sb.append("\r\nGAME OVER");
+		sb.append(lineBreak);
 	}
 
 

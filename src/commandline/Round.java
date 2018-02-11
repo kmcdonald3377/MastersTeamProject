@@ -59,27 +59,27 @@ public class Round
 		return categoryKey;
 	}
 	
-	public String maxCategory(PileOfCards hand)
+	public String applyDifficulty(PileOfCards hand, int difficulty)
 	{
 		int index = 0;
 		Card playerCard = hand.getCurrentCard();
 		int max = playerCard.getValue1();
-		if (max<playerCard.getValue2())
+		if (max<playerCard.getValue2() && max<difficulty)
 		{
 		max=playerCard.getValue2();
 		index=1;
 		}
-		if (max<playerCard.getValue3())
+		if (max<playerCard.getValue3()&& max<difficulty)
 		{
 		max=playerCard.getValue3();
 		index=2;
 		}
-		if (max<playerCard.getValue4())
+		if (max<playerCard.getValue4()&& max<difficulty)
 		{
 		max=playerCard.getValue4();
 		index=3;
 		}
-		if (max<playerCard.getValue5())
+		if (max<playerCard.getValue5()&& max<difficulty)
 		{
 		max=playerCard.getValue5();
 		index=4;
