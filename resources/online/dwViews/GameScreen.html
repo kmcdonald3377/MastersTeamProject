@@ -38,8 +38,17 @@
 
 		.column {
 			float: left;
-			width: 20%
+			width: 20%;
 			padding: 10px;
+		}
+
+		.columns {
+			-webkit-column-count: 5;
+			-webkit-column-gap: 2rem;
+			-moz-column-count: 5;
+			-moz-column-gap:2rem;
+			padding: 1em;
+			margin: 1em;
 		}
 
 		/* clear floats after the columns*/
@@ -91,9 +100,10 @@
 			<button id="mainMenu" onclick="choice()" style="display:none" ><a href="http://localhost:7777/toptrumps">Main Menu</a></button></center>
 
 			<div class="container">
-				<div class="card-deck">
+				<div class="w3-container">
 
-					<div class="column" id="player" style="display:none">
+					<div class = "w3-container w3-cell">
+					<div class="w3-card-4 w3-pale-blue" id="player" style="display:none">
 							<h4><b><span id="playerNamePlacement"></span></b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -120,8 +130,11 @@
 						</div>
 						<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
 					</div>
+				</div>
 
-					<div class="column" id="ai1" style="display:none">
+
+				<div class = "w3-container w3-cell">
+					<div class="w3-card-4 w3-pale-blue" id="ai1" style="display:none">
 							<h4><b>AI Player 1</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -148,8 +161,10 @@
 						</div>
 						<h5><b>Cards Remaining: <span id="ai1Cards"></span></b></h5>
 					</div>
+				</div>
 
-					<div class="column" id="ai2" style="display:none">
+				<div class = "w3-container w3-cell">
+					<div class="w3-card-4 w3-pale-blue" id="ai2" style="display:none">
 							<h4><b>AI Player 2</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -176,8 +191,10 @@
 						</div>
 						<h5><b>Cards Remaining: <span id="ai2Cards"></span></b></h5>
 					</div>
+				</div>
 
-					<div class="column" id="ai3" style="display:none">
+				<div class = "w3-container w3-cell">
+					<div class="w3-card-4 w3-pale-blue" id="ai3" style="display:none">
 							<h4><b>AI Player 3</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -204,8 +221,10 @@
 						</div>
 						<h5><b>Cards Remaining: <span id="ai3Cards"></span></b></h5>
 					</div>
+				</div>
 
-					<div class="column" id="ai4" style="display:none">
+				<div class = "w3-container w3-cell">
+					<div class="w3-card-4 w3-pale-blue" id="ai4" style="display:none">
 						<h4><b>AI Player 4</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -232,8 +251,10 @@
 						</div>
 						<h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5>
 					</div>
+				</div>
 
 				</div>
+
 					<div class="communal" id="communal" style="display:none">
 							<center><h4><b>Communal Pile</b></h4>
 							<div class="card border-light mb-3" style="max-width: 100rem; height: 5rem;">
@@ -243,9 +264,8 @@
 							<h5><b>Cards in Communal Pile: <span id="communalPileCards"></span></b></h5>
 							</center>
 						</div>
+					</div>
 		</div>
-
-
 
 	</div>
 
@@ -279,7 +299,11 @@
 
 			// Method that is called on page load
 			function initalize() {
-
+				//document.getElementById('player').style.width = '20%';
+				//document.getElementById('ai1').style.width = '20%';
+				//document.getElementById('ai2').style.width = '20%';
+				//document.getElementById('ai3').style.width = '20%';
+				//document.getElementById('ai4').style.width = '20%';
 			}
 
 			function startGame(){
