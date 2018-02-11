@@ -213,7 +213,7 @@
 
 		</div>
 
-		
+
 
 
 
@@ -243,9 +243,9 @@
 
 			// Method that is called on page load
 			function initalize() {
-			
+
 			}
-			
+
 			function startGame(){
 				playerName = document.getElementById('playerN').value;
 				aiPlayerCount = document.getElementById("noOfPlayers").value;
@@ -274,7 +274,7 @@
 				document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
 				displayPlayerCard();
 				playerHandSizes();
-				
+
 				if(playersTurn == 1){
 					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
 					document.getElementById('attribute1').disabled = false;
@@ -314,7 +314,7 @@
 				document.getElementById('gameProgression').innerHTML = "The category " + category + " has been selected!";
 				document.getElementById('revealCards').style.display = 'block';
 			}
-			
+
 			function revealCards(){
 				showCards();
 				findMax();
@@ -332,6 +332,7 @@
 					roundWin();
 					getPlayers();
 					activeP();
+					communalPile();
 					playersTurn = winners[0].playerID;
 				}
 				else{
@@ -346,7 +347,7 @@
 
 						winningPlayers += winner + ", "
 					}
-					document.getElementById('gameProgression').innerHTML = winningPlayers + "has drawn the round with " + maxScore + " in the category " + category + 
+					document.getElementById('gameProgression').innerHTML = winningPlayers + "has drawn the round with " + maxScore + " in the category " + category +
 					"! All players cards have been forfeited to the communal pile!";
 					roundDraw();
 					getPlayers();
@@ -354,7 +355,7 @@
 					communalPile();
 					increaseDraws();
 				}
-					
+
 				playersToBeRemoved();
 				removedFromActivePlayers();
 				var removedPlayers = "";
@@ -368,7 +369,7 @@
 						else{rmvPlayers = "AI Player 4";}
 					removedPlayers += rmvPlayers + ", "
 				}
-				document.getElementById('gameProgression2').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
+				document.getElementById('gameProgression2').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length +
 				" players remain!";
 				}
 
@@ -392,18 +393,18 @@
 					document.getElementById('ai2').style.display = 'block';
 					document.getElementById('ai2Cards').innerHTML = players[2].playerHand.numberOfCards;
 				}
-				
+
 				if(aiPlayerCount >= 3){
 					document.getElementById('ai3').style.display = 'block';
 					document.getElementById('ai3Cards').innerHTML = players[3].playerHand.numberOfCards;
 				}
-				
+
 				if(aiPlayerCount == 4){
 					document.getElementById('ai4').style.display = 'block';
 					document.getElementById('ai4Cards').innerHTML = players[4].playerHand.numberOfCards;
 				}
-					
-				
+
+
 			}
 
 			function isValid(){
@@ -452,7 +453,7 @@
 					document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
 					document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
 
-					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;	
+					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;
 				}
 
 				document.getElementById('communal').style.display = 'block';
@@ -461,7 +462,7 @@
 
 			function displayOpponentsCard(){
 				for(i = 0; i< activePlayers.length; i++){
-					if(activePlayers[i].playerID == 2){			
+					if(activePlayers[i].playerID == 2){
 						document.getElementById("ai1CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai1attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai1attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -476,7 +477,7 @@
 						document.getElementById("ai1value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
 					}
 
-					if(activePlayers[i].playerID == 3){	
+					if(activePlayers[i].playerID == 3){
 						document.getElementById("ai2CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai2attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai2attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -490,8 +491,8 @@
 						document.getElementById("ai2value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai2value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
 					}
-					
-					if(activePlayers[i].playerID == 4){	
+
+					if(activePlayers[i].playerID == 4){
 						document.getElementById("ai3CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai3attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai3attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -505,8 +506,8 @@
 						document.getElementById("ai3value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai3value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
 					}
-					
-					if(activePlayers[i].playerID == 5){	
+
+					if(activePlayers[i].playerID == 5){
 						document.getElementById("ai4CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai4attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai4attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
