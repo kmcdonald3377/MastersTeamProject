@@ -56,17 +56,17 @@
 					<div class="card-block">
 						<center>
 							<h4><b>Game Statstics</b></h4>
-							<br />							
-							<p class="card-text">Overall number of games: <span id="totalGames"></span> 
-								<br /><br /> 
-								Number of computer wins: <span id="computerWins"></span> 
-								<br /><br /> 
-								Number of human wins: <span id="humanWins"></span> 
-								<br /><br /> 
-								Average number of draws: <span id="averageDraws"></span> 
-								<br /><br /> 
-								Largest number of rounds per game: <span id="highestRoundsPerGame"></span> 
-								<br /> 
+							<br />
+							<p class="card-text">Overall number of games: <span id="totalGames"></span>
+								<br /><br />
+								Number of computer wins: <span id="computerWins"></span>
+								<br /><br />
+								Number of human wins: <span id="humanWins"></span>
+								<br /><br />
+								Average number of draws: <span id="averageDraws"></span>
+								<br /><br />
+								Largest number of rounds per game: <span id="highestRoundsPerGame"></span>
+								<br />
 							</p>
 							<br />
 							<a href="http://localhost:7777/toptrumps/" class="btn btn-outline-primary btn-lg">Main Menu</a></center>
@@ -76,7 +76,13 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		
+
+	var games;
+	var comWins;
+	var playerWins;
+	var avgDraws;
+	var maxRounds;
+
 		// Method that is called on page load
 		function initalize() {
 			getMatchesPlayed();
@@ -84,19 +90,24 @@
 			getHumanWins();
 			getAverageDraws();
 			getLargestRoundsPerGame();
+			setValues();
 		}
-		// -----------------------------------------
-		// Add your other Javascript methods Here
-		// -----------------------------------------
 
+		function setValues(){
+			document.getElementById('totalGames').innerHTML = games;
+			document.getElementById('computerWins').innerHTML = comWins;
+			document.getElementById('humanWins').innerHTML = playerWins;
+			document.getElementById('averageDraws').innerHTML = avgDraws;
+			document.getElementById('highestRoundsPerGame').innerHTML = maxRounds;
+		}
 
 		// This is a reusable method for creating a CORS request. Do not edit this.
-		function createCORSRequest(method, url) {
+		function createCORSRequest(method, url, async) {
 			var xhr = new XMLHttpRequest();
 			if ("withCredentials" in xhr) {
 				// Check if the XMLHttpRequest object has a "withCredentials" property.
 				// "withCredentials" only exists on XMLHTTPRequest2 objects.
-				xhr.open(method, url, true);
+				xhr.open(method, url, async);
 			} else if (typeof XDomainRequest != "undefined") {
 				// Otherwise, check if XDomainRequest.
 				// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
@@ -108,13 +119,10 @@
 			}
 			return xhr;
 		}
-	</script>
 
-	<script type="text/javascript">
-				
 		function getMatchesPlayed() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/matchesPlayed"); // Request type and URL
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/matchesPlayed", false); // Request type and URL
 			// Message is not sent yet, but we can check that the browser supports CORS
 			if (!xhr) {
 				alert("CORS not supported");
@@ -122,19 +130,16 @@
 			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 			// to do when the response arrives
 			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				
-				var totalGamesSpan = document.getElementById('totalGames');
-		
-				totalGamesSpan.innerHTML = responseText;
+				games = xhr.response; // the text of the response
+
 			};
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
 		}
-		
+
 		function getComputerWins() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/computerWonMatches"); // Request type and URL
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/computerWonMatches", false); // Request type and URL
 			// Message is not sent yet, but we can check that the browser supports CORS
 			if (!xhr) {
 				alert("CORS not supported");
@@ -142,19 +147,16 @@
 			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 			// to do when the response arrives
 			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				
-				var totalGamesSpan = document.getElementById('computerWins');
-		
-				totalGamesSpan.innerHTML = responseText;
+				comWins = xhr.response; // the text of the response
+
 			};
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
 		}
-		
+
 		function getHumanWins() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/humanWonMatches"); // Request type and URL
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/humanWonMatches", false); // Request type and URL
 			// Message is not sent yet, but we can check that the browser supports CORS
 			if (!xhr) {
 				alert("CORS not supported");
@@ -162,19 +164,16 @@
 			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 			// to do when the response arrives
 			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				
-				var totalGamesSpan = document.getElementById('humanWins');
-		
-				totalGamesSpan.innerHTML = responseText;
+				playerWins = xhr.response; // the text of the response
+
 			};
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
 		}
-		
+
 		function getAverageDraws() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/averageNumberOfDraws"); // Request type and URL
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/averageNumberOfDraws", false); // Request type and URL
 			// Message is not sent yet, but we can check that the browser supports CORS
 			if (!xhr) {
 				alert("CORS not supported");
@@ -182,19 +181,16 @@
 			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 			// to do when the response arrives
 			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				
-				var totalGamesSpan = document.getElementById('averageDraws');
-		
-				totalGamesSpan.innerHTML = responseText;
+				avgDraws = xhr.response; // the text of the response
+
 			};
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();
 		}
-		
+
 		function getLargestRoundsPerGame() {
 			// First create a CORS request, this is the message we are going to send (a get request in this case)
-			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/highestNumberOfRounds"); // Request type and URL
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/highestNumberOfRounds", false); // Request type and URL
 			// Message is not sent yet, but we can check that the browser supports CORS
 			if (!xhr) {
 				alert("CORS not supported");
@@ -202,11 +198,8 @@
 			// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
 			// to do when the response arrives
 			xhr.onload = function(e) {
-				var responseText = xhr.response; // the text of the response
-				
-				var totalGamesSpan = document.getElementById('highestRoundsPerGame');
-		
-				totalGamesSpan.innerHTML = responseText;
+				maxRounds = xhr.response; // the text of the response
+
 			};
 			// We have done everything we need to prepare the CORS request, so send it
 			xhr.send();

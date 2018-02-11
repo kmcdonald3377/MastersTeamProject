@@ -271,6 +271,7 @@ public class TopTrumpsRESTAPI
 	@Path("/matchesPlayed")
 	public String matchesPlayed() throws IOException
 	{
+		database.makeConnection();
 		return oWriter.writeValueAsString(database.getMatchesPlayed());
 
 	}
