@@ -5,7 +5,6 @@
 		<!-- favicon -->
 		<link rel="icon" type="image/png" href="https://www.101st.info/media/news_categories/StarCitizen2_1_1.png">
 
-
 		<!-- Web page title -->
 		<title>Top Trumps</title>
 
@@ -270,6 +269,15 @@
 
 	</div>
 
+
+
+
+
+
+
+
+
+
 		<script type="text/javascript">
 
 			var matchID = null;
@@ -478,6 +486,8 @@
 				else{
 					document.getElementById('gameProgression').innerHTML = "AI Player " + (activePlayers[0].playerID + 1) + " has won!";
 				}
+				matchStatistics();
+				playerStatistics();
 				document.getElementById('gameProgression2').innerHTML = "";
 				document.getElementById('mainMenu').style.display = "block";
 			}
@@ -601,14 +611,6 @@
 				category = activePlayers["0"].playerHand.currentCard.attribute5;
 				choice();
 			}
-
-
-
-
-
-
-
-
 
 			// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url, async) {
@@ -836,6 +838,30 @@
 					xhr.response;
 				};
 				xhr.send();
+			}
+
+			function matchStatistics(){
+				var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/matchStatistics?matchID=" + matchID + "&WinnerID=" + winners[0].playerID + "&RoundsPlayed=" + rounds + "&RoundsDrawn=" + roundsDrawn, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					xhr.response;
+				};
+				xhr.send();
+			}
+
+			function playerStatistics(){
+				for(i = 0; i < players.length; i++){
+					var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/playerStatistics?PlayerID=" + players[i].playerID + "MatchID=" + matchID + "&RoundsWon=" + players[i].roundsWon + "&RoundsDrawn=" + players[i].roundsDrawn, false);
+					if (!xhr) {
+						alert("CORS not supported");
+					}
+					xhr.onload = function (e) {
+						xhr.response;
+					};
+					xhr.send();
+				}
 			}
 
 		</script>

@@ -42,7 +42,16 @@ public class GameController
 			c = diff.toCharArray()[0];
 			if(Character.isDigit(c)) 
 			{
-				isValid = true;
+				difficulty = Integer.parseInt(""+c);
+				
+				if(difficulty != 1 || difficulty != 2 || difficulty != 3) 
+				{
+					gameV.errorMessage();
+				}
+				else 
+				{
+					isValid = true;
+				}
 			}
 			else 
 			{
