@@ -5,6 +5,7 @@
 		<!-- favicon -->
 		<link rel="icon" type="image/png" href="https://www.101st.info/media/news_categories/StarCitizen2_1_1.png">
 
+
 		<!-- Web page title -->
 		<title>Top Trumps</title>
 
@@ -268,15 +269,6 @@
 		</div>
 
 	</div>
-
-
-
-
-
-
-
-
-
 
 		<script type="text/javascript">
 

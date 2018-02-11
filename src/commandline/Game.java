@@ -18,14 +18,21 @@ public class Game
 	private String username;
 	private int matchID;
 	
+
+	/**
+	 * constructor 
+	 * 
+	 * @param deck - PileOfCards representing the deck during the game
+	 * @param username - String of the players entered username
+	 */
 	public Game(PileOfCards deck, String username, int numberOfPlayers) 
 	{
 		this.numberOfPlayers = numberOfPlayers;
 		log = new TestLog();
-		//database = new Database();
 		communalPile = new PileOfCards(null);
 		this.deck = deck;
 		log.writeInitDeck(deck);
+
 		//ArrayList <Integer> playerIDs = database.getPlayerId();
 
 //		database = new Database();
@@ -36,7 +43,6 @@ public class Game
 //		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
 		ArrayList <Integer> playerIDs = new ArrayList(); for(int i = 1; i <= this.numberOfPlayers; i++) {playerIDs.add(i);}
 
-		
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
 		log.writeShuffledDeck(deck);
@@ -59,6 +65,8 @@ public class Game
 		roundList = new LinkedList<Round>();
 	}
 	
+
+  // method to get deck
 	public PileOfCards getDeck()	
 	{
 		return deck;
@@ -74,6 +82,7 @@ public class Game
 		roundList.add(currentRound);
 	}
 	
+	// method to get matchID
 	public int getMatchID() 
 	{
 		return matchID;
@@ -84,6 +93,7 @@ public class Game
 		matchID++;
 	}
 	
+	// method returns players current hand size i.e. amount of cards in their deck
 	public int[] getPlayerHandSize() 
 	{
 		HashMap<Integer, Integer> playerHandSizes = new HashMap<Integer, Integer>();
@@ -106,11 +116,14 @@ public class Game
 		return handSize;
 	}
 	
+	// method gets the number of active players remaining
 	public ArrayList<Player> getActivePlayers() 
 	{
 		return activePlayers;
 	}
 	
+	
+	// method removes players from the game 
 	public ArrayList<Player> playersToBeRemoved()
 	{
 		ArrayList<Player> removePlayers = new ArrayList<Player>();
@@ -125,6 +138,8 @@ public class Game
 		return removePlayers;
 	}
 	
+	
+	// method removes players from the active players ArrayList
 	public ArrayList<Player> removeFromActivePlayers()
 	{
 		for(int i = 0; i < playerList.size(); i ++) 
@@ -144,53 +159,67 @@ public class Game
 		return activePlayers;
 	}
 	
+	
+	// method to return the number of players in game
 	public int getNumberOfPlayers() 
 	{
 		return numberOfPlayers;
 	}
 	
-	public boolean increaseRounds() 
+	// method increments the number of rounds played after the conclusion of each round
+	public boolean increaseRounds()
 	{
 		totalRounds += 1;
 		return true;
 	}
 	
+	// method increments number of draw when round ends in draw
 	public boolean increaseDraws() 
+
 	{
 		totalDraws += 1;
 		return true;
 	}
 	
+	// method gets total number of rounds played
 	public int getTotalRounds() 
 	{
 		return totalRounds;
 	}
 	
+	// method gets total number of rounds ending in a draw 
 	public int getTotalDraws() 
 	{
 		return totalDraws;
 	}
 	
+	
+	// method to get the list of players
 	public ArrayList<Player> getPlayerList() 
 	{
 		return playerList;
 	}
 	
+	
+	// method to add a card to the communal pile PileOfCards
 	public void addToCommunalPile(Card currentCard) 
 	{
 		communalPile.addCard(currentCard);
 	}
 	
+	// method to remove cards from the communal pile
 	public void removeFromCommunalPile(Card currentCard) 
 	{
 		communalPile.removeCard(currentCard);
 	}
 	
+	// method which will return the communal pile 
 	public PileOfCards getCommunalPile() 
 	{
 		return communalPile;
 	}
 	
+	// method to distribute the deck between players
 	public void distributeDeck() 
 	{
 		ArrayList <Card> newDeck = deck.getDeck();
@@ -209,7 +238,7 @@ public class Game
 		
 		for (int i = 0; i < numberOfPlayers; i++)
 		{
-			log.writeHand(i+1, playerList.get(i).getPlayerHand());
+			log.writeHand(i, playerList.get(i).getPlayerHand());
 		}
 		for (int i = 0; i < numberOfPlayers; i++)
 		{
@@ -217,6 +246,7 @@ public class Game
 		}
 	}
 	
+	// method to set which player is the first to choose an attribute
 	public Player setFirstChoice() 
 	{
 		Random randomNumber = new Random();
@@ -226,6 +256,7 @@ public class Game
 		return firstChoice;
 	}
 	
+	// method to get the name of chosen player 
 	public String getPlayerName(int playerID) 
 	{
 		String playerName = "";
@@ -253,6 +284,7 @@ public class Game
 		return playerName;
 	}
 	
+	// method to return the test log 
 	public TestLog gameLog()
 	{
 		return log;
