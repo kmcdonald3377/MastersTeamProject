@@ -266,11 +266,12 @@ public class Database
 	}
 	
 	/**
+	 * method to insert match statistics to the database
 	 * 
-	 * @param matchID
-	 * @param winnerID
-	 * @param roundsPlayed
-	 * @param roundsDrawn
+	 * @param matchID - int representing match number
+	 * @param winnerID - int representing the player id of the winning player
+	 * @param roundsPlayed - int representing the number of rounds played
+	 * @param roundsDrawn - int representing the number of rounds drawn
 	 */
 	public boolean writeToMatchStatistics(int matchID, int winnerID, int roundsPlayed, int roundsDrawn) 
 	{
@@ -293,10 +294,11 @@ public class Database
 	}
 	
 	/**
-	 * Will write the rounds won per player per match to the 
-	 * @param playerID
-	 * @param matchID
-	 * @param roundsWon
+	 * Will write the rounds won per player per match to the database
+	 * 
+	 * @param - playerID int representing the player ID
+	 * @param - matchID int representing the match number 
+	 * @param - roundsWon int representing the number of rounds won in the game
 	 */
 	public boolean writeToPlayerStatistics(int playerID, int matchID, int roundsWon, int roundsDrawn) 
 	{

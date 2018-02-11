@@ -94,7 +94,7 @@ public class GameController
 
 	private void cardsInPlay()
 	{
-		for (int i = 0; i < activePlayers.size(); i++)
+		for (int i = 0; i < 5; i++)
 		{
 			glog.writeCardsIP(i, activePlayers.get(i).getPlayerHand().getCurrentCard());
 		}
