@@ -8,7 +8,7 @@ import java.util.Collections;
  */
 public class PileOfCards 
 {
-	private final Integer PLAYER_ID;
+	private Integer PLAYER_ID;
 	ArrayList<Card> deck = new ArrayList();
 	
 	/**
@@ -67,7 +67,7 @@ public class PileOfCards
 	{
 		return PLAYER_ID;
 	}
-	
+
 	/**
 	 * method to get number of cards in deck 
 	 * 
@@ -85,6 +85,9 @@ public class PileOfCards
 	 */
 	public Card getCurrentCard() 
 	{
+		if(deck.size() == 0) {
+			return null;
+		}
 		return deck.get(0);
 	}
 }

@@ -2,6 +2,7 @@ package commandline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Game 
@@ -9,6 +10,7 @@ public class Game
 	private int totalRounds, totalDraws, numberOfPlayers;
 //	private Database database;
 	private ArrayList <Player> playerList, activePlayers;
+	private LinkedList <Round> roundList;
 	private PileOfCards communalPile;
 	private PileOfCards deck;
 	private TestLog log;
@@ -16,21 +18,31 @@ public class Game
 	private String username;
 	private int matchID;
 	
+
 	/**
 	 * constructor 
 	 * 
 	 * @param deck - PileOfCards representing the deck during the game
 	 * @param username - String of the players entered username
 	 */
-	public Game(PileOfCards deck, String username) 
+	public Game(PileOfCards deck, String username, int numberOfPlayers) 
 	{
+		this.numberOfPlayers = numberOfPlayers;
 		log = new TestLog();
 		communalPile = new PileOfCards(null);
 		this.deck = deck;
 		log.writeInitDeck(deck);
+
+		//ArrayList <Integer> playerIDs = database.getPlayerId();
+
+//		database = new Database();
+//		matchID = database.getMaxMatchID();
+//		incrementMatchID();
 		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
 		this.deck = deck;
-		ArrayList <Integer> playerIDs = new ArrayList(); playerIDs.add(1); playerIDs.add(2); playerIDs.add(3); playerIDs.add(4); playerIDs.add(5);
+//		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
+		ArrayList <Integer> playerIDs = new ArrayList(); for(int i = 1; i <= this.numberOfPlayers; i++) {playerIDs.add(i);}
+
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
 		log.writeShuffledDeck(deck);
@@ -49,11 +61,25 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
+		this.matchID = 0;
+		roundList = new LinkedList<Round>();
 	}
 	
-	// method to get deck
-	public PileOfCards getDeck()	{
+
+  // method to get deck
+	public PileOfCards getDeck()	
+	{
 		return deck;
+	}
+	
+	public LinkedList<Round> getRoundList()
+	{
+		return roundList;
+	}
+	
+	public void addToRoundList(Round currentRound) 
+	{
+		roundList.add(currentRound);
 	}
 	
 	// method to get matchID
@@ -62,60 +88,29 @@ public class Game
 		return matchID;
 	}
 	
+	public void incrementMatchID() 
+	{
+		matchID++;
+	}
+	
 	// method returns players current hand size i.e. amount of cards in their deck
 	public int[] getPlayerHandSize() 
 	{
 		HashMap<Integer, Integer> playerHandSizes = new HashMap<Integer, Integer>();
-		int[] handSize = new int[5];
+		int[] handSize = new int[numberOfPlayers];
 
 		for(int i = 0; i < playerList.size(); i ++) 
 		{
-			playerHandSizes.put(playerList.get(i).getPlayerId(), playerList.get(i).getPlayerHand().getNumberOfCards());
-		}
-
-		if(playerHandSizes.containsKey(1)) 
-		{
-			handSize[0] = playerHandSizes.get(1);
-		}
-		else 
-		{
-			handSize[0] = 0;
-		}
-
-		if(playerHandSizes.containsKey(2)) 
-		{
-			handSize[1] = playerHandSizes.get(2);
-		}
-		else 
-		{
-			handSize[1] = 0;
-		}
-
-		if(playerHandSizes.containsKey(3)) 
-		{
-			handSize[2] = playerHandSizes.get(3);
-		}
-		else 
-		{
-			handSize[2] = 0;
-		}
-
-		if(playerHandSizes.containsKey(4)) 
-		{
-			handSize[3] = playerHandSizes.get(4);
-		}
-		else 
-		{
-			handSize[3] = 0;
-		}
-
-		if(playerHandSizes.containsKey(5)) 
-		{
-			handSize[4] = playerHandSizes.get(5);
-		}
-		else 
-		{
-			handSize[4] = 0;
+			playerHandSizes.put(playerList.get(i).getPlayerID(), playerList.get(i).getPlayerHand().getNumberOfCards());
+			
+			if(playerHandSizes.containsKey(1)) 
+			{
+				handSize[i] = playerHandSizes.get(1);
+			}
+			else 
+			{
+				handSize[i] = 0;
+			}
 		}
 		
 		return handSize;
@@ -153,8 +148,8 @@ public class Game
 			{
 				for(int j = 0; j < activePlayers.size(); j ++) 
 				{
-					int playerid = playerList.get(i).getPlayerId();
-					if (activePlayers.get(j).getPlayerId() == playerid) 
+					int playerid = playerList.get(i).getPlayerID();
+					if (activePlayers.get(j).getPlayerID() == playerid) 
 					{
 						activePlayers.remove(j);
 					}
@@ -171,20 +166,20 @@ public class Game
 		return numberOfPlayers;
 	}
 	
-	
 	// method increments the number of rounds played after the conclusion of each round
-	public void increaseRounds() 
+	public boolean increaseRounds()
 	{
 		totalRounds += 1;
+		return true;
 	}
-	
 	
 	// method increments number of draw when round ends in draw
-	public void increaseDraws() 
+	public boolean increaseDraws() 
+
 	{
 		totalDraws += 1;
+		return true;
 	}
-	
 	
 	// method gets total number of rounds played
 	public int getTotalRounds() 
@@ -228,13 +223,11 @@ public class Game
 	public void distributeDeck() 
 	{
 		ArrayList <Card> newDeck = deck.getDeck();
-		int size = newDeck.size();
-		size = size/numberOfPlayers; //want number of cards in each deck
 		
 		int j = 0;
 		for (int i = 0; i < newDeck.size(); i ++)
 		{
-			if(j == 5) 
+			if(j == playerList.size()) 
 			{
 				j = 0;
 			}
@@ -243,13 +236,13 @@ public class Game
 			j++;
 		}
 		
-		for (int i = 0; i <5; i++)
-		{
-			log.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
-		}
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < numberOfPlayers; i++)
 		{
 			log.writeHand(i, playerList.get(i).getPlayerHand());
+		}
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			log.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
 		}
 	}
 	
@@ -257,12 +250,11 @@ public class Game
 	public Player setFirstChoice() 
 	{
 		Random randomNumber = new Random();
-		int myNumber = randomNumber.nextInt(5);
+		int myNumber = randomNumber.nextInt(numberOfPlayers);
 
 		firstChoice = activePlayers.get(myNumber);
 		return firstChoice;
 	}
-	
 	
 	// method to get the name of chosen player 
 	public String getPlayerName(int playerID) 
@@ -291,7 +283,6 @@ public class Game
 
 		return playerName;
 	}
-	
 	
 	// method to return the test log 
 	public TestLog gameLog()

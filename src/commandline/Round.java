@@ -16,6 +16,7 @@ public class Round
 	private Game currentGame;
 	private int matchID;
 	private PileOfCards communalPile;
+	private int roundID;
 	
 	/**
 	 * method constructs a round
@@ -29,6 +30,8 @@ public class Round
 		this.playerList = playerList;
 		this.activePlayers = activePlayers;
 		this.currentGame = currentGame;
+		this.currentGame.addToRoundList(this);
+		roundID = this.currentGame.getRoundList().size();
 		communalPile = currentGame.getCommunalPile();
 		matchID = currentGame.getMatchID();
 	}
@@ -43,6 +46,11 @@ public class Round
 		return matchID;
 	}
 	
+	public int getRoundID() 
+	{
+		return roundID;
+	}
+
 	/**
 	 * method returns selected category through random integer selection
 	 * 
@@ -138,7 +146,10 @@ public class Round
 		
 		for(int i = 0; i < currentGame.getActivePlayers().size(); i ++) 
 		{
-			valueComparison.put(activePlayers.get(i).getPlayerId(), activePlayers.get(i).getPlayerHand().getCurrentCard().getAttributes().get(category));
+			Player current = activePlayers.get(i);
+			HashMap<String, Integer> test = current.getPlayerHand().getCurrentCard().getAttributes();
+			int test2 = test.get(category);
+			valueComparison.put(current.getPlayerID(), test2);
 		}
 		
 		return valueComparison;
@@ -240,21 +251,22 @@ public class Round
 	 * 
 	 * @param winners - ArrayList of players representing winning players who have drawn
 	 */
-	public void computeDraw(ArrayList<Player> winners) 
+	public boolean computeDraw(ArrayList<Player> winners) 
 	{
 		for(Player player : activePlayers) 
 		{
 			Card currentCard = player.getPlayerHand().getCurrentCard(); //identifies current card
-			int playerid = player.getPlayerId();
+			int playerid = player.getPlayerID();
 			currentGame.addToCommunalPile(currentCard); //adds current card to communal pile
 			for(int i = 0; i < playerList.size(); i ++) 
 			{
-				if(playerList.get(i).getPlayerId() == playerid) 
+				if(playerList.get(i).getPlayerID() == playerid) 
 				{
 					playerList.get(i).getPlayerHand().removeCard(currentCard); //removes current card from each players hand
 				}
 			}
 		}
+		return true;
 	}
 	
 	/**
@@ -262,7 +274,7 @@ public class Round
 	 * 
 	 * @param winner - ArrayList of players 
 	 */
-	public void computeWin(ArrayList<Player> winner) 
+	public boolean computeWin(ArrayList<Player> winner) 
 	{
 		winner.get(0).getPlayerHand().addCard(winner.get(0).getPlayerHand().getCurrentCard());
 		winner.get(0).getPlayerHand().removeCard(winner.get(0).getPlayerHand().getCurrentCard()); //this will move the current card to the back of the deck
@@ -285,6 +297,7 @@ public class Round
 			winner.get(0).getPlayerHand().addCard(communalPile.getCurrentCard());
 			communalPile.removeCard(communalPile.getCurrentCard());
 		}
+		return true;
 	}
 	
 	/**
