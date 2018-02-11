@@ -29,7 +29,14 @@ public class Card
 	//second option
 	private HashMap<String, Integer> attributes;
 
-	// constructor
+	/*
+	 *  constructor
+	 *  
+	 *  @param att1 - att5 are Strings, they are the text naming the attributes 
+	 *  of each card created
+	 *  @param val1 - val5 are integers representing the corresponding value 
+	 *  of each card's attribute 
+	 */
 	public Card(String att1, String att2, String att3, String att4, String att5, String desc, int val1, int val2,
 			int val3, int val4, int val5) {
 
@@ -65,6 +72,12 @@ public class Card
 		attributes.put(att4, val4);
 		attributes.put(att5, val5);
 	}
+	
+	/**
+	 *  the following methods are accessor methods to retrieve the details 
+	 *  of the cards attributes and values
+	 * @return
+	 */
 	
 	public HashMap<String, Integer> getAttributes()
 	{
@@ -107,21 +120,7 @@ public class Card
 		return attribute5;
 	}
 
-	// get the card at the given index
-//	public Card getCardAtIndex(int index) {
-//
-//		return this.card[index];
-//	}
-
-	public String getAttributeAtIndex(int index) {
-
-		// index at 0 is description/name - i don't think this is required, as it will
-		// never be compared against any other card
-
-		return cardAttributes.get(index);
-	}
-
-	// get the int values of each attribute
+	// following accessor methods get the int values of each attribute
 	public int getValue1() {
 
 		return value1;
@@ -146,6 +145,22 @@ public class Card
 
 		return value5;
 	}
+	
+	/**
+	 *  gets attribute at index value passed in
+	 *  
+	 *  @param - index in the following methods is the integer identifying 
+	 *  which attribute or value is to be accessed
+	 */
+	public String getAttributeAtIndex(int index) {
+
+	/**
+	 * index at 0 is description/name - i don't think this is required, as it will
+	 * never be compared to another card
+	 */
+
+		return cardAttributes.get(index);
+	}
 
 	// a method to return the values of each attribute at a given index
 	public int getValueAtIndex(int index) {
@@ -153,6 +168,7 @@ public class Card
 		return cardValues.get(index);
 	}
 	
+	// a method to format the name and values of a card to a string representation
 	public String toString() {
 		return  String.format(name + value1 + value2 + value3 + value4 + value5);
 	}
