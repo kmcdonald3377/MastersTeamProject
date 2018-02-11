@@ -33,24 +33,27 @@ public class GameController
 
 	public void startGame() 
 	{
-		System.out.println("Please select a difficulty level: \n1. RANDOM \n2. EASY "
-				+ "\n3. MEDIUM \n4. HARD \n5. YOU WILL NOT WIN.\n");
-		Scanner in = new Scanner(System.in);
-		boolean valid = false;
-		while(!valid)
+		gameV.askDifficulty();
+		boolean isValid = false;
+		char c;
+		do 
 		{
-			try
+			String diff = gameV.userInput();
+			c = diff.toCharArray()[0];
+			if(Character.isDigit(c)) 
 			{
-				difficulty = in.nextInt();
-				valid =true;
-				break;
+				isValid = true;
 			}
-			catch(InputMismatchException e)
+			else 
 			{
-				System.out.println("Invalid choice. Please enter a number to choose difficulty\n");
-				in.next();
+				gameV.errorMessage();
 			}
 		}
+		while(!isValid);
+		
+		
+		difficulty = Integer.parseInt(""+c);
+		
 		gameV.gameIntroduction();
 		firstChoice = currentGame.setFirstChoice(); //reference to game
 		runGame();
@@ -101,31 +104,24 @@ public class GameController
 	private void displayCardHandDetails(Round currentRound) 
 	{
 		int[] handSize = currentGame.getPlayerHandSize();
-		Card currentCard = currentRound.getCard(0); //0 as only currently showing the human players card
 		if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) 
 		{
+			Card currentCard = currentRound.getCard(0); //0 as only currently showing the human players card
 			gameV.showCard(handSize[0], handSize[1], handSize[2], handSize[3], handSize[4], currentCard);
 		}
 	}
 
 	private void cardsInPlay()
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < activePlayers.size(); i++) //should this be active players or all players
 		{
-			try
-			{
-				glog.writeCardsIP(i, playerList.get(i).getPlayerHand().getCurrentCard());
-			}
-			catch (IndexOutOfBoundsException e)
-			{
-				continue;
-			}
+				glog.writeCardsIP(i, activePlayers.get(i).getPlayerHand().getCurrentCard());
 		}
 	}
 
 	private void writeHand()
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < playerList.size(); i++)
 		{
 			glog.writeHand(i, playerList.get(i).getPlayerHand());
 		}
@@ -135,23 +131,9 @@ public class GameController
 	{
 		if(firstChoice.getPlayerID() != 1) 
 		{
-			if(difficulty == 1)
-			{
-				category = currentRound.categorySelection();
-			}
-			else if(difficulty == 2)
-			{
-				category = currentRound.applyDifficulty(firstChoice.getPlayerHand(), difficulty);
-			}
-			else if(difficulty == 3)
-			{
-				category = currentRound.applyDifficulty(firstChoice.getPlayerHand(), (difficulty+1));
-			}
-			else
-			{
-				category = currentRound.applyDifficulty(firstChoice.getPlayerHand(), (difficulty*2));
-			}
-			if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) //stays here
+			category = currentRound.categorySelection(difficulty, firstChoice.getPlayerID());
+			
+			if(playerList.get(0).getPlayerHand().getNumberOfCards() != 0) //display to the user the choice only if the user is still in the game
 			{
 				gameV.aiSelectCategory(currentGame.getPlayerName(firstChoice.getPlayerID()), category);
 				gameV.userInput();
@@ -258,6 +240,7 @@ public class GameController
 			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerID()));
 			winner = "AI " + (activePlayers.get(0).getPlayerID()-1);
 		}
+		currentGame.finishGame(activePlayers.get(0).getPlayerID());
 		glog = currentGame.gameLog();
 		glog.writeWinner(winner);
 		if (!_log)

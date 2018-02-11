@@ -56,44 +56,99 @@ public class Round
 	 * 
 	 * @return categoryKey - string to get category at chosen index 
 	 */
-	public String categorySelection() 
+	public String categorySelection(int difficulty, int playerID) 
 	{
-		Random randomNumber = new Random();
-		int category = randomNumber.nextInt(5);
+		int position = 0;
+		for(int i = 0; i < activePlayers.size(); i++) 
+		{
+			if(activePlayers.get(i).getPlayerID() == playerID) 
+			{
+				position = i;
+			}
+		}
 		
-		Card humanPlayerCard = getCard(0);
-				
-		String categoryKey = humanPlayerCard.getAttributeAtIndex(category);
+		Card playerCard = getCard(position);
+		int category = 0;
+		if(difficulty == 1) 
+		{
+			category = applyEasiestDifficulty(playerCard);
+		}
+		else if(difficulty == 2) 
+		{
+			category = applyMediumDifficulty(playerCard);
+		}
+		else 
+		{
+			category = applyHardestDifficulty(playerCard);
+		}
+		
+		String categoryKey = playerCard.getAttributeAtIndex(category);
 		return categoryKey;
 	}
 	
-	public String applyDifficulty(PileOfCards hand, int difficulty)
+	public int applyEasiestDifficulty(Card playerCard) 
 	{
 		int index = 0;
-		Card playerCard = hand.getCurrentCard();
+		int min = playerCard.getValue1();
+		
+		if(min > playerCard.getValue2()) 
+		{
+			min = playerCard.getValue2();
+			index = 1;
+		}
+		else if(min > playerCard.getValue3()) 
+		{
+			min = playerCard.getValue3();
+			index = 2;
+		}
+		else if(min > playerCard.getValue4()) 
+		{
+			min = playerCard.getValue4();
+			index = 3;
+		}
+		else if(min > playerCard.getValue5()) 
+		{
+			min = playerCard.getValue5();
+			index = 4;
+		}
+		
+		return index;
+	}
+	
+	public int applyMediumDifficulty(Card playerCard) 
+	{
+		Random randomNumber = new Random();
+		int category = randomNumber.nextInt(5);
+		return category;
+	}
+	
+	public int applyHardestDifficulty(Card playerCard)
+	{
+		int index = 0;
 		int max = playerCard.getValue1();
-		if (max<playerCard.getValue2() && max<difficulty)
+		
+		if (max<playerCard.getValue2())
 		{
-		max=playerCard.getValue2();
-		index=1;
+			max=playerCard.getValue2();
+			index=1;
 		}
-		if (max<playerCard.getValue3()&& max<difficulty)
+		if (max<playerCard.getValue3())
 		{
-		max=playerCard.getValue3();
-		index=2;
+			max=playerCard.getValue3();
+			index=2;
 		}
-		if (max<playerCard.getValue4()&& max<difficulty)
+		if (max<playerCard.getValue4())
 		{
-		max=playerCard.getValue4();
-		index=3;
+			max=playerCard.getValue4();
+			index=3;
 		}
-		if (max<playerCard.getValue5()&& max<difficulty)
+		if (max<playerCard.getValue5())
 		{
-		max=playerCard.getValue5();
-		index=4;
+			max=playerCard.getValue5();
+			index=4;
 		}
-		String categoryKey = playerCard.getAttributeAtIndex(index);
-		return categoryKey;
+		
+		return index;
 	}
 	
 	/**
@@ -241,7 +296,7 @@ public class Round
 		Player player = activePlayers.get(playerPosition);
 		Card currentCard = null;
 		
-			currentCard = player.getPlayerHand().getCurrentCard();
+		currentCard = player.getPlayerHand().getCurrentCard();
 		
 		return currentCard;
 	}

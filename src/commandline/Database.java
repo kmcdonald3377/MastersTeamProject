@@ -52,7 +52,7 @@ public class Database
 	{
 		int matchesPlayed = 0;
 		Statement stmt = null;
-		String query = "SELECT COUNT (matchstatistics.matchID) AS total FROM toptrumps.matchstatistics";
+		String query = "SELECT COUNT (matchstatistics.id) AS total FROM toptrumps.matchstatistics";
 		
 		
 		
@@ -89,8 +89,9 @@ public class Database
 	{
 		int computerWins = 0;
 		Statement stmt = null;
-		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics "
-				+ "WHERE (SELECT player.id FROM toptrumps.player WHERE isai = true)";
+		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics " + 
+				"INNER JOIN toptrumps.player ON matchstatistics.winner = player.playerid " + 
+				"WHERE player.playerid = 2 OR player.playerid = 3 OR player.playerid = 4 OR player.playerid = 5";
 		
 		try 
 		{
@@ -125,8 +126,9 @@ public class Database
 	{
 		int humanWins = 0;
 		Statement stmt = null;
-		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics " 
-				+ "WHERE (SELECT player.id FROM toptrumps.player WHERE isai = false)";
+		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics " + 
+				"INNER JOIN toptrumps.player ON matchstatistics.winner = player.playerid " + 
+				"WHERE player.playerid = 1";
 		
 		
 		try 

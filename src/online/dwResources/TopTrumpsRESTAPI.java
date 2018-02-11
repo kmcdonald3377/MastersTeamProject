@@ -201,7 +201,7 @@ public class TopTrumpsRESTAPI
 	{
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		return oWriter.writeValueAsString(currentRound.categorySelection());
+		return oWriter.writeValueAsString(currentRound.categorySelection(2, 1)); //will always be 2 and 1 as selecting difficulty not implemented for online mode
 	}
 	
 	@GET

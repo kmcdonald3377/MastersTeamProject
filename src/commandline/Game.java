@@ -34,6 +34,7 @@ public class Game
 		log.writeInitDeck(this.deck);
 
 		database = new Database();
+		database.makeConnection();
 		matchID = database.getMaxMatchID();
 		incrementMatchID();
 		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
@@ -56,7 +57,6 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
-		this.matchID = 0;
 		roundList = new LinkedList<Round>();
 	}
 	
@@ -98,14 +98,15 @@ public class Game
 		{
 			playerHandSizes.put(playerList.get(i).getPlayerID(), playerList.get(i).getPlayerHand().getNumberOfCards());
 			
-			if(playerHandSizes.containsKey(1)) 
+			if(playerHandSizes.containsKey(i+1)) 
 			{
-				handSize[i] = playerHandSizes.get(1);
+				handSize[i] = playerHandSizes.get(i+1);
 			}
 			else 
 			{
 				handSize[i] = 0;
 			}
+			
 		}
 		
 		return handSize;
@@ -170,7 +171,6 @@ public class Game
 	
 	// method increments number of draw when round ends in draw
 	public boolean increaseDraws() 
-
 	{
 		totalDraws += 1;
 		return true;
@@ -188,13 +188,11 @@ public class Game
 		return totalDraws;
 	}
 	
-	
 	// method to get the list of players
 	public ArrayList<Player> getPlayerList() 
 	{
 		return playerList;
 	}
-	
 	
 	// method to add a card to the communal pile PileOfCards
 	public void addToCommunalPile(Card currentCard) 
@@ -283,5 +281,14 @@ public class Game
 	public TestLog gameLog()
 	{
 		return log;
+	}
+	
+	public void finishGame(int winnerID) 
+	{
+		database.writeToMatchStatistics(matchID, winnerID, totalRounds, totalDraws);
+		for(int i = 0; i < numberOfPlayers; i ++) 
+		{
+			database.writeToPlayerStatistics(playerList.get(i).getPlayerID(), matchID, playerList.get(i).getRoundsWon(), playerList.get(i).getRoundsDrawn());
+		}
 	}
 }
