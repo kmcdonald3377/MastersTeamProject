@@ -31,7 +31,6 @@
 
 	<style>
 		body {
-			/*background: yellow;*/
 			background: linear-gradient(to right, LightSkyBlue, DodgerBlue);
 		}
 
@@ -104,7 +103,7 @@
 				<div class="w3-container">
 
 					<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue" id="player" style="display:none">
+					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="player" style="display:none">
 							<h4><b><span id="playerNamePlacement"></span></b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -135,7 +134,7 @@
 
 
 				<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue" id="ai1" style="display:none">
+					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai1" style="display:none">
 							<h4><b>AI Player 1</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -165,7 +164,7 @@
 				</div>
 
 				<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue" id="ai2" style="display:none">
+					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai2" style="display:none">
 							<h4><b>AI Player 2</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -195,7 +194,7 @@
 				</div>
 
 				<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue" id="ai3" style="display:none">
+					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai3" style="display:none">
 							<h4><b>AI Player 3</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -225,7 +224,7 @@
 				</div>
 
 				<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue" id="ai4" style="display:none">
+					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai4" style="display:none">
 						<h4><b>AI Player 4</b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
@@ -841,3 +840,4 @@
 		</script>
 	</body>
 </html>
+
