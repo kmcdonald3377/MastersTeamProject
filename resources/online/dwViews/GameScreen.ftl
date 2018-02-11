@@ -31,9 +31,9 @@ vex.defaultOptions.className = 'vex-theme-os';
 <style>
 
 body {
-	background-repeat: no-repeat;
-		background-size: cover;   
- background: url(webbackground.jpg);   
+	body {
+	background: black;
+	background: linear-gradient(black, grey);
    
 }
 .selectdrop {
@@ -126,7 +126,6 @@ h1 {
 <!-- HEAD -->
 <!-- <h1>Top Trumps STAR CITIZEN</h1> -->
 <div class="container">
-<h1>Top Trumps : Round 1</h1>
 </br>
 </br>
 </br>

@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/*
+ * controller class - responsible for control functions of the game
+ */
 public class MenuController 
 {
+	// instance variables
 	private String choice;
 	private boolean log;
 	private MenuView menuV;
@@ -14,38 +18,53 @@ public class MenuController
 	private String name;
 	private PileOfCards starCitizenDeck;
 
+	// constructor
 	public MenuController() 
 	{
 		log = false;
 		menuV = new MenuView(this);
 	}
 
+	// method to display a menu view object
 	public void displayMenuV() 
 	{
 		menuV.displayMenu();
 	}
 
+	/**
+	 * method returns choice string from user input
+	 * 
+	 * @return
+	 */
 	public String getChoice() 
 	{
 		return choice;
 	}
 
+	/**
+	 * menu to return name string from user input
+	 * 
+	 * @return
+	 */
 	public String getName()
 	{
 		return name; 
 	}
 
+	// method sets name from user input
 	public void setName()
 	{
 		menuV.setHumanName();
 		name = menuV.getInput();
 	}
 
+	// method sets choice from user input 
 	public void setChoiceFromUserInput() 
 	{
 		choice = menuV.getInput();
 	}	
 
+	// method creates filereader to read in deck file 
 	public PileOfCards readFile()
 	{
 		FileReader reader = null;
@@ -85,10 +104,19 @@ public class MenuController
 		
 	}
 	
+	/**
+	 * switch method which will decide if a games log is to be written 
+	 * 
+	 * @param writeGameLogsToFile - boolean switch, true if log to be written
+	 */
 	public void log(boolean writeGameLogsToFile)	{
 		log = writeGameLogsToFile;
 	}
 
+	/* 
+	 * method gets choice from user indicating if they want to play
+	 * a game or view statistics
+	 */
 	public void choiceSelection() 
 	{
 		if(choice.equalsIgnoreCase("G")) 
