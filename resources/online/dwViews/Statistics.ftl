@@ -38,6 +38,7 @@
     		 width: 40%;
 		 margin-top: 10%;
 	}
+
 </style>
 
 <body onload="initalize()">
@@ -51,7 +52,7 @@
 					<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue" id="player">
 							<h4><b><span id="Play a new game"></span></b></h4>
-						<div class="card border-light mb-3" style="width: 40rem; height: 50rem;">
+						<div class="card border-light mb-3" style="width: 40rem; height: 55rem;">
 							<div href="/document" style="height:100%;">
 								<center>
 									<h4 id="desc"><b>Play a new game</b></h4>
@@ -71,7 +72,7 @@
 								<br /> 
 							</p>
 							<br />
-							<a href="http://localhost:7777/toptrumps/" class="btn btn-outline-primary btn-lg">Main Menu</a></center>
+							<center><a <center><button><a href="http://localhost:7777/toptrumps/game" class="button"><b><font color="black">Play a game</font></b></a></button></center>
 					</div>
 				</div>
 			</div>
@@ -212,3 +213,4 @@
 			xhr.send();
 		}
 	</script>
+
