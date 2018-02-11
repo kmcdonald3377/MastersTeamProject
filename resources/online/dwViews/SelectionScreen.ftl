@@ -27,37 +27,47 @@
 </head>
 
 <style>
-		body {
-	background: black;
-	background: linear-gradient(black, grey);
+	body {
+		background: black;
+		background: linear-gradient(black, grey);
 	}
-	.play {
-		position: absolute;
-		left: 0;
-		margin-top: 10%;
-		margin-left: 25%;
+
+	/* two equal columns that float next to each other */
+
+	.column {
+		float: left;
+		width: 50%;
+		padding: 10%;
 	}
-	/* I have only been able to test this on 15.1, 10.1, and 21.1 inch screen sizes, so keep as two separate classes for now */
-	.viewStats {
-		position: absolute;
-		right: 0;
-		margin-top: 10%;
-		margin-right: 25%;
+
+	/* clear floats after the columns */
+
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	/* two columns stack on top of each other instead of next to each other on smaller screens */
+
+	@media (max-width: 780px) {
+		.column {
+			width: 100%;
+		}
 	}
 </style>
 
 <body onload="initalize()">
 	<!-- Call the initalize method when the page loads -->
-	<!-- HEAD -->
-<!-- <h1>Top Trumps STAR CITIZEN</h1> -->
-
 	<div class="container">
 
 		<!-- Add your HTML Here -->
-		<div class="play">
+		<div class="column">
 			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 30rem;">
+				<!--this is needed for Internet Explorer compatability-->
+
 				<div href="/document" style="height:100%;">
-					<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+					<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="play game">
 					<div class="card-block">
 						<br />
 						<center>
@@ -72,11 +82,13 @@
 			</div>
 		</div>
 
-		<div class="viewStats">
-	<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 30rem;">
+
+		<div class="column">
+			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 30rem;">
+				<!--this is needed for Internet Explorer compatability-->
 
 				<div href="/document" style="height:100%;">
-					<img class="card-img-top" src="https://i.imgur.com/F8xMQ3m.jpg" alt="VIEW STATS">
+					<img class="card-img-top" src="https://i.imgur.com/F8xMQ3m.jpg" alt="view statistics">
 					<br />
 					<div class="card-block">
 						<br />
@@ -101,7 +113,7 @@
 			// --------------------------------------------------------------------------
 			// You can call other methods you want to run when the page first loads here
 			// --------------------------------------------------------------------------
-			
+
 		}
 		// -----------------------------------------
 		// Add your other Javascript methods Here
