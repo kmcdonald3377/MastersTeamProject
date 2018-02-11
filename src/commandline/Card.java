@@ -1,8 +1,11 @@
-// Nadya
 // this class represents cards to get the five attribute names and values 
 package commandline;
 
-public class Card {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Card 
+{
 
 	// instance variables for the five card attribute names
 	private final String attribute1;
@@ -20,9 +23,20 @@ public class Card {
 	private final int value5;
 
 	// card values array
-	private Card[] card;
+	private ArrayList<Integer> cardValues; //added these two in so that can find correct index for the value to compare against
+	private ArrayList<String> cardAttributes; //other cards to decide winner/if draw
+	
+	//second option
+	private HashMap<String, Integer> attributes;
 
-	// constructor
+	/*
+	 *  constructor
+	 *  
+	 *  @param att1 - att5 are Strings, they are the text naming the attributes 
+	 *  of each card created
+	 *  @param val1 - val5 are integers representing the corresponding value 
+	 *  of each card's attribute 
+	 */
 	public Card(String att1, String att2, String att3, String att4, String att5, String desc, int val1, int val2,
 			int val3, int val4, int val5) {
 
@@ -37,9 +51,38 @@ public class Card {
 		this.value3 = val3;
 		this.value4 = val4;
 		this.value5 = val5;
+		cardAttributes = new ArrayList<String>();
+		cardAttributes.add(attribute1);
+		cardAttributes.add(attribute2);
+		cardAttributes.add(attribute3);
+		cardAttributes.add(attribute4);
+		cardAttributes.add(attribute5);
+		
+		cardValues = new ArrayList<Integer>();
+		cardValues.add(value1);
+		cardValues.add(value2);
+		cardValues.add(value3);
+		cardValues.add(value4);
+		cardValues.add(value5);
+		
+		attributes = new HashMap<String, Integer>();
+		attributes.put(att1, val1);
+		attributes.put(att2, val2);
+		attributes.put(att3, val3);
+		attributes.put(att4, val4);
+		attributes.put(att5, val5);
 	}
-
-	// get attribute names of each card
+	
+	/**
+	 *  the following methods are accessor methods to retrieve the details 
+	 *  of the cards attributes and values
+	 * @return
+	 */
+	
+	public HashMap<String, Integer> getAttributes()
+	{
+		return attributes;
+	}
 
 	// get the name of the card
 	public String getName() {
@@ -48,122 +91,85 @@ public class Card {
 	}
 
 	// get attribute name 1
-	private String getAttribute1() {
+	public String getAttribute1() {
 
 		return attribute1;
 	}
 
 	// get attribute name 2
-	private String getAttribute2() {
+	public String getAttribute2() {
 
 		return attribute2;
 	}
 
 	// get attribute name 3
-	private String getAttribute3() {
+	public String getAttribute3() {
 
 		return attribute3;
 	}
 
 	// get attribute name 4
-	private String getAttribute4() {
+	public String getAttribute4() {
 
 		return attribute4;
 	}
 
 	// get attribute name 5
-	private String getAttribute5() {
+	public String getAttribute5() {
 
 		return attribute5;
 	}
 
-	// get the card at the given index
-	public Card getCardAtIndex(int index) {
-
-		return this.card[index];
-	}
-
-	public String getAttributeAtIndex(int index) {
-
-		// index at 0 is description/name - i don't think this is required, as it will
-		// never be compared against any other card
-
-		if (index == 1) {
-
-			return getAttribute1();
-
-		} else if (index == 2) {
-
-			return getAttribute2();
-
-		} else if (index == 3) {
-
-			return getAttribute3();
-
-		} else if (index == 4) {
-
-			return getAttribute4();
-
-		} else if (index == 5) {
-
-			return getAttribute5();
-
-		} else
-
-			return null;
-	}
-
-	// get the int values of each attribute
-	private int getValue1() {
+	// following accessor methods get the int values of each attribute
+	public int getValue1() {
 
 		return value1;
 	}
 
-	private int getValue2() {
+	public int getValue2() {
 
 		return value2;
 	}
 
-	private int getValue3() {
+	public int getValue3() {
 
 		return value3;
 	}
 
-	private int getValue4() {
+	public int getValue4() {
 
 		return value4;
 	}
 
-	private int getValue5() {
+	public int getValue5() {
 
 		return value5;
+	}
+	
+	/**
+	 *  gets attribute at index value passed in
+	 *  
+	 *  @param - index in the following methods is the integer identifying 
+	 *  which attribute or value is to be accessed
+	 */
+	public String getAttributeAtIndex(int index) {
+
+	/**
+	 * index at 0 is description/name - i don't think this is required, as it will
+	 * never be compared to another card
+	 */
+
+		return cardAttributes.get(index);
 	}
 
 	// a method to return the values of each attribute at a given index
 	public int getValueAtIndex(int index) {
 
-		if (index == 1) {
-
-			return getValue1();
-
-		} else if (index == 2) {
-
-			return getValue2();
-
-		} else if (index == 3) {
-
-			return getValue3();
-
-		} else if (index == 4) {
-
-			return getValue4();
-
-		} else if (index == 5) {
-
-			return getValue5();
-
-		} else
-
-			return -1;
+		return cardValues.get(index);
+	}
+	
+	// a method to format the name and values of a card to a string representation
+	public String toString() {
+		return  String.format(name + value1 + value2 + value3 + value4 + value5);
 	}
 }

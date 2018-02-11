@@ -10,9 +10,9 @@ public class TopTrumps {
 	public static void main(String[] args) {
 		
 		System.out.println("--------------------");
-		System.out.println("--- Top Trumps   ---");
+		System.out.println("---  Top Trumps  ---");
 		System.out.println("--------------------");
-		
+
 		// command line switches
 		boolean onlineMode = false;
 		boolean commandLineMode = false;
@@ -34,11 +34,15 @@ public class TopTrumps {
 		}
 		
 		// Start the appropriate application
-		if (onlineMode) {
+		if (onlineMode) 
+		{
 			// Start the online application
-			String[] commandArgs = {"server", "TopTrumps.json"};
+			String[] commandArgs = 
+				{"server", "TopTrumps.json"};
 			TopTrumpsOnlineApplication.main(commandArgs);
-		} else if (commandLineMode) {
+		} 
+		else if (commandLineMode) 
+		{
 			// Start the command line application
 			String[] commandArgs = {String.valueOf(printTestLog)};
 			TopTrumpsCLIApplication.main(commandArgs);

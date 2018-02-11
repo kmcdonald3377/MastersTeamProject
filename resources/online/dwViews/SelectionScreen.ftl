@@ -65,6 +65,7 @@
 		<div class="column">
 			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 30rem;">
 				<!--this is needed for Internet Explorer compatability-->
+
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="play game">
 					<div class="card-block">
@@ -81,9 +82,11 @@
 			</div>
 		</div>
 
+
 		<div class="column">
 			<div class="card card-inverse" style="background-color: Gainsboro; border-color: #333; max-width: 20rem; height: 30rem;">
 				<!--this is needed for Internet Explorer compatability-->
+
 				<div href="/document" style="height:100%;">
 					<img class="card-img-top" src="https://i.imgur.com/F8xMQ3m.jpg" alt="view statistics">
 					<br />
@@ -138,3 +141,4 @@
 </body>
 
 </html>
+
