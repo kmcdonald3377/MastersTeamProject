@@ -170,7 +170,7 @@ public class GameController
 				category = currentRound.humanCategorySelection(category);
 			}
 		}	
-		glog.writeCategory(firstChoice.getPlayerId(), category);
+		glog.writeCategory(firstChoice.getPlayerID(), category);
 		return category;
 	}
 
@@ -251,12 +251,12 @@ public class GameController
 		if(activePlayers.get(0).getPlayerID() == 1) 
 		{
 			gameV.humanWon();
-			winner = "Human "+ activePlayers.get(0).getPlayerId();
+			winner = "Human "+ activePlayers.get(0).getPlayerID();
 		}
 		else 
 		{
-			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerId()));
-			winner = "AI " + (activePlayers.get(0).getPlayerId()-1);
+			gameV.humanLoses(currentGame.getPlayerName(activePlayers.get(0).getPlayerID()));
+			winner = "AI " + (activePlayers.get(0).getPlayerID()-1);
 		}
 		glog = currentGame.gameLog();
 		glog.writeWinner(winner);

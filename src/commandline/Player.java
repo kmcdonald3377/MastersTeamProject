@@ -37,7 +37,7 @@ public class Player
 	 * 
 	 * @return playerID - int representing playerID
 	 */
-	public int getPlayerId() 
+	public int getPlayerID() 
 	{
 		return playerID;
 	}

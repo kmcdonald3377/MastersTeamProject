@@ -8,7 +8,7 @@ import java.util.Random;
 public class Game 
 {
 	private int totalRounds, totalDraws, numberOfPlayers;
-//	private Database database;
+	private Database database;
 	private ArrayList <Player> playerList, activePlayers;
 	private LinkedList <Round> roundList;
 	private PileOfCards communalPile;
@@ -31,21 +31,16 @@ public class Game
 		log = new TestLog();
 		communalPile = new PileOfCards(null);
 		this.deck = deck;
-		log.writeInitDeck(deck);
+		log.writeInitDeck(this.deck);
 
-		//ArrayList <Integer> playerIDs = database.getPlayerId();
-
-//		database = new Database();
-//		matchID = database.getMaxMatchID();
-//		incrementMatchID();
-		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
-		this.deck = deck;
-//		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
-		ArrayList <Integer> playerIDs = new ArrayList(); for(int i = 1; i <= this.numberOfPlayers; i++) {playerIDs.add(i);}
+		database = new Database();
+		matchID = database.getMaxMatchID();
+		incrementMatchID();
+		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
 
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
-		log.writeShuffledDeck(deck);
+		log.writeShuffledDeck(this.deck);
 		
 		for(Integer id : playerIDs) 
 		{

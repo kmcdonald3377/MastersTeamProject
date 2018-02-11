@@ -62,6 +62,11 @@ public class Database
 			
 			ResultSet rs = stmt.executeQuery(query);
 			
+			if(rs == null) 
+			{
+				matchesPlayed = 0;
+			}
+			
 			while (rs.next()) 
 			{
 				matchesPlayed = rs.getInt("total");
@@ -85,13 +90,18 @@ public class Database
 		int computerWins = 0;
 		Statement stmt = null;
 		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics "
-				+ "WHERE (SELECT player.isai FROM toptrumps.player WHERE isai = true)";
+				+ "WHERE (SELECT player.id FROM toptrumps.player WHERE isai = true)";
 		
 		try 
 		{
 			stmt = connection.createStatement();
 			
 			ResultSet rs = stmt.executeQuery(query);
+			
+			if(rs == null) 
+			{
+				computerWins = 0;
+			}
 			
 			while (rs.next()) 
 			{
@@ -115,8 +125,8 @@ public class Database
 	{
 		int humanWins = 0;
 		Statement stmt = null;
-		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics \"\r\n" + 
-				"				+ \"WHERE (SELECT player.isai FROM toptrumps.player WHERE isai = false)";
+		String query = "SELECT COUNT (matchstatistics.winner) AS total FROM toptrumps.matchstatistics " 
+				+ "WHERE (SELECT player.id FROM toptrumps.player WHERE isai = false)";
 		
 		
 		try 
@@ -155,6 +165,11 @@ public class Database
 			
 			ResultSet rs = stmt.executeQuery(query);
 			
+			if(rs.wasNull()) 
+			{
+				avgDraws = 0;
+			}
+			
 			while (rs.next()) 
 			{
 				avgDraws = rs.getInt("average");
@@ -185,6 +200,11 @@ public class Database
 			
 			ResultSet rs = stmt.executeQuery(query);
 			
+			if(rs.wasNull()) 
+			{
+				highestNumRnds = 0;
+			}
+			
 			while (rs.next()) 
 			{
 				highestNumRnds = rs.getInt("maximum");
@@ -208,13 +228,18 @@ public class Database
 	{
 		int maxMatch = 0;
 		Statement stmt = null;
-		String query = "SELECT max (matchstatistics.matchid) AS maximum FROM toptrumps.matchstatistics";
+		String query = "SELECT max (matchstatistics.id) AS maximum FROM toptrumps.matchstatistics";
 		
 		try 
 		{
 			stmt = connection.createStatement();
 			
 			ResultSet rs = stmt.executeQuery(query);
+			
+			if(rs.wasNull()) 
+			{
+				maxMatch = 0;
+			}
 			
 			while (rs.next()) 
 			{

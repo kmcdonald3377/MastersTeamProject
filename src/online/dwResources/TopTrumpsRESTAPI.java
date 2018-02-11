@@ -122,7 +122,6 @@ public class TopTrumpsRESTAPI
 		try {
 		Game currentGame = getGame(matchID);
 		PileOfCards communalPile = currentGame.getCommunalPile();
-		communalPile.setPlayerID(10);
 		return oWriter.writeValueAsString(communalPile);
 		}
 		catch(Exception e) {
