@@ -28,192 +28,228 @@
 
 	</head>
 
+	<style>
+		body {
+			/*background: yellow;*/
+			background: linear-gradient(to right, LightSkyBlue, DodgerBlue);
+		}
+
+		/* two equal columns that float next to each other */
+
+		.column {
+			float: left;
+			width: 20%
+			padding: 10px;
+		}
+
+		/* clear floats after the columns*/
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		/* two columns stack on top of each other instead of next to each other on smaller screens */
+
+		@media (max-width: 780px) {
+			.column {
+				width: 100%;
+			}
+		}
+
+	</style>
+
 	<body onload="initalize()">
 
-		<h1>Top Trumps</h1>
+		<center>
+			<h1>Top Trumps</h1>
+		</center>
 		<div id="mainSection">
-			<p>
+			<center><p>
 				<h2>Round <span id="roundDisplay"></span></h2>
-				<br>
 				<h3>Rounds Drawn: <span id="roundDrawnDisplay"></span></h3>
 				<br>
 				<span id="gameProgression"></span>
 				<br>
 				<span id="gameProgression2"></span>
 			</p>
-			<input placeholder="player name" id="playerN" type="text"/>
-			<br>
+			<span id="namePrompt">Please enter your name: </span><input placeholder="player name" id="playerN" type="text"/>
+			<br><br>
 			<span id="input">Number of AI Players:</span>
-			<br>
-			<select id="noOfPlayers" size="4" value="1">
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
+			<select id="noOfPlayers" value="1">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
 			</select>
+			<br><br><br>
 			<button id="newGameBtn" onclick="startGame()">Start Game</button>
 			<button id="startRound" onclick="startRound()" style="display:none">Start Round</button>
 			<button id="revealCards" onclick="revealCards()" style="display:none">Reveal Cards</button>
 			<button id="continue" onclick="choice()" style="display:none">Continue</button>
-			<button id="mainMenu" onclick="choice()" style="display:none" ><a href="http://localhost:7777/toptrumps">Main Menu</a></button>
+			<button id="mainMenu" onclick="choice()" style="display:none" ><a href="http://localhost:7777/toptrumps">Main Menu</a></button></center>
 
 			<div class="container">
+				<div class="card-deck">
 
-				<div class="player" id="player" style="display:none">
-						<h4><b><span id="playerNamePlacement"></span></b></h4>
-					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-						<div href="/document" style="height:100%;">
-							<center>
-								<h4 id="cardName"><b>Name of card here</b></h4>
-							</center>
-							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-							<div class="card-block">
-								<br />
-								<left>
-									<button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button><span id="value1"></span>
-									<br>
-									<button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button><span id="value2"></span>
-									<br>
-									<button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button><span id="value3"></span>
-									<br>
-									<button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button><span id="value4"></span>
-									<br>
-									<button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button><span id="value5"></span>
-									<br>
-								</left>
-							</div>
-						</div>
-					</div>
-					<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
-				</div>
-
-				<div class="ai1" id="ai1" style="display:none">
-						<h4><b>AI Player 1</b></h4>
-					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-						<div href="/document" style="height:100%;">
-							<center>
-								<h4 id="ai1CardName"><b>Name of card here</b></h4>
-							</center>
-							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-							<div class="card-block">
-								<br />
-								<left>
-									<span id="ai1attribute1">Attribute 1: </span><span id="ai1value1"></span>
-									<br>
-									<span id="ai1attribute2">Attribute 2: </span><span id="ai1value2"></span>
-									<br>
-									<span id="ai1attribute3">Attribute 3: </span><span id="ai1value3"></span>
-									<br>
-									<span id="ai1attribute4">Attribute 4: </span><span id="ai1value4"></span>
-									<br>
-									<span id="ai1attribute5">Attribute 5: </span><span id="ai1value5"></span>
-									<br>
-								</left>
-							</div>
-						</div>
-					</div>
-					<h5><b>Cards Remaining: <span id="ai1Cards"></span></b></h5>
-				</div>
-
-				<div class="ai2" id="ai2" style="display:none">
-						<h4><b>AI Player 2</b></h4>
-					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-						<div href="/document" style="height:100%;">
-							<center>
-								<h4 id="ai2CardName"><b>Name of card here</b></h4>
-							</center>
-							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-							<div class="card-block">
-								<br />
-								<left>
-									<span id="ai2attribute1">Attribute 1: </span><span id="ai2value1"></span>
-									<br>
-									<span id="ai2attribute2">Attribute 2: </span><span id="ai2value2"></span>
-									<br>
-									<span id="ai2attribute3">Attribute 3: </span><span id="ai2value3"></span>
-									<br>
-									<span id="ai2attribute4">Attribute 4: </span><span id="ai2value4"></span>
-									<br>
-									<span id="ai2attribute5">Attribute 5: </span><span id="ai2value5"></span>
-									<br>
-								</left>
-							</div>
-						</div>
-					</div>
-					<h5><b>Cards Remaining: <span id="ai2Cards"></span></b></h5>
-				</div>
-
-				<div class="ai3" id="ai3" style="display:none">
-						<h4><b>AI Player 3</b></h4>
-					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-						<div href="/document" style="height:100%;">
-							<center>
-								<h4 id="ai3CardName"><b>Name of card here</b></h4>
-							</center>
-							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-							<div class="card-block">
-								<br />
-								<left>
-									<span id="ai3attribute1">Attribute 1: </span><span id="ai3value1"></span>
-									<br>
-									<span id="ai3attribute2">Attribute 2: </span><span id="ai3value2"></span>
-									<br>
-									<span id="ai3attribute3">Attribute 3: </span><span id="ai3value3"></span>
-									<br>
-									<span id="ai3attribute4">Attribute 4: </span><span id="ai3value4"></span>
-									<br>
-									<span id="ai3attribute5">Attribute 5: </span><span id="ai3value5"></span>
-									<br>
-								</left>
-							</div>
-						</div>
-					</div>
-					<h5><b>Cards Remaining: <span id="ai3Cards"></span></b></h5>
-				</div>
-
-				<div class="ai4" id="ai4" style="display:none">
-					<h4><b>AI Player 4</b></h4>
-					<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-						<div href="/document" style="height:100%;">
-							<center>
-								<h4 id="ai4CardName"><b>Name of card here</b></h4>
-							</center>
-							<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-							<div class="card-block">
-								<br />
-								<left>
-									<span id="ai4attribute1">Attribute 1: </span><span id="ai4value1"></span>
-									<br>
-									<span id="ai4attribute2">Attribute 2: </span><span id="ai4value2"></span>
-									<br>
-									<span id="ai4attribute3">Attribute 3: </span><span id="ai4value3"></span>
-									<br>
-									<span id="ai4attribute4">Attribute 4: </span><span id="ai4value4"></span>
-									<br>
-									<span id="ai4attribute5">Attribute 5: </span><span id="ai4value5"></span>
-									<br>
-								</left>
-							</div>
-						</div>
-					</div>
-					<h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5>
-				</div>
-
-				<div class="communal" id="communal" style="display:none">
-						<h4><b>Communal Pile</b></h4>
+					<div class="column" id="player" style="display:none">
+							<h4><b><span id="playerNamePlacement"></span></b></h4>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
+								<center>
+									<h4 id="cardName"><b>Name of card here</b></h4>
+								</center>
 								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<div class="card-block">
+									<br />
+									<left>
+										<button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button><span id="value1"></span>
+										<br>
+										<button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button><span id="value2"></span>
+										<br>
+										<button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button><span id="value3"></span>
+										<br>
+										<button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button><span id="value4"></span>
+										<br>
+										<button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button><span id="value5"></span>
+										<br>
+									</left>
+								</div>
 							</div>
 						</div>
-						<h5><b>Cards in Communal Pile: <span id="communalPileCards"></span></b></h5>
+						<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
 					</div>
 
-			</div>
+					<div class="column" id="ai1" style="display:none">
+							<h4><b>AI Player 1</b></h4>
+						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+							<div href="/document" style="height:100%;">
+								<center>
+									<h4 id="ai1CardName"><b>Name of card here</b></h4>
+								</center>
+								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<div class="card-block">
+									<br />
+									<left>
+										<span id="ai1attribute1">Attribute 1: </span><span id="ai1value1"></span>
+										<br>
+										<span id="ai1attribute2">Attribute 2: </span><span id="ai1value2"></span>
+										<br>
+										<span id="ai1attribute3">Attribute 3: </span><span id="ai1value3"></span>
+										<br>
+										<span id="ai1attribute4">Attribute 4: </span><span id="ai1value4"></span>
+										<br>
+										<span id="ai1attribute5">Attribute 5: </span><span id="ai1value5"></span>
+										<br>
+									</left>
+								</div>
+							</div>
+						</div>
+						<h5><b>Cards Remaining: <span id="ai1Cards"></span></b></h5>
+					</div>
 
+					<div class="column" id="ai2" style="display:none">
+							<h4><b>AI Player 2</b></h4>
+						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+							<div href="/document" style="height:100%;">
+								<center>
+									<h4 id="ai2CardName"><b>Name of card here</b></h4>
+								</center>
+								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<div class="card-block">
+									<br />
+									<left>
+										<span id="ai2attribute1">Attribute 1: </span><span id="ai2value1"></span>
+										<br>
+										<span id="ai2attribute2">Attribute 2: </span><span id="ai2value2"></span>
+										<br>
+										<span id="ai2attribute3">Attribute 3: </span><span id="ai2value3"></span>
+										<br>
+										<span id="ai2attribute4">Attribute 4: </span><span id="ai2value4"></span>
+										<br>
+										<span id="ai2attribute5">Attribute 5: </span><span id="ai2value5"></span>
+										<br>
+									</left>
+								</div>
+							</div>
+						</div>
+						<h5><b>Cards Remaining: <span id="ai2Cards"></span></b></h5>
+					</div>
+
+					<div class="column" id="ai3" style="display:none">
+							<h4><b>AI Player 3</b></h4>
+						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+							<div href="/document" style="height:100%;">
+								<center>
+									<h4 id="ai3CardName"><b>Name of card here</b></h4>
+								</center>
+								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<div class="card-block">
+									<br />
+									<left>
+										<span id="ai3attribute1">Attribute 1: </span><span id="ai3value1"></span>
+										<br>
+										<span id="ai3attribute2">Attribute 2: </span><span id="ai3value2"></span>
+										<br>
+										<span id="ai3attribute3">Attribute 3: </span><span id="ai3value3"></span>
+										<br>
+										<span id="ai3attribute4">Attribute 4: </span><span id="ai3value4"></span>
+										<br>
+										<span id="ai3attribute5">Attribute 5: </span><span id="ai3value5"></span>
+										<br>
+									</left>
+								</div>
+							</div>
+						</div>
+						<h5><b>Cards Remaining: <span id="ai3Cards"></span></b></h5>
+					</div>
+
+					<div class="column" id="ai4" style="display:none">
+						<h4><b>AI Player 4</b></h4>
+						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+							<div href="/document" style="height:100%;">
+								<center>
+									<h4 id="ai4CardName"><b>Name of card here</b></h4>
+								</center>
+								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<div class="card-block">
+									<br />
+									<left>
+										<span id="ai4attribute1">Attribute 1: </span><span id="ai4value1"></span>
+										<br>
+										<span id="ai4attribute2">Attribute 2: </span><span id="ai4value2"></span>
+										<br>
+										<span id="ai4attribute3">Attribute 3: </span><span id="ai4value3"></span>
+										<br>
+										<span id="ai4attribute4">Attribute 4: </span><span id="ai4value4"></span>
+										<br>
+										<span id="ai4attribute5">Attribute 5: </span><span id="ai4value5"></span>
+										<br>
+									</left>
+								</div>
+							</div>
+						</div>
+						<h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5>
+					</div>
+
+				</div>
+					<div class="communal" id="communal" style="display:none">
+							<center><h4><b>Communal Pile</b></h4>
+							<div class="card border-light mb-3" style="max-width: 100rem; height: 5rem;">
+								<div href="/document" style="height:100%;">
+								</div>
+							</div>
+							<h5><b>Cards in Communal Pile: <span id="communalPileCards"></span></b></h5>
+							</center>
+						</div>
 		</div>
 
-		
+
+
+	</div>
+
+
 
 
 
@@ -243,9 +279,9 @@
 
 			// Method that is called on page load
 			function initalize() {
-			
+
 			}
-			
+
 			function startGame(){
 				playerName = document.getElementById('playerN').value;
 				aiPlayerCount = document.getElementById("noOfPlayers").value;
@@ -254,6 +290,7 @@
 				document.getElementById('newGameBtn').style.display = 'none';
 				document.getElementById('input').style.display = 'none';
 				document.getElementById('noOfPlayers').style.display = 'none';
+				document.getElementById('namePrompt').style.display = 'none';
 				document.getElementById('startRound').style.display = 'block';
 
 				newGame();
@@ -274,7 +311,7 @@
 				document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
 				displayPlayerCard();
 				playerHandSizes();
-				
+
 				if(playersTurn == 1){
 					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
 					document.getElementById('attribute1').disabled = false;
@@ -314,7 +351,7 @@
 				document.getElementById('gameProgression').innerHTML = "The category " + category + " has been selected!";
 				document.getElementById('revealCards').style.display = 'block';
 			}
-			
+
 			function revealCards(){
 				showCards();
 				findMax();
@@ -332,6 +369,7 @@
 					roundWin();
 					getPlayers();
 					activeP();
+					communalPile();
 					playersTurn = winners[0].playerID;
 				}
 				else{
@@ -346,7 +384,7 @@
 
 						winningPlayers += winner + ", "
 					}
-					document.getElementById('gameProgression').innerHTML = winningPlayers + "has drawn the round with " + maxScore + " in the category " + category + 
+					document.getElementById('gameProgression').innerHTML = winningPlayers + "has drawn the round with " + maxScore + " in the category " + category +
 					"! All players cards have been forfeited to the communal pile!";
 					roundDraw();
 					getPlayers();
@@ -354,7 +392,7 @@
 					communalPile();
 					increaseDraws();
 				}
-					
+
 				playersToBeRemoved();
 				removedFromActivePlayers();
 				var removedPlayers = "";
@@ -368,7 +406,7 @@
 						else{rmvPlayers = "AI Player 4";}
 					removedPlayers += rmvPlayers + ", "
 				}
-				document.getElementById('gameProgression2').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
+				document.getElementById('gameProgression2').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length +
 				" players remain!";
 				}
 
@@ -391,17 +429,19 @@
 				if(aiPlayerCount >= 2){
 					document.getElementById('ai2').style.display = 'block';
 					document.getElementById('ai2Cards').innerHTML = players[2].playerHand.numberOfCards;
-
-					if(aiPlayerCount >= 3){
-						document.getElementById('ai3').style.display = 'block';
-						document.getElementById('ai3Cards').innerHTML = players[3].playerHand.numberOfCards;
-
-						if(aiPlayerCount == 4){
-							document.getElementById('ai4').style.display = 'block';
-							document.getElementById('ai4Cards').innerHTML = players[4].playerHand.numberOfCards;
-						}
-					}
 				}
+
+				if(aiPlayerCount >= 3){
+					document.getElementById('ai3').style.display = 'block';
+					document.getElementById('ai3Cards').innerHTML = players[3].playerHand.numberOfCards;
+				}
+
+				if(aiPlayerCount == 4){
+					document.getElementById('ai4').style.display = 'block';
+					document.getElementById('ai4Cards').innerHTML = players[4].playerHand.numberOfCards;
+				}
+
+
 			}
 
 			function isValid(){
@@ -450,7 +490,7 @@
 					document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
 					document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
 
-					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;	
+					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;
 				}
 
 				document.getElementById('communal').style.display = 'block';
@@ -459,7 +499,7 @@
 
 			function displayOpponentsCard(){
 				for(i = 0; i< activePlayers.length; i++){
-					if(activePlayers[i].playerID == 2){			
+					if(activePlayers[i].playerID == 2){
 						document.getElementById("ai1CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai1attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai1attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -474,7 +514,7 @@
 						document.getElementById("ai1value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
 					}
 
-					if(activePlayers[i].playerID == 3){	
+					if(activePlayers[i].playerID == 3){
 						document.getElementById("ai2CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai2attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai2attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -488,8 +528,8 @@
 						document.getElementById("ai2value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai2value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
 					}
-					
-					if(activePlayers[i].playerID == 4){	
+
+					if(activePlayers[i].playerID == 4){
 						document.getElementById("ai3CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai3attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai3attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -503,8 +543,8 @@
 						document.getElementById("ai3value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai3value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
 					}
-					
-					if(activePlayers[i].playerID == 5){	
+
+					if(activePlayers[i].playerID == 5){
 						document.getElementById("ai4CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
 						document.getElementById("ai4attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
 						document.getElementById("ai4attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
@@ -570,7 +610,7 @@
 					// Otherwise, CORS is not supported by the browser.
 					xhr = null;
 				}
-			return xhr;
+				return xhr;
 			}
 
 			function newGame(){
