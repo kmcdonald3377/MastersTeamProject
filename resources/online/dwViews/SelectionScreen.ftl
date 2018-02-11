@@ -49,7 +49,6 @@
 		.column {
 			width: 100%;
 		}
-
 </style>
 
 <body onload="initalize()">
@@ -68,9 +67,9 @@
 								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
-										<centre><h4>Trump your star citzen opponents</h4></centre>
+										<center><h4>Trump your star citzen opponents</h4></center>
 									<br />
-										<centre><a href="http://localhost:7777/toptrumps/game" class="btn btn-outline-primary btn-lg">Play Game</a></center>
+										<center><button><a href="http://localhost:7777/toptrumps/game" class="button"><b><font color="black">Play a game</font></b></a></button></center>
 				</div>
 			</div>
 		</div>
@@ -79,8 +78,8 @@
 
 
 							<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue">
-							<h4><b><span id="View Statistics"></span></b></h4>
+								<div class="w3-card-4 w3-pale-blue">
+								<h4><b><span id="View Statistics"></span></b></h4>
 						<div class="card border-light mb-3" style="width: 30rem; height: 40rem;">
 							<div href="/document" style="height:100%;">
 								<center>
@@ -89,9 +88,9 @@
 								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
-										<centre><h4>View previous game statistics</h4></centre>
+										<center><h4>View previous game statistics</h4></center>
 									<br />
-										<centre><a href="http://localhost:7777/toptrumps/stats" class="btn btn-outline-primary btn-lg">View Stats</a></center>
+										<center><button><a href="http://localhost:7777/toptrumps/stats" class="button"><b><font color="black">View statistics</font></b></a></button></center>
 				</div>
 			</div>
 		</div>
