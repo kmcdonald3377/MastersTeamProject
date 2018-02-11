@@ -51,10 +51,11 @@
 				<option>3</option>
 				<option>4</option>
 			</select>
-			<button id="startGameBtn" onclick="displayGameStart()">Start Game</button>
+			<button id="newGameBtn" onclick="startGame()">Start Game</button>
 			<button id="startRound" onclick="startRound()" style="display:none">Start Round</button>
 			<button id="revealCards" onclick="revealCards()" style="display:none">Reveal Cards</button>
 			<button id="continue" onclick="choice()" style="display:none">Continue</button>
+			<button id="mainMenu" onclick="choice()" style="display:none" ><a href="http://localhost:7777/toptrumps">Main Menu</a></button>
 
 			<div class="container">
 
@@ -242,22 +243,21 @@
 
 			// Method that is called on page load
 			function initalize() {
-								
-			}
-
-
 			
-			function displayGameStart(){
+			}
+			
+			function startGame(){
 				playerName = document.getElementById('playerN').value;
 				aiPlayerCount = document.getElementById("noOfPlayers").value;
 				document.getElementById('playerNamePlacement').innerHTML = playerName;
 				document.getElementById('playerN').style.display = 'none';
-				document.getElementById('startGameBtn').style.display = 'none';
+				document.getElementById('newGameBtn').style.display = 'none';
 				document.getElementById('input').style.display = 'none';
 				document.getElementById('noOfPlayers').style.display = 'none';
 				document.getElementById('startRound').style.display = 'block';
 
-				startGame();
+				newGame();
+				getPlayers();
 				activeP();
 				communalPile();
 				firstChoice();
@@ -274,7 +274,6 @@
 				document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
 				displayPlayerCard();
 				playerHandSizes();
-				document.getElementById('playerCards').innerHTML = handSizes[0];
 				
 				if(playersTurn == 1){
 					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
@@ -304,10 +303,15 @@
 
 			function choice(){
 				document.getElementById('continue').style.display = 'none';
-				if(playersTurn != 0){
+				document.getElementById('attribute1').disabled = true;
+				document.getElementById('attribute2').disabled = true;
+				document.getElementById('attribute3').disabled = true;
+				document.getElementById('attribute4').disabled = true;
+				document.getElementById('attribute5').disabled = true;
+				if(playersTurn != 1){
 					aiCatSel();
 				}
-				document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
+				document.getElementById('gameProgression').innerHTML = "The category " + category + " has been selected!";
 				document.getElementById('revealCards').style.display = 'block';
 			}
 			
@@ -318,18 +322,36 @@
 				findWinners();
 
 				if(isWinner == 1){
-					document.getElementById('gameProgression').innerHTML = winners[0].playerID + "wins the round with " + maxScore + " in the category " + category + "!";
+					var winner = "";
+					if(winners[0].playerID == 1){winner = playerName;}
+					else if(winners[0].playerID == 2){winner = "AI Player 1";}
+					else if(winners[0].playerID == 3){winner = "AI Player 2";}
+					else if(winners[0].playerID == 4){winner = "AI Player 3";}
+					else if(winners[0].playerID == 5){winner = "AI Player 4";}
+					document.getElementById('gameProgression').innerHTML = winner + " wins the round with " + maxScore + " in the category " + category + "!";
 					roundWin();
+					getPlayers();
+					activeP();
 					playersTurn = winners[0].playerID;
 				}
 				else{
 					var winningPlayers = "";
 					for(i=0; i < winners.length; i++){
-						winningPlayers += winners[i].playerID + ", "
+						var winner = "";
+						if(winners[i].playerID == 1){winner = playerName;}
+						else if(winners[i].playerID == 2){winner = "AI Player 1";}
+						else if(winners[i].playerID == 3){winner = "AI Player 2";}
+						else if(winners[i].playerID == 4){winner = "AI Player 3";}
+						else if(winners[i].playerID == 5){winner = "AI Player 4";}
+
+						winningPlayers += winner + ", "
 					}
-					document.getElementById('gameProgression').innerHTML = winningPlayers + "have drawn the round with " + maxScore + " in the category " + category + 
+					document.getElementById('gameProgression').innerHTML = winningPlayers + "has drawn the round with " + maxScore + " in the category " + category + 
 					"! All players cards have been forfeited to the communal pile!";
 					roundDraw();
+					getPlayers();
+					activeP();
+					communalPile();
 					increaseDraws();
 				}
 					
@@ -338,7 +360,13 @@
 				var removedPlayers = "";
 				if(removed.length != 0){
 					for(i=0; i < removed.length; i++){
-					removedPlayers += removed[i].playerID + ", "
+						var rmvPlayers = "";
+						if(removed[i].playerID == 1){rmvPlayers = playerName;}
+						else if(removed[i].playerID == 2){rmvPlayers = "AI Player 1";}
+						else if(removed[i].playerID == 3){rmvPlayers = "AI Player 2";}
+						else if(removed[i].playerID == 4){rmvPlayers = "AI Player 3";}
+						else{rmvPlayers = "AI Player 4";}
+					removedPlayers += rmvPlayers + ", "
 				}
 				document.getElementById('gameProgression2').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
 				" players remain!";
@@ -355,18 +383,25 @@
 
 			function showCards(){
 				document.getElementById('revealCards').style.display = 'none';
-				document.getElementById('ai1').style.display = 'block';
-				document.getElementById('ai2').style.display = 'block';
-				document.getElementById('ai3').style.display = 'block';
-				document.getElementById('ai4').style.display = 'block';
-				document.getElementById('communal').style.display = 'block';
 				displayOpponentsCard();
-				document.getElementById('playerCards').innerHTML = handSizes[0];
-				document.getElementById('ai1Cards').innerHTML = handSizes[1];
-				document.getElementById('ai2Cards').innerHTML = handSizes[2];
-				document.getElementById('ai3Cards').innerHTML = handSizes[3];
-				document.getElementById('ai4Cards').innerHTML = handSizes[4];
-				document.getElementById('communalPileCards').innerHTML = comPile.size;
+				document.getElementById('ai1').style.display = 'block';
+				document.getElementById('ai1Cards').innerHTML = players[1].playerHand.numberOfCards;
+
+
+				if(aiPlayerCount >= 2){
+					document.getElementById('ai2').style.display = 'block';
+					document.getElementById('ai2Cards').innerHTML = players[2].playerHand.numberOfCards;
+
+					if(aiPlayerCount >= 3){
+						document.getElementById('ai3').style.display = 'block';
+						document.getElementById('ai3Cards').innerHTML = players[3].playerHand.numberOfCards;
+
+						if(aiPlayerCount == 4){
+							document.getElementById('ai4').style.display = 'block';
+							document.getElementById('ai4Cards').innerHTML = players[4].playerHand.numberOfCards;
+						}
+					}
+				}
 			}
 
 			function isValid(){
@@ -387,6 +422,8 @@
 				else{
 					document.getElementById('gameProgression').innerHTML = "AI Player " + (activePlayers[0].playerID + 1) + " has won!";
 				}
+				document.getElementById('gameProgression2').innerHTML = "";
+				document.getElementById('mainMenu').style.display = "block";
 			}
 
 			function endOfRound(){
@@ -398,103 +435,114 @@
 			}
 
 			function displayPlayerCard(){
-				document.getElementById('player').style.display = 'block';
-				document.getElementById("cardName").innerHTML = activePlayers[0].playerHand.currentCard.name;
-				document.getElementById("attribute1").innerHTML = activePlayers[0].playerHand.currentCard.attribute1;
-				document.getElementById("attribute2").innerHTML = activePlayers[0].playerHand.currentCard.attribute2;
-				document.getElementById("attribute3").innerHTML = activePlayers[0].playerHand.currentCard.attribute3;
-				document.getElementById("attribute4").innerHTML = activePlayers[0].playerHand.currentCard.attribute4;
-				document.getElementById("attribute5").innerHTML = activePlayers[0].playerHand.currentCard.attribute5;
+				if(activePlayers[0].playerHand.size != 0){
+					document.getElementById('player').style.display = 'block';
+					document.getElementById("cardName").innerHTML = activePlayers[0].playerHand.currentCard.name;
+					document.getElementById("attribute1").innerHTML = activePlayers[0].playerHand.currentCard.attribute1;
+					document.getElementById("attribute2").innerHTML = activePlayers[0].playerHand.currentCard.attribute2;
+					document.getElementById("attribute3").innerHTML = activePlayers[0].playerHand.currentCard.attribute3;
+					document.getElementById("attribute4").innerHTML = activePlayers[0].playerHand.currentCard.attribute4;
+					document.getElementById("attribute5").innerHTML = activePlayers[0].playerHand.currentCard.attribute5;
 
-				document.getElementById("value1").innerHTML = activePlayers[0].playerHand.currentCard.value1;
-				document.getElementById("value2").innerHTML = activePlayers[0].playerHand.currentCard.value2;
-				document.getElementById("value3").innerHTML = activePlayers[0].playerHand.currentCard.value3;
-				document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
-				document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;				
+					document.getElementById("value1").innerHTML = activePlayers[0].playerHand.currentCard.value1;
+					document.getElementById("value2").innerHTML = activePlayers[0].playerHand.currentCard.value2;
+					document.getElementById("value3").innerHTML = activePlayers[0].playerHand.currentCard.value3;
+					document.getElementById("value4").innerHTML = activePlayers[0].playerHand.currentCard.value4;
+					document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
+
+					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;	
+				}
+
+				document.getElementById('communal').style.display = 'block';
+				document.getElementById('communalPileCards').innerHTML = comPile.numberOfCards;
 			}
 
 			function displayOpponentsCard(){
-				
-				document.getElementById("ai1CardName").innerHTML = activePlayers[1].playerHand.currentCard.name;
-				document.getElementById("ai1attribute1").innerHTML = activePlayers[1].playerHand.currentCard.attribute1;
-				document.getElementById("ai1attribute2").innerHTML = activePlayers[1].playerHand.currentCard.attribute2;
-				document.getElementById("ai1attribute3").innerHTML = activePlayers[1].playerHand.currentCard.attribute3;
-				document.getElementById("ai1attribute4").innerHTML = activePlayers[1].playerHand.currentCard.attribute4;
-				document.getElementById("ai1attribute5").innerHTML = activePlayers[1].playerHand.currentCard.attribute5;
+				for(i = 0; i< activePlayers.length; i++){
+					if(activePlayers[i].playerID == 2){			
+						document.getElementById("ai1CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
+						document.getElementById("ai1attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
+						document.getElementById("ai1attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
+						document.getElementById("ai1attribute3").innerHTML = activePlayers[i].playerHand.currentCard.attribute3;
+						document.getElementById("ai1attribute4").innerHTML = activePlayers[i].playerHand.currentCard.attribute4;
+						document.getElementById("ai1attribute5").innerHTML = activePlayers[i].playerHand.currentCard.attribute5;
 
-				document.getElementById("ai1value1").innerHTML = activePlayers[1].playerHand.currentCard.value1;
-				document.getElementById("ai1value2").innerHTML = activePlayers[1].playerHand.currentCard.value2;
-				document.getElementById("ai1value3").innerHTML = activePlayers[1].playerHand.currentCard.value3;
-				document.getElementById("ai1value4").innerHTML = activePlayers[1].playerHand.currentCard.value4;
-				document.getElementById("ai1value5").innerHTML = activePlayers[1].playerHand.currentCard.value5;
+						document.getElementById("ai1value1").innerHTML = activePlayers[i].playerHand.currentCard.value1;
+						document.getElementById("ai1value2").innerHTML = activePlayers[i].playerHand.currentCard.value2;
+						document.getElementById("ai1value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
+						document.getElementById("ai1value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
+						document.getElementById("ai1value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+					}
 
+					if(activePlayers[i].playerID == 3){	
+						document.getElementById("ai2CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
+						document.getElementById("ai2attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
+						document.getElementById("ai2attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
+						document.getElementById("ai2attribute3").innerHTML = activePlayers[i].playerHand.currentCard.attribute3;
+						document.getElementById("ai2attribute4").innerHTML = activePlayers[i].playerHand.currentCard.attribute4;
+						document.getElementById("ai2attribute5").innerHTML = activePlayers[i].playerHand.currentCard.attribute5;
 
+						document.getElementById("ai2value1").innerHTML = activePlayers[i].playerHand.currentCard.value1;
+						document.getElementById("ai2value2").innerHTML = activePlayers[i].playerHand.currentCard.value2;
+						document.getElementById("ai2value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
+						document.getElementById("ai2value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
+						document.getElementById("ai2value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+					}
+					
+					if(activePlayers[i].playerID == 4){	
+						document.getElementById("ai3CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
+						document.getElementById("ai3attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
+						document.getElementById("ai3attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
+						document.getElementById("ai3attribute3").innerHTML = activePlayers[i].playerHand.currentCard.attribute3;
+						document.getElementById("ai3attribute4").innerHTML = activePlayers[i].playerHand.currentCard.attribute4;
+						document.getElementById("ai3attribute5").innerHTML = activePlayers[i].playerHand.currentCard.attribute5;
 
-				document.getElementById("ai2CardName").innerHTML = activePlayers[2].playerHand.currentCard.name;
-				document.getElementById("ai2attribute1").innerHTML = activePlayers[2].playerHand.currentCard.attribute1;
-				document.getElementById("ai2attribute2").innerHTML = activePlayers[2].playerHand.currentCard.attribute2;
-				document.getElementById("ai2attribute3").innerHTML = activePlayers[2].playerHand.currentCard.attribute3;
-				document.getElementById("ai2attribute4").innerHTML = activePlayers[2].playerHand.currentCard.attribute4;
-				document.getElementById("ai2attribute5").innerHTML = activePlayers[2].playerHand.currentCard.attribute5;
+						document.getElementById("ai3value1").innerHTML = activePlayers[i].playerHand.currentCard.value1;
+						document.getElementById("ai3value2").innerHTML = activePlayers[i].playerHand.currentCard.value2;
+						document.getElementById("ai3value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
+						document.getElementById("ai3value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
+						document.getElementById("ai3value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+					}
+					
+					if(activePlayers[i].playerID == 5){	
+						document.getElementById("ai4CardName").innerHTML = activePlayers[i].playerHand.currentCard.name;
+						document.getElementById("ai4attribute1").innerHTML = activePlayers[i].playerHand.currentCard.attribute1;
+						document.getElementById("ai4attribute2").innerHTML = activePlayers[i].playerHand.currentCard.attribute2;
+						document.getElementById("ai4attribute3").innerHTML = activePlayers[i].playerHand.currentCard.attribute3;
+						document.getElementById("ai4attribute4").innerHTML = activePlayers[i].playerHand.currentCard.attribute4;
+						document.getElementById("ai4attribute5").innerHTML = activePlayers[i].playerHand.currentCard.attribute5;
 
-				document.getElementById("ai2value1").innerHTML = activePlayers[2].playerHand.currentCard.value1;
-				document.getElementById("ai2value2").innerHTML = activePlayers[2].playerHand.currentCard.value2;
-				document.getElementById("ai2value3").innerHTML = activePlayers[2].playerHand.currentCard.value3;
-				document.getElementById("ai2value4").innerHTML = activePlayers[2].playerHand.currentCard.value4;
-				document.getElementById("ai2value5").innerHTML = activePlayers[2].playerHand.currentCard.value5;
-
-
-				document.getElementById("ai3CardName").innerHTML = activePlayers[3].playerHand.currentCard.name;
-				document.getElementById("ai3attribute1").innerHTML = activePlayers[3].playerHand.currentCard.attribute1;
-				document.getElementById("ai3attribute2").innerHTML = activePlayers[3].playerHand.currentCard.attribute2;
-				document.getElementById("ai3attribute3").innerHTML = activePlayers[3].playerHand.currentCard.attribute3;
-				document.getElementById("ai3attribute4").innerHTML = activePlayers[3].playerHand.currentCard.attribute4;
-				document.getElementById("ai3attribute5").innerHTML = activePlayers[3].playerHand.currentCard.attribute5;
-
-				document.getElementById("ai3value1").innerHTML = activePlayers[3].playerHand.currentCard.value1;
-				document.getElementById("ai3value2").innerHTML = activePlayers[3].playerHand.currentCard.value2;
-				document.getElementById("ai3value3").innerHTML = activePlayers[3].playerHand.currentCard.value3;
-				document.getElementById("ai3value4").innerHTML = activePlayers[3].playerHand.currentCard.value4;
-				document.getElementById("ai3value5").innerHTML = activePlayers[3].playerHand.currentCard.value5;
-
-
-				document.getElementById("ai4CardName").innerHTML = activePlayers[4].playerHand.currentCard.name;
-				document.getElementById("ai4attribute1").innerHTML = activePlayers[4].playerHand.currentCard.attribute1;
-				document.getElementById("ai4attribute2").innerHTML = activePlayers[4].playerHand.currentCard.attribute2;
-				document.getElementById("ai4attribute3").innerHTML = activePlayers[4].playerHand.currentCard.attribute3;
-				document.getElementById("ai4attribute4").innerHTML = activePlayers[4].playerHand.currentCard.attribute4;
-				document.getElementById("ai4attribute5").innerHTML = activePlayers[4].playerHand.currentCard.attribute5;
-
-				document.getElementById("ai4value1").innerHTML = activePlayers[4].playerHand.currentCard.value1;
-				document.getElementById("ai4value2").innerHTML = activePlayers[4].playerHand.currentCard.value2;
-				document.getElementById("ai4value3").innerHTML = activePlayers[4].playerHand.currentCard.value3;
-				document.getElementById("ai4value4").innerHTML = activePlayers[4].playerHand.currentCard.value4;
-				document.getElementById("ai4value5").innerHTML = activePlayers[4].playerHand.currentCard.value5;
-						
+						document.getElementById("ai4value1").innerHTML = activePlayers[i].playerHand.currentCard.value1;
+						document.getElementById("ai4value2").innerHTML = activePlayers[i].playerHand.currentCard.value2;
+						document.getElementById("ai4value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
+						document.getElementById("ai4value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
+						document.getElementById("ai4value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+					}
+				}
 			}
 
 			function att1(){
-				category = "Size";
+				category = activePlayers["0"].playerHand.currentCard.attribute1;
 				choice();
 			}
 
 			function att2(){
-				category = "Speed";
+				category = activePlayers["0"].playerHand.currentCard.attribute2;
 				choice();
 			}
 
 			function att3(){
-				category = "Range";
+				category = activePlayers["0"].playerHand.currentCard.attribute3;
 				choice();
 			}
 
 			function att4(){
-				category = "Firepower";
+				category = activePlayers["0"].playerHand.currentCard.attribute4;
 				choice();
 			}
 
 			function att5(){
-				category = "Cargo";
+				category = activePlayers["0"].playerHand.currentCard.attribute5;
 				choice();
 			}
 
@@ -525,7 +573,7 @@
 			return xhr;
 			}
 
-			function startGame(){
+			function newGame(){
                 var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName + "&numberOfPlayers=" + aiPlayerCount, false)
 
                 xhr.onload = function (e) {
@@ -533,6 +581,17 @@
                 };
 
                 xhr.send();
+			}
+
+			function getPlayers(){
+				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID, false);
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function (e) {
+					players = JSON.parse(xhr.response);
+				};
+				xhr.send();
 			}
 
 			function activeP(){

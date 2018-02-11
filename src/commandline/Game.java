@@ -220,7 +220,7 @@ public class Game
 	public Player setFirstChoice() 
 	{
 		Random randomNumber = new Random();
-		int myNumber = randomNumber.nextInt(5);
+		int myNumber = randomNumber.nextInt(numberOfPlayers);
 
 		firstChoice = activePlayers.get(myNumber);
 		return firstChoice;
