@@ -121,9 +121,12 @@ public class TopTrumpsRESTAPI
 	{
 		try {
 		Game currentGame = getGame(matchID);
-		return oWriter.writeValueAsString(currentGame.getCommunalPile());
+		PileOfCards communalPile = currentGame.getCommunalPile();
+		communalPile.setPlayerID(10);
+		return oWriter.writeValueAsString(communalPile);
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			return e.getMessage();
 		}
 	}
@@ -206,36 +209,45 @@ public class TopTrumpsRESTAPI
 	@Path("/maxScore")
 	public String maxScore(@QueryParam("matchID") String matchID, @QueryParam("Category") String Category) throws IOException
 	{
+		String cat = Category.replaceAll("[-+.^:,\"]", "");
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		return oWriter.writeValueAsString(currentRound.findMaxScore(Category));
+		return oWriter.writeValueAsString(currentRound.findMaxScore(cat));
 	}
 	
 	@GET
 	@Path("/isWinner")
 	public String isWinner(@QueryParam("matchID") String matchID, @QueryParam("Category") String Category) throws IOException
 	{
+		String cat = Category.replaceAll("[-+.^:,\"]", "");
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		return oWriter.writeValueAsString(currentRound.isWinner(Category));
+		boolean test = currentRound.isWinner(cat);
+		int i = 0;
+		if(test) {
+			i = 1;
+		}
+		return oWriter.writeValueAsString(i);
 	}
 	
 	@GET
 	@Path("/findWinner")
 	public String findWinner(@QueryParam("matchID") String matchID, @QueryParam("Category") String Category) throws IOException
 	{
+		String cat = Category.replaceAll("[-+.^:,\"]", "");
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		return oWriter.writeValueAsString(currentRound.findWinner(Category));
+		return oWriter.writeValueAsString(currentRound.findWinner(cat));
 	}
 	
 	@POST
 	@Path("/computeRoundWin")
 	public String computeRoundWin(@QueryParam("matchID") String matchID, @QueryParam("Category") String Category) throws IOException
 	{
+		String cat = Category.replaceAll("[-+.^:,\"]", "");
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		ArrayList<Player> winner = currentRound.findWinner(Category);
+		ArrayList<Player> winner = currentRound.findWinner(cat);
 		return oWriter.writeValueAsString(currentRound.computeWin(winner));
 	}
 	
@@ -243,9 +255,10 @@ public class TopTrumpsRESTAPI
 	@Path("/computeRoundDraw")
 	public String computeRoundDraw(@QueryParam("matchID") String matchID, @QueryParam("Category") String Category) throws IOException
 	{
+		String cat = Category.replaceAll("[-+.^:,\"]", "");
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		ArrayList<Player> winners = currentRound.findWinner(Category);
+		ArrayList<Player> winners = currentRound.findWinner(cat);
 		return oWriter.writeValueAsString(currentRound.computeDraw(winners));
 	}
 

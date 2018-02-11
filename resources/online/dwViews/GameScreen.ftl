@@ -38,9 +38,10 @@
 				<h3>Rounds Drawn: <span id="roundDrawnDisplay"></span></h3>
 				<br>
 				<span id="gameProgression"></span>
+				<br>
+				<span id="gameProgression2"></span>
 			</p>
 			<input placeholder="player name" id="playerN" type="text"/>
-			<button id="startGameBtn" onclick="displayGameStart()">Start Game</button>
 			<br>
 			<span id="input">Number of AI Players:</span>
 			<br>
@@ -50,8 +51,10 @@
 				<option>3</option>
 				<option>4</option>
 			</select>
-			<button id="revealCards" onclick="anotherFunction()" style="display:none">Reveal Cards</button>
-			<button id="revealCardsTwo" onclick="partTwo()" style="display:none">Reveal Cards</button>
+			<button id="startGameBtn" onclick="displayGameStart()">Start Game</button>
+			<button id="startRound" onclick="startRound()" style="display:none">Start Round</button>
+			<button id="revealCards" onclick="revealCards()" style="display:none">Reveal Cards</button>
+			<button id="continue" onclick="choice()" style="display:none">Continue</button>
 
 			<div class="container">
 
@@ -245,151 +248,125 @@
 
 			
 			function displayGameStart(){
-				myFunction();
+				playerName = document.getElementById('playerN').value;
+				aiPlayerCount = document.getElementById("noOfPlayers").value;
+				document.getElementById('playerNamePlacement').innerHTML = playerName;
+				document.getElementById('playerN').style.display = 'none';
+				document.getElementById('startGameBtn').style.display = 'none';
+				document.getElementById('input').style.display = 'none';
+				document.getElementById('noOfPlayers').style.display = 'none';
+				document.getElementById('startRound').style.display = 'block';
+
 				startGame();
-				getPlayers();
 				activeP();
 				communalPile();
-				playerHandSizes();
-				displayPlayerCard();
-				document.getElementById('playerCards').innerHTML = handSizes[0];
 				firstChoice();
-				if(playersTurn == 1){
-					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
-				}
-				else if(playersTurn == 2){
-					document.getElementById('gameProgression').innerHTML = "It is AI Player 1's choice to select a category.";
-				}
-				else if(playersTurn == 3){
-					document.getElementById('gameProgression').innerHTML = "It is AI Player 2's choice to select a category.";
-				}
-				else if(playersTurn == 4){
-					document.getElementById('gameProgression').innerHTML = "It is AI Player 3's choice to select a category.";
-				}
-				else{
-					document.getElementById('gameProgression').innerHTML = "It is AI Player 4's choice to select a category";
-				}
+			}
+
+			function startRound(){
+				endOfRound();
+				document.getElementById('startRound').style.display = 'none';
 				round();
 				increaseRoundsPlayed();
 				totalRounds();
 				totalDraws();
 				document.getElementById('roundDisplay').innerHTML = rounds;
 				document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
+				displayPlayerCard();
+				playerHandSizes();
+				document.getElementById('playerCards').innerHTML = handSizes[0];
+				
 				if(playersTurn == 1){
-						document.getElementById('attribute1').disabled = false;
-						document.getElementById('attribute2').disabled = false;
-						document.getElementById('attribute3').disabled = false;
-						document.getElementById('attribute4').disabled = false;
-						document.getElementById('attribute5').disabled = false;
-					}
-					else{
-						aiCatSel();
-					}
-
-					document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
-					document.getElementById('revealCardsTwo');
-					findMax();
-					isAWinner();
-					findWinners();
-
-					if(isWinner){
-						document.getElementById('gameProgression').innerHTML = winners.playerID + "wins the round with " + maxScore + " in the category " + category + "!";
-						roundWin();
-						playersTurn = winners.playerID;
-					}
-					else{
-						var winningPlayers = null;
-						for(i=0; i < winners.length; i++){
-							winningPlayers += winners[i].playerID + ", "
-						}
-						document.getElementById('gameProgression').innerHTML = winningPlayers + "have drawn the round with " + maxScore + " in the category " + category + 
-						"! All players cards have been forfeited to the communal pile!";
-						roundDraw();
-						increaseDraws();
-					}
-					
-					playersToBeRemoved();
-					removedFromActivePlayers();
-					var removedPlayers = null;
-					if(removed.length != 0){
-						for(i=0; i < removed.length; i++){
-						removedPlayers += removed[i].playerID + ", "
-					}
-					document.getElementById('gameProgression').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
-					" players remain!";
-					}
-					endOfRound();
+					document.getElementById('gameProgression').innerHTML = playerName + " it is your choice to select a category.";
+					document.getElementById('attribute1').disabled = false;
+					document.getElementById('attribute2').disabled = false;
+					document.getElementById('attribute3').disabled = false;
+					document.getElementById('attribute4').disabled = false;
+					document.getElementById('attribute5').disabled = false;
+				}
+				else if(playersTurn == 2){
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 1's choice to select a category.";
+					document.getElementById('continue').style.display = 'block';
+				}
+				else if(playersTurn == 3){
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 2's choice to select a category.";
+					document.getElementById('continue').style.display = 'block';
+				}
+				else if(playersTurn == 4){
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 3's choice to select a category.";
+					document.getElementById('continue').style.display = 'block';
+				}
+				else{
+					document.getElementById('gameProgression').innerHTML = "It is AI Player 4's choice to select a category";
+					document.getElementById('continue').style.display = 'block';
+				}
 			}
 
-			function playGame(){
-				
-				//while(isValid())
-				//{
-					activeP();
-					round();
-					increaseRoundsPlayed();
-					totalRounds();
-					totalDraws();
-					document.getElementById('roundDisplay').innerHTML = rounds;
-					document.getElementById('roundDrawnDisplay').innerHTML = roundsDrawn;
-					displayPlayerCard();
-					if(firstChoice == 1){
-						document.getElementById('attribute1').disabled = false;
-						document.getElementById('attribute2').disabled = false;
-						document.getElementById('attribute3').disabled = false;
-						document.getElementById('attribute4').disabled = false;
-						document.getElementById('attribute5').disabled = false;
-					}
-					else{
-						aiCatSel();
-					}
-
-					document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
-					document.getElementById('revealCardsTwo');
-					partTwo();
-					
-				
-				//}
-				// if(activePlayers[0].playerID == 1){
-				// 	document.getElementById('gameProgression').innerHTML = "Congratulations you have won!";
-				// }
-				// else{
-				// 	document.getElementById('gameProgression').innerHTML = "AI Player " + (activePlayers[0].playerID + 1) + " has won!";
-				// }
+			function choice(){
+				document.getElementById('continue').style.display = 'none';
+				if(playersTurn != 0){
+					aiCatSel();
+				}
+				document.getElementById('gameProgression').innerHTML = "The category " + category + "has been selected!";
+				document.getElementById('revealCards').style.display = 'block';
 			}
 			
-			function partTwo(){
+			function revealCards(){
+				showCards();
 				findMax();
-					isAWinner();
-					findWinners();
+				isAWinner();
+				findWinners();
 
-					if(isWinner){
-						document.getElementById('gameProgression').innerHTML = winners.playerID + "wins the round with " + maxScore + " in the category " + category + "!";
-						roundWin();
-						playersTurn = winners.playerID;
+				if(isWinner == 1){
+					document.getElementById('gameProgression').innerHTML = winners[0].playerID + "wins the round with " + maxScore + " in the category " + category + "!";
+					roundWin();
+					playersTurn = winners[0].playerID;
+				}
+				else{
+					var winningPlayers = "";
+					for(i=0; i < winners.length; i++){
+						winningPlayers += winners[i].playerID + ", "
 					}
-					else{
-						var winningPlayers = null;
-						for(i=0; i < winners.length; i++){
-							winningPlayers += winners[i].playerID + ", "
-						}
-						document.getElementById('gameProgression').innerHTML = winningPlayers + "have drawn the round with " + maxScore + " in the category " + category + 
-						"! All players cards have been forfeited to the communal pile!";
-						roundDraw();
-						increaseDraws();
-					}
+					document.getElementById('gameProgression').innerHTML = winningPlayers + "have drawn the round with " + maxScore + " in the category " + category + 
+					"! All players cards have been forfeited to the communal pile!";
+					roundDraw();
+					increaseDraws();
+				}
 					
-					playersToBeRemoved();
-					removedFromActivePlayers();
-					var removedPlayers = null;
-					if(removed.length != 0){
-						for(i=0; i < removed.length; i++){
-						removedPlayers += removed[i].playerID + ", "
-					}
-					document.getElementById('gameProgression').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
-					" players remain!";
-					}
-					endOfRound();
+				playersToBeRemoved();
+				removedFromActivePlayers();
+				var removedPlayers = "";
+				if(removed.length != 0){
+					for(i=0; i < removed.length; i++){
+					removedPlayers += removed[i].playerID + ", "
+				}
+				document.getElementById('gameProgression2').innerHTML = removedPlayers + "have run out of cards! They have been removed from the game! " + activePlayers.length + 
+				" players remain!";
+				}
+
+				if(!isValid())
+				{
+					endGame();
+				}
+				else{
+					document.getElementById('startRound').style.display = 'block';
+				}
+			}
+
+			function showCards(){
+				document.getElementById('revealCards').style.display = 'none';
+				document.getElementById('ai1').style.display = 'block';
+				document.getElementById('ai2').style.display = 'block';
+				document.getElementById('ai3').style.display = 'block';
+				document.getElementById('ai4').style.display = 'block';
+				document.getElementById('communal').style.display = 'block';
+				displayOpponentsCard();
+				document.getElementById('playerCards').innerHTML = handSizes[0];
+				document.getElementById('ai1Cards').innerHTML = handSizes[1];
+				document.getElementById('ai2Cards').innerHTML = handSizes[2];
+				document.getElementById('ai3Cards').innerHTML = handSizes[3];
+				document.getElementById('ai4Cards').innerHTML = handSizes[4];
+				document.getElementById('communalPileCards').innerHTML = comPile.size;
 			}
 
 			function isValid(){
@@ -403,53 +380,13 @@
 				}
 			}
 
-
-
-			// This is a reusable method for creating a CORS request. Do not edit this.
-			function createCORSRequest(method, url, async) {
-				var xhr = new XMLHttpRequest();
-				if ("withCredentials" in xhr) {
-					// Check if the XMLHttpRequest object has a "withCredentials" property.
-					// "withCredentials" only exists on XMLHTTPRequest2 objects.
-					xhr.open(method, url, async);
-				} else if (typeof XDomainRequest != "undefined") {
-					// Otherwise, check if XDomainRequest.
-					// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-					xhr = new XDomainRequest();
-					xhr.open(method, url);
-				} else {
-					// Otherwise, CORS is not supported by the browser.
-					xhr = null;
+			function endGame(){
+				if(activePlayers[0].playerID == 1){
+					document.getElementById('gameProgression').innerHTML = "Congratulations you have won!";
 				}
-			return xhr;
-			}
-
-			
-			function myFunction(){
-				playerName = document.getElementById('playerN').value;
-				aiPlayerCount = document.getElementById("noOfPlayers").value;
-				document.getElementById('playerNamePlacement').innerHTML = playerName;
-				document.getElementById('playerN').style.display = 'none';
-				document.getElementById('startGameBtn').style.display = 'none';
-				document.getElementById('input').style.display = 'none';
-				document.getElementById('noOfPlayers').style.display = 'none';
-				document.getElementById('player').style.display = 'block';
-				document.getElementById('revealCards').style.display = 'block';
-			}
-
-			function anotherFunction(){
-				document.getElementById('revealCards').style.display = 'none';
-				document.getElementById('ai1').style.display = 'block';
-				document.getElementById('ai2').style.display = 'block';
-				document.getElementById('ai3').style.display = 'block';
-				document.getElementById('ai4').style.display = 'block';
-				document.getElementById('communal').style.display = 'block';
-				displayOpponentsCard();
-				document.getElementById('playerCards').innerHTML = handSizes[0];
-				document.getElementById('ai1Cards').innerHTML = handSizes[1];
-				document.getElementById('ai2Cards').innerHTML = handSizes[2];
-				document.getElementById('ai3Cards').innerHTML = handSizes[3];
-				document.getElementById('ai4Cards').innerHTML = handSizes[4];
+				else{
+					document.getElementById('gameProgression').innerHTML = "AI Player " + (activePlayers[0].playerID + 1) + " has won!";
+				}
 			}
 
 			function endOfRound(){
@@ -461,6 +398,7 @@
 			}
 
 			function displayPlayerCard(){
+				document.getElementById('player').style.display = 'block';
 				document.getElementById("cardName").innerHTML = activePlayers[0].playerHand.currentCard.name;
 				document.getElementById("attribute1").innerHTML = activePlayers[0].playerHand.currentCard.attribute1;
 				document.getElementById("attribute2").innerHTML = activePlayers[0].playerHand.currentCard.attribute2;
@@ -536,25 +474,56 @@
 			}
 
 			function att1(){
-				category = activePlayers[0].playerHand.currentCard.attribute1;
+				category = "Size";
+				choice();
 			}
 
 			function att2(){
-				category = activePlayers[0].playerHand.currentCard.attribute2;
+				category = "Speed";
+				choice();
 			}
 
 			function att3(){
-				category = activePlayers[0].playerHand.currentCard.attribute3;
+				category = "Range";
+				choice();
 			}
 
 			function att4(){
-				category = activePlayers[0].playerHand.currentCard.attribute4;
+				category = "Firepower";
+				choice();
 			}
 
 			function att5(){
-				category = activePlayers[0].playerHand.currentCard.attribute5;
+				category = "Cargo";
+				choice();
 			}
 
+
+
+
+
+
+
+
+
+			// This is a reusable method for creating a CORS request. Do not edit this.
+			function createCORSRequest(method, url, async) {
+				var xhr = new XMLHttpRequest();
+				if ("withCredentials" in xhr) {
+					// Check if the XMLHttpRequest object has a "withCredentials" property.
+					// "withCredentials" only exists on XMLHTTPRequest2 objects.
+					xhr.open(method, url, async);
+				} else if (typeof XDomainRequest != "undefined") {
+					// Otherwise, check if XDomainRequest.
+					// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+					xhr = new XDomainRequest();
+					xhr.open(method, url);
+				} else {
+					// Otherwise, CORS is not supported by the browser.
+					xhr = null;
+				}
+			return xhr;
+			}
 
 			function startGame(){
                 var xhr = createCORSRequest("POST", "http://localhost:7777/toptrumps/startGame?username=" + playerName + "&numberOfPlayers=" + aiPlayerCount, false)
@@ -564,17 +533,6 @@
                 };
 
                 xhr.send();
-			}
-
-			function getPlayers(){
-				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/playerList?matchID=" + matchID, false);
-				if (!xhr) {
-					alert("CORS not supported");
-				}
-				xhr.onload = function (e) {
-					players = JSON.parse(xhr.response);
-				};
-				xhr.send();
 			}
 
 			function activeP(){
@@ -588,13 +546,13 @@
 				xhr.send();
 			}
 
-			function communalPile(){ //maybe just need a method to add/remove from communal pile
+			function communalPile(){
 				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/communalPile?matchID=" + matchID, false);
 				if (!xhr) {
 					alert("CORS not supported");
 				}
 				xhr.onload = function (e) {
-					comPile = xhr.response;
+					comPile = JSON.parse(xhr.response);
 				};
 				xhr.send();
 			}
@@ -644,6 +602,7 @@
 			}
 
 			function findMax(){
+				console.log(category);
 				var xhr = createCORSRequest("GET", "http://localhost:7777/toptrumps/maxScore?matchID=" + matchID + "&Category=" + category, false);
 				if (!xhr) {
 					alert("CORS not supported");
@@ -660,12 +619,7 @@
 					alert("CORS not supported");
 				}
 				xhr.onload = function (e) {
-					if(xhr.response == True){
-						isWinner = true;
-					}
-					else{
-						isWinner = false;
-					}
+					isWinner = parseInt(xhr.response);
 				};
 				xhr.send();
 			}
@@ -768,8 +722,6 @@
 				};
 				xhr.send();
 			}
-
-			
 
 		</script>
 	</body>

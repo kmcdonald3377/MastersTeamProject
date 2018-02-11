@@ -86,7 +86,7 @@ public class Round
 		for(int i = 0; i < currentGame.getActivePlayers().size(); i ++) 
 		{
 			Player current = activePlayers.get(i);
-			HashMap<String, Integer> test = new HashMap<String, Integer>();
+			HashMap<String, Integer> test = current.getPlayerHand().getCurrentCard().getAttributes();
 			int test2 = test.get(category);
 			valueComparison.put(current.getPlayerID(), test2);
 		}

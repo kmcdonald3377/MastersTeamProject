@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class PileOfCards 
 {
-	private final Integer PLAYER_ID;
+	private Integer PLAYER_ID;
 	ArrayList<Card> deck = new ArrayList();
 	
 	public PileOfCards(Integer playerId) 
@@ -38,6 +38,11 @@ public class PileOfCards
 		return PLAYER_ID;
 	}
 	
+	public void setPlayerID(Integer id) 
+	{
+		PLAYER_ID = id;
+	}
+	
 	public int getNumberOfCards() 
 	{
 		return deck.size();
@@ -45,6 +50,9 @@ public class PileOfCards
 	
 	public Card getCurrentCard() 
 	{
+		if(deck.size() == 0) {
+			return null;
+		}
 		return deck.get(0);
 	}
 }
