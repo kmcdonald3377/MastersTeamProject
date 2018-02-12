@@ -103,152 +103,132 @@
 
 					<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="player" style="display:none">
-							<h4><b><span id="playerNamePlacement"></span></b></h4>
+							<center><h4><b><span id="playerNamePlacement"></span></b></h4></center>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
 								<center>
 									<h4 id="cardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" id="cardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="cardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
-										<button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button><span id="value1"></span>
-										<br>
-										<button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button><span id="value2"></span>
-										<br>
-										<button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button><span id="value3"></span>
-										<br>
-										<button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button><span id="value4"></span>
-										<br>
-										<button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button><span id="value5"></span>
+										<center><button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button>  <span id="value1"></span></center>
+										<center><button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button>  <span id="value2"></span></center>
+										<center><button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button>  <span id="value3"></span></center>
+										<center><button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button>  <span id="value4"></span></center>
+										<center><button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button>  <span id="value5"></span></center>
 										<br>
 									</left>
 								</div>
 							</div>
 						</div>
-						<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
+						<center><h5><b>Cards Remaining: <span id="playerCards"></span></b></h5></center>
 					</div>
 				</div>
 
 
 				<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai1" style="display:none">
-							<h4><b>AI Player 1</b></h4>
+							<center><h4 id="ai1NamePlacement"><b>AI Player 1</b></h4></center>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
 								<center>
 									<h4 id="ai1CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" id="ai1CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai1CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
-										<span id="ai1attribute1">Attribute 1: </span><span id="ai1value1"></span>
-										<br>
-										<span id="ai1attribute2">Attribute 2: </span><span id="ai1value2"></span>
-										<br>
-										<span id="ai1attribute3">Attribute 3: </span><span id="ai1value3"></span>
-										<br>
-										<span id="ai1attribute4">Attribute 4: </span><span id="ai1value4"></span>
-										<br>
-										<span id="ai1attribute5">Attribute 5: </span><span id="ai1value5"></span>
+										<center><span id="ai1attribute1">Attribute 1: </span>  <span id="ai1value1"></span></center>
+										<center><span id="ai1attribute2">Attribute 2: </span>  <span id="ai1value2"></span></center>
+										<center><span id="ai1attribute3">Attribute 3: </span>  <span id="ai1value3"></span></center>
+										<center><span id="ai1attribute4">Attribute 4: </span>  <span id="ai1value4"></span></center>
+										<center><span id="ai1attribute5">Attribute 5: </span>  <span id="ai1value5"></span></center>
 										<br>
 									</left>
 								</div>
 							</div>
 						</div>
-						<h5><b>Cards Remaining: <span id="ai1Cards"></span></b></h5>
+						<center><h5><b>Cards Remaining: <span id="ai1Cards"></span></b></h5></center>
 					</div>
 				</div>
 
 				<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai2" style="display:none">
-							<h4><b>AI Player 2</b></h4>
+							<center><h4 id="ai2NamePlacement"><b>AI Player 2</b></h4></center>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
 								<center>
 									<h4 id="ai2CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" id="ai2CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai2CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
-										<span id="ai2attribute1">Attribute 1: </span><span id="ai2value1"></span>
-										<br>
-										<span id="ai2attribute2">Attribute 2: </span><span id="ai2value2"></span>
-										<br>
-										<span id="ai2attribute3">Attribute 3: </span><span id="ai2value3"></span>
-										<br>
-										<span id="ai2attribute4">Attribute 4: </span><span id="ai2value4"></span>
-										<br>
-										<span id="ai2attribute5">Attribute 5: </span><span id="ai2value5"></span>
+										<center><span id="ai2attribute1">Attribute 1:</span>  <span id="ai2value1"></span></center>
+										<center><span id="ai2attribute2">Attribute 2:</span>  <span id="ai2value2"></span></center>
+										<center><span id="ai2attribute3">Attribute 3: </span>  <span id="ai2value3"></span></center>
+										<center><span id="ai2attribute4">Attribute 4: </span>  <span id="ai2value4"></span></center>
+										<center><span id="ai2attribute5">Attribute 5: </span>  <span id="ai2value5"></span></center>
 										<br>
 									</left>
 								</div>
 							</div>
 						</div>
-						<h5><b>Cards Remaining: <span id="ai2Cards"></span></b></h5>
+						<center><h5><b>Cards Remaining: <span id="ai2Cards"></span></b></h5></center>
 					</div>
 				</div>
 
 				<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai3" style="display:none">
-							<h4><b>AI Player 3</b></h4>
+							<center><h4 id="ai3NamePlacement"><b>AI Player 3</b></h4></center>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
 								<center>
 									<h4 id="ai3CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" id="ai3CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai3CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
-										<span id="ai3attribute1">Attribute 1: </span><span id="ai3value1"></span>
-										<br>
-										<span id="ai3attribute2">Attribute 2: </span><span id="ai3value2"></span>
-										<br>
-										<span id="ai3attribute3">Attribute 3: </span><span id="ai3value3"></span>
-										<br>
-										<span id="ai3attribute4">Attribute 4: </span><span id="ai3value4"></span>
-										<br>
-										<span id="ai3attribute5">Attribute 5: </span><span id="ai3value5"></span>
+										<center><span id="ai3attribute1">Attribute 1:</span>  <span id="ai3value1"></span></center>
+										<center><span id="ai3attribute2">Attribute 2:</span>  <span id="ai3value2"></span></center>
+										<center><span id="ai3attribute3">Attribute 3:</span>  <span id="ai3value3"></span></center>
+										<center><span id="ai3attribute4">Attribute 4:</span>  <span id="ai3value4"></span></center>
+										<center><span id="ai3attribute5">Attribute 5:</span>  <span id="ai3value5"></span></center>
 										<br>
 									</left>
 								</div>
 							</div>
 						</div>
-						<h5><b>Cards Remaining: <span id="ai3Cards"></span></b></h5>
+						<center><h5><b>Cards Remaining: <span id="ai3Cards"></span></b></h5></center>
 					</div>
 				</div>
 
 				<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue w3-animate-top" id="ai4" style="display:none">
-						<h4><b>AI Player 4</b></h4>
+						<center><h4 id="ai4NamePlacement"><b>AI Player 4</b></h4></center>
 						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
 							<div href="/document" style="height:100%;">
 								<center>
 									<h4 id="ai4CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" id="ai4CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai4CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
-										<span id="ai4attribute1">Attribute 1: </span><span id="ai4value1"></span>
-										<br>
-										<span id="ai4attribute2">Attribute 2: </span><span id="ai4value2"></span>
-										<br>
-										<span id="ai4attribute3">Attribute 3: </span><span id="ai4value3"></span>
-										<br>
-										<span id="ai4attribute4">Attribute 4: </span><span id="ai4value4"></span>
-										<br>
-										<span id="ai4attribute5">Attribute 5: </span><span id="ai4value5"></span>
+										<center><span id="ai4attribute1">Attribute 1:</span>  <span id="ai4value1"></span></center>
+										<center><span id="ai4attribute2">Attribute 2:</span>  <span id="ai4value2"></span></center>
+										<center><span id="ai4attribute3">Attribute 3:</span>  <span id="ai4value3"></span></center>
+										<center><span id="ai4attribute4">Attribute 4:</span>  <span id="ai4value4"></span></center>
+										<center><span id="ai4attribute5">Attribute 5:</span>  <span id="ai4value5"></span></center>
 										<br>
 									</left>
 								</div>
 							</div>
 						</div>
-						<h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5>
+						<center><h5><b>Cards Remaining: <span id="ai4Cards"></span></b></h5></center>
 					</div>
 				</div>
 
@@ -258,9 +238,11 @@
 							<center><h4><b>Communal Pile</b></h4>
 							<div class="card border-light mb-3" style="max-width: 100rem; height: 5rem;">
 								<div href="/document" style="height:100%;">
+								<br>
+								<center><h5><b>Cards in Communal Pile: <span id="communalPileCards"></span></b></h5></center>
 								</div>
 							</div>
-							<h5><b>Cards in Communal Pile: <span id="communalPileCards"></span></b></h5>
+							
 							</center>
 						</div>
 					</div>
@@ -298,11 +280,6 @@
 
 			// Method that is called on page load
 			function initalize() {
-				//document.getElementById('player').style.width = '20%';
-				//document.getElementById('ai1').style.width = '20%';
-				//document.getElementById('ai2').style.width = '20%';
-				//document.getElementById('ai3').style.width = '20%';
-				//document.getElementById('ai4').style.width = '20%';
 			}
 
 			function startGame(){
@@ -516,7 +493,7 @@
 					document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
 
 					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;
-					showImage(document.getElementById('cardImage').innerHTML, 'cardName');
+					showImage(document.getElementById('cardName').innerHTML, 'cardImage');
 				}
 
 				document.getElementById('communal').style.display = 'block';
@@ -538,7 +515,7 @@
 						document.getElementById("ai1value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai1value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai1value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
-						showImage(document.getElementById('ai1CardImage').innerHTML, 'ai1CardName');
+						showImage(document.getElementById('ai1CardName').innerHTML, 'ai1CardImage');
 					}
 
 					if(activePlayers[i].playerID == 3){
@@ -554,7 +531,7 @@
 						document.getElementById("ai2value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai2value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai2value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
-						showImage(document.getElementById('ai2CardImage').innerHTML, 'ai2CardName');
+						showImage(document.getElementById('ai2CardName').innerHTML, 'ai2CardImage');
 					}
 
 					if(activePlayers[i].playerID == 4){
@@ -570,7 +547,7 @@
 						document.getElementById("ai3value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai3value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai3value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
-						showImage(document.getElementById('ai3CardImage').innerHTML, 'ai3CardName');
+						showImage(document.getElementById('ai3CardName').innerHTML, 'ai3CardImage');
 					}
 
 					if(activePlayers[i].playerID == 5){
@@ -586,7 +563,7 @@
 						document.getElementById("ai4value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai4value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai4value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
-						showImage(document.getElementById('ai4CardImage').innerHTML, 'ai4CardName');
+						showImage(document.getElementById('ai4CardName').innerHTML, 'ai4CardImage');
 					}
 				}
 			}

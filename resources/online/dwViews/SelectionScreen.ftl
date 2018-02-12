@@ -67,7 +67,7 @@
 								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
-										<center><h4>Trump your star citzen opponents</h4></center>
+										<center><h4>Trump your star citzen opponents <br>and top the leaderboard.</h4></center>
 									<br />
 										<center><button><a href="http://localhost:7777/toptrumps/game" class="button"><b><font color="black">Play a game</font></b></a></button></center>
 				</div>
@@ -89,7 +89,7 @@
 								<div class="card-block">
 									<br />
 										<center><h4>View previous game statistics</h4></center>
-									<br />
+									<br /><br />
 										<center><button><a href="http://localhost:7777/toptrumps/stats" class="button"><b><font color="black">View statistics</font></b></a></button></center>
 				</div>
 			</div>
