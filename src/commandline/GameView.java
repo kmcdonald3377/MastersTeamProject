@@ -189,4 +189,10 @@ public class GameView
 	{
 		System.out.println("Error! Please enter one of the above categories:");
 	}
+		
+	public void askDifficulty() 
+	{
+		System.out.println("Please select the number of the desired difficulty level: \n1. Easy \n2. Medium "
+				+ "\n3. Hard\n");
+	}
 }

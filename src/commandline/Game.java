@@ -8,7 +8,7 @@ import java.util.Random;
 public class Game 
 {
 	private int totalRounds, totalDraws, numberOfPlayers;
-//	private Database database;
+	private Database database;
 	private ArrayList <Player> playerList, activePlayers;
 	private LinkedList <Round> roundList;
 	private PileOfCards communalPile;
@@ -31,21 +31,17 @@ public class Game
 		log = new TestLog();
 		communalPile = new PileOfCards(null);
 		this.deck = deck;
-		log.writeInitDeck(deck);
+		log.writeInitDeck(this.deck);
 
-		//ArrayList <Integer> playerIDs = database.getPlayerId();
-
-//		database = new Database();
-//		matchID = database.getMaxMatchID();
-//		incrementMatchID();
-		communalPile = new PileOfCards(null); //0 passed in as no player with an id of 0
-		this.deck = deck;
-//		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
-		ArrayList <Integer> playerIDs = new ArrayList(); for(int i = 1; i <= this.numberOfPlayers; i++) {playerIDs.add(i);}
+		database = new Database();
+		database.makeConnection();
+		matchID = database.getMaxMatchID();
+		incrementMatchID();
+		ArrayList <Integer> playerIDs = database.getPlayerId(numberOfPlayers);
 
 		playerList = new ArrayList<Player>();
 		this.deck.shuffle();
-		log.writeShuffledDeck(deck);
+		log.writeShuffledDeck(this.deck);
 		
 		for(Integer id : playerIDs) 
 		{
@@ -61,7 +57,6 @@ public class Game
 			activePlayers.add(playerList.get(i));
 		}
 		this.username = username;
-		this.matchID = 0;
 		roundList = new LinkedList<Round>();
 	}
 	
@@ -103,14 +98,15 @@ public class Game
 		{
 			playerHandSizes.put(playerList.get(i).getPlayerID(), playerList.get(i).getPlayerHand().getNumberOfCards());
 			
-			if(playerHandSizes.containsKey(1)) 
+			if(playerHandSizes.containsKey(i+1)) 
 			{
-				handSize[i] = playerHandSizes.get(1);
+				handSize[i] = playerHandSizes.get(i+1);
 			}
 			else 
 			{
 				handSize[i] = 0;
 			}
+			
 		}
 		
 		return handSize;
@@ -175,7 +171,6 @@ public class Game
 	
 	// method increments number of draw when round ends in draw
 	public boolean increaseDraws() 
-
 	{
 		totalDraws += 1;
 		return true;
@@ -193,13 +188,11 @@ public class Game
 		return totalDraws;
 	}
 	
-	
 	// method to get the list of players
 	public ArrayList<Player> getPlayerList() 
 	{
 		return playerList;
 	}
-	
 	
 	// method to add a card to the communal pile PileOfCards
 	public void addToCommunalPile(Card currentCard) 
@@ -288,5 +281,14 @@ public class Game
 	public TestLog gameLog()
 	{
 		return log;
+	}
+	
+	public void finishGame(int winnerID) 
+	{
+		database.writeToMatchStatistics(matchID, winnerID, totalRounds, totalDraws);
+		for(int i = 0; i < numberOfPlayers; i ++) 
+		{
+			database.writeToPlayerStatistics(playerList.get(i).getPlayerID(), matchID, playerList.get(i).getRoundsWon(), playerList.get(i).getRoundsDrawn());
+		}
 	}
 }

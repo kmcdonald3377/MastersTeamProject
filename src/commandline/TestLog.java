@@ -176,7 +176,7 @@ public class TestLog {
 	 *  @param category - string representing selected category/attribute
 	 */
 
-	public void writeCategory(String category)
+	public void writeCategory(int player, String category)
 	{
 		if (player == 1)
 		{

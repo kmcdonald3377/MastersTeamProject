@@ -122,7 +122,6 @@ public class TopTrumpsRESTAPI
 		try {
 		Game currentGame = getGame(matchID);
 		PileOfCards communalPile = currentGame.getCommunalPile();
-		communalPile.setPlayerID(10);
 		return oWriter.writeValueAsString(communalPile);
 		}
 		catch(Exception e) {
@@ -202,7 +201,7 @@ public class TopTrumpsRESTAPI
 	{
 		Game currentGame = getGame(matchID);
 		Round currentRound = currentGame.getRoundList().getLast();
-		return oWriter.writeValueAsString(currentRound.categorySelection());
+		return oWriter.writeValueAsString(currentRound.categorySelection(2, 1)); //will always be 2 and 1 as selecting difficulty not implemented for online mode
 	}
 	
 	@GET
@@ -272,6 +271,7 @@ public class TopTrumpsRESTAPI
 	@Path("/matchesPlayed")
 	public String matchesPlayed() throws IOException
 	{
+		database.makeConnection();
 		return oWriter.writeValueAsString(database.getMatchesPlayed());
 
 	}
