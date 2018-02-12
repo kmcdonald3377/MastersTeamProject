@@ -44,7 +44,7 @@ public class GameController
 			{
 				difficulty = Integer.parseInt(""+c);
 				
-				if(difficulty != 1 || difficulty != 2 || difficulty != 3) 
+				if(difficulty != 1 && difficulty != 2 && difficulty != 3) 
 				{
 					gameV.errorMessage();
 				}
