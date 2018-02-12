@@ -33,9 +33,9 @@
 	}
 	.play {
 		 display: block;
-    		 margin-left: auto;
+    	margin-left: auto;
    		 margin-right: auto;
-    		 width: 40%;
+    		 width: 60%;
 		 margin-top: 10%;
 	}
 
@@ -49,34 +49,36 @@
 	<div class="container">
 		<!-- Add your HTML Here -->
 			<div class="play">
+			<center>
 				<div class="w3-container">
 					<div class = "w3-container w3-cell">
 					<div class="w3-card-4 w3-pale-blue" id="player">
-							<h4><b><span id="Play a new game"></span></b></h4>
 						<div class="card border-light mb-3" style="width: 40rem; height: 55rem;">
 							<div href="/document" style="height:100%;">
 								<center>
-									<h4 id="desc"><b>Play a new game</b></h4>
+									<h4 id="desc"><b>Game Statistics</b></h4>
 								</center>
 								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
-									<br />
-							<h4><b>Game Statstics</b></h4>				
+								<br />
+								<br /><br />
+								<b>Total number of games played:</b> <span id="totalGames"></span>			
 								<br /><br /> 
-								Number of computer wins: <span id="computerWins"></span> 
+								<b>Number of computer wins:</b> <span id="computerWins"></span> 
 								<br /><br /> 
-								Number of human wins: <span id="humanWins"></span> 
+								<b>Number of human wins:</b> <span id="humanWins"></span> 
 								<br /><br /> 
-								Average number of draws: <span id="averageDraws"></span> 
+								<b>Average number of draws:</b> <span id="averageDraws"></span> 
 								<br /><br /> 
-								Largest number of rounds per game: <span id="highestRoundsPerGame"></span> 
+								<b>Largest number of rounds per game:</b> <span id="highestRoundsPerGame"></span> 
 								<br /> 
 							</p>
 							<br />
-							<center><a <center><button><a href="http://localhost:7777/toptrumps/game" class="button"><b><font color="black">Play a game</font></b></a></button></center>
+							<center><a <center><button><a href="http://localhost:7777/toptrumps" class="button"><b><font color="black">Main Menu</font></b></a></button></center>
 					</div>
 				</div>
 			</div>
+			</center>
 		</div>
 	</div>
 	<script type="text/javascript">
