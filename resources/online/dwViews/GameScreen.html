@@ -103,33 +103,33 @@
 				<div class="w3-container">
 
 					<div class = "w3-container w3-cell">
-					<div class="w3-card-4 w3-pale-blue" id="player" style="display:none">
-							<h4><b><span id="playerNamePlacement"></span></b></h4>
-						<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
-							<div href="/document" style="height:100%;">
-								<center>
-									<h4 id="cardName"><b>Name of card here</b></h4>
-								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
-								<div class="card-block">
-									<br />
-									<left>
-										<button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button><span id="value1"></span>
-										<br>
-										<button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button><span id="value2"></span>
-										<br>
-										<button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button><span id="value3"></span>
-										<br>
-										<button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button><span id="value4"></span>
-										<br>
-										<button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button><span id="value5"></span>
-										<br>
-									</left>
+						<div class="w3-card-4 w3-pale-blue" id="player" style="display:none">
+								<h4><b><span id="playerNamePlacement"></span></b></h4>
+							<div class="card border-light mb-3" style="max-width: 16rem; height: 25rem;">
+								<div href="/document" style="height:100%;">
+									<center>
+										<h4 id="cardName"><b>Name of card here</b></h4>
+									</center>
+									<img class="card-img-top" id="cardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
+									<div class="card-block">
+										<br />
+										<left>
+											<button id="attribute1" disabled="true" onclick="att1()">Attribute 1:</button><span id="value1"></span>
+											<br>
+											<button id="attribute2" disabled="true" onclick="att2()">Attribute 2:</button><span id="value2"></span>
+											<br>
+											<button id="attribute3" disabled="true" onclick="att3()">Attribute 3:</button><span id="value3"></span>
+											<br>
+											<button id="attribute4" disabled="true" onclick="att4()">Attribute 4:</button><span id="value4"></span>
+											<br>
+											<button id="attribute5" disabled="true" onclick="att5()">Attribute 5:</button><span id="value5"></span>
+											<br>
+										</left>
+									</div>
 								</div>
 							</div>
+							<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
 						</div>
-						<h5><b>Cards Remaining: <span id="playerCards"></span></b></h5>
-					</div>
 				</div>
 
 
@@ -141,7 +141,7 @@
 								<center>
 									<h4 id="ai1CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai1CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
@@ -171,7 +171,7 @@
 								<center>
 									<h4 id="ai2CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai2CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
@@ -201,7 +201,7 @@
 								<center>
 									<h4 id="ai3CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai3CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
@@ -231,7 +231,7 @@
 								<center>
 									<h4 id="ai4CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai4CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="Card Image">
 								<div class="card-block">
 									<br />
 									<left>
@@ -515,6 +515,7 @@
 					document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
 
 					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;
+					showImage(document.getElementById('cardName'), 'cardImage');
 				}
 
 				document.getElementById('communal').style.display = 'block';
@@ -536,6 +537,7 @@
 						document.getElementById("ai1value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai1value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai1value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai1CardName'), 'ai1CardImage');
 					}
 
 					if(activePlayers[i].playerID == 3){
@@ -551,6 +553,7 @@
 						document.getElementById("ai2value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai2value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai2value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai2CardName'), 'ai2CardImage');
 					}
 
 					if(activePlayers[i].playerID == 4){
@@ -566,6 +569,7 @@
 						document.getElementById("ai3value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai3value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai3value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai3CardName'), 'ai3CardImage');
 					}
 
 					if(activePlayers[i].playerID == 5){
@@ -581,6 +585,7 @@
 						document.getElementById("ai4value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai4value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai4value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai4CardName'), 'ai4CardImage');
 					}
 				}
 			}
@@ -608,6 +613,48 @@
 			function att5(){
 				category = activePlayers["0"].playerHand.currentCard.attribute5;
 				choice();
+			}
+
+			function showImage(nameOfCard, cardID){
+				if(nameOfCard == "350r"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg';
+				}
+				if(nameOfCard == "Avenger"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg';
+				}
+				if(nameOfCard == "Carrack"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Carrack.jpg';
+				}
+				if(nameOfCard == "Constellation"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Constellation.jpg';
+				}
+				if(nameOfCard == "Hawk"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Hawk.jpg';
+				}
+				if(nameOfCard == "Hornet"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Hornet.jpg';
+				}
+				if(nameOfCard == "Hurricane"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Hurricane.jpg';
+				}
+				if(nameOfCard == "Idris"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Idris.jpg';
+				}
+				if(nameOfCard == "Merchantman"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Merchantman.jpg';
+				}
+				if(nameOfCard == "Orion"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Orion.jpg';
+				}
+				if(nameOfCard == "Sabre"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Sabre.jpg';
+				}
+				if(nameOfCard == "Vanguard"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Vanguard.jpg';
+				}
+				if(nameOfCard == "m50"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/m50.jpg';
+				}
 			}
 
 
