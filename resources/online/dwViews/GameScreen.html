@@ -110,7 +110,7 @@
 								<center>
 									<h4 id="cardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="cardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
 									<left>
@@ -141,7 +141,7 @@
 								<center>
 									<h4 id="ai1CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai1CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
 									<left>
@@ -171,7 +171,7 @@
 								<center>
 									<h4 id="ai2CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai2CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
 									<left>
@@ -201,7 +201,7 @@
 								<center>
 									<h4 id="ai3CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai3CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
 									<left>
@@ -231,7 +231,7 @@
 								<center>
 									<h4 id="ai4CardName"><b>Name of card here</b></h4>
 								</center>
-								<img class="card-img-top" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
+								<img class="card-img-top" id="ai4CardImage" src="https://i.imgur.com/PjPKwx9.png" alt="PLAY GAME">
 								<div class="card-block">
 									<br />
 									<left>
@@ -517,6 +517,7 @@
 					document.getElementById("value5").innerHTML = activePlayers[0].playerHand.currentCard.value5;
 
 					document.getElementById('playerCards').innerHTML = players[0].playerHand.numberOfCards;
+					showImage(document.getElementById('cardImage').innerHTML, 'cardName');
 				}
 
 				document.getElementById('communal').style.display = 'block';
@@ -538,6 +539,7 @@
 						document.getElementById("ai1value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai1value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai1value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai1CardImage').innerHTML, 'ai1CardName');
 					}
 
 					if(activePlayers[i].playerID == 3){
@@ -553,6 +555,7 @@
 						document.getElementById("ai2value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai2value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai2value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai2CardImage').innerHTML, 'ai2CardName');
 					}
 
 					if(activePlayers[i].playerID == 4){
@@ -568,6 +571,7 @@
 						document.getElementById("ai3value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai3value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai3value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai3CardImage').innerHTML, 'ai3CardName');
 					}
 
 					if(activePlayers[i].playerID == 5){
@@ -583,6 +587,7 @@
 						document.getElementById("ai4value3").innerHTML = activePlayers[i].playerHand.currentCard.value3;
 						document.getElementById("ai4value4").innerHTML = activePlayers[i].playerHand.currentCard.value4;
 						document.getElementById("ai4value5").innerHTML = activePlayers[i].playerHand.currentCard.value5;
+						showImage(document.getElementById('ai4CardImage').innerHTML, 'ai4CardName');
 					}
 				}
 			}
@@ -610,6 +615,48 @@
 			function att5(){
 				category = activePlayers["0"].playerHand.currentCard.attribute5;
 				choice();
+			}
+
+			function showImage(nameOfCard, cardID){
+				if(nameOfCard == "350r"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/350r.jpg';
+				}
+				if(nameOfCard == "Avenger"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Avenger.jpg';
+				}
+				if(nameOfCard == "Carrack"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Carrack.jpg';
+				}
+				if(nameOfCard == "Constellation"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Constellation.jpg';
+				}
+				if(nameOfCard == "Hawk"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Hawk.jpg';
+				}
+				if(nameOfCard == "Hornet"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Hornet.jpg';
+				}
+				if(nameOfCard == "Hurricane"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Hurricane.jpg';
+				}
+				if(nameOfCard == "Idris"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Idris.jpg';
+				}
+				if(nameOfCard == "Merchantman"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Merchantman.jpg';
+				}
+				if(nameOfCard == "Orion"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Orion.jpg';
+				}
+				if(nameOfCard == "Sabre"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Sabre.jpg';
+				}
+				if(nameOfCard == "Vanguard"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/Vanguard.jpg';
+				}
+				if(nameOfCard == "m50"){
+					document.getElementById(cardID).src = 'http://dcs.gla.ac.uk/~richardm/TopTrumps/m50.jpg';
+				}
 			}
 
 			// This is a reusable method for creating a CORS request. Do not edit this.
